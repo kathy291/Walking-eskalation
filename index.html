@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kathys Walking Eskalation</title>
+<style>
+body{font-family:-apple-system,sans-serif;background:#111827;color:#fff;padding:16px}
+.card{background:#1f2937;padding:16px;border-radius:18px;margin-bottom:16px}
+input,textarea,button,select{width:100%;padding:12px;margin-top:8px;border-radius:12px;border:none;box-sizing:border-box}
+button{background:#fbbf24;font-weight:bold}
+table{width:100%;border-collapse:collapse}
+td,th{padding:8px;border-bottom:1px solid #374151;text-align:center}
+.green{color:#22c55e;font-weight:bold}
+.red{color:#ef4444;font-weight:bold}
+.gold{background:gold;color:black;font-weight:bold;border-radius:6px}
+.badge{display:inline-block;background:#374151;padding:6px 10px;border-radius:999px;margin:4px}
+</style>
+</head>
+<body>
+
+<h1>🚶✨ Kathys Walking Eskalation ✨🚶</h1>
+
+<div class="card">
+<h2>🎯 Ziele</h2>
+<input id="goalDays" type="number" value="1000">
+<input id="goalMin" value="30:00">
+<input id="goalPace" value="08:30">
+</div>
+
+<div class="card">
+<h2>➕ Walk hinzufügen</h2>
+<input id="date" type="date">
+<input id="km" placeholder="Kilometer z.B. 5,4">
+<input id="time" placeholder="Zeit z.B. 42:30">
+
+<select id="preset">
+<option>Sehr windig</option>
+<option>Beine schwer</option>
+<option>Mit Steigung</option>
+<option>Mega gute Runde</option>
+<option>Erkältet</option>
+<option>Mit Musik schneller</option>
+<option>Wenig Zeit</option>
+<option>Schnee und Glätte</option>
+<option>Unmotiviert</option>
+</select>
+
+<textarea id="note" placeholder="Eigene Bemerkung"></textarea>
+
+<button onclick="saveEntry()">Speichern</button>
+</div>
+
+<div class="card">
+<h2>🏆 Statistik</h2>
+<div id="stats"></div>
+</div>
+
+<div class="card">
+<h2>📈 Verlauf</h2>
+<table>
+<thead>
+<tr>
+<th>Datum</th>
+<th>KM</th>
+<th>Zeit</th>
+<th>Pace</th>
+<th>Status</th>
+<th>Notiz</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+let entries = JSON.parse(localStorage.getItem("kwe_entries") || "[]");
+let editIndex = -1;
+
+function parseTime(v){
+ let p=v.split(":");
+ return parseInt(p[0]||0)+(parseInt(p[1]||0)/60);
+}
+
+function fmt(v){
+ let m=Math.floor(v);
+ let s=Math.round((v-m)*60);
+ if(s<10)s="0"+s;
+ if(m<10)m="0"+m;
+ return m+":"+s;
+}
+
+function saveEntry(){
+ let km=parseFloat(document.getElementById("km").value.replace(",","."));
+ let mins=parseTime(document.getElementById("time").value);
+
+ let e={
+  date:document.getElementById("date").value,
+  km:km,
+  mins:mins,
+  pace:mins/km,
+  note:document.getElementById("preset").value+" "+document.getElementById("note").value
+ };
+
+ if(editIndex>=0){
+   entries[editIndex]=e;
+   editIndex=-1;
+ } else {
+   entries.push(e);
+ }
+
+ localStorage.setItem("kwe_entries",JSON.stringify(entries));
+ render();
+
+ document.getElementById("km").value="";
+ document.getElementById("time").value="";
+ document.getElementById("note").value="";
+}
+
+function editEntry(i){
+ let e=entries[i];
+ document.getElementById("date").value=e.date;
+ document.getElementById("km").value=e.km.toString().replace(".",",");
+ document.getElementById("time").value=fmt(e.mins);
+ document.getElementById("note").value=e.note;
+ editIndex=i;
+ window.scrollTo(0,0);
+}
+
+function deleteEntry(i){
+ entries.splice(i,1);
+ localStorage.setItem("kwe_entries",JSON.stringify(entries));
+ render();
+}
+
+function render(){
+
+ let body=document.getElementById("tbody");
+ body.innerHTML="";
+
+ if(entries.length===0){
+   document.getElementById("stats").innerHTML="Noch keine Einträge";
+   return;
+ }
+
+ let bestPace=Math.min(...entries.map(x=>x.pace));
+ let bestKm=Math.max(...entries.map(x=>x.km));
+ let bestTime=Math.max(...entries.map(x=>x.mins));
+
+ let prev=null;
+
+ entries.forEach((e,i)=>{
+
+   let status="-";
+   let cls="";
+
+   if(prev!==null){
+      if(e.pace<prev){
+        status="Verbessert";
+        cls="green";
+      } else {
+        status="Verschlechtert";
+        cls="red";
+      }
+   }
+
+   prev=e.pace;
+
+   body.innerHTML += `
+   <tr>
+   <td>${e.date}</td>
+   <td class="${e.km===bestKm?'gold':''}">${e.km}</td>
+   <td class="${e.mins===bestTime?'gold':''}">${fmt(e.mins)}</td>
+   <td class="${e.pace===bestPace?'gold':''}">${fmt(e.pace)}</td>
+   <td class="${cls}">${status}</td>
+   <td>${e.note}</td>
+   <td>
+   <button onclick="editEntry(${i})">✏️</button>
+   <button onclick="deleteEntry(${i})">🗑️</button>
+   </td>
+   </tr>`;
+ });
+
+ let totalKm=entries.reduce((a,b)=>a+b.km,0).toFixed(1);
+ let totalMin=entries.reduce((a,b)=>a+b.mins,0);
+
+ let monthKm=0;
+ let yearKm=0;
+
+ let now=new Date();
+
+ entries.forEach(e=>{
+   let d=new Date(e.date);
+   if(d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear()){
+      monthKm += e.km;
+   }
+   if(d.getFullYear()===now.getFullYear()){
+      yearKm += e.km;
+   }
+ });
+
+ document.getElementById("stats").innerHTML=`
+ <div class="badge">🚶 Tage: ${entries.length}</div>
+ <div class="badge">📏 Gesamt KM: ${totalKm}</div>
+ <div class="badge">📅 Monats KM: ${monthKm.toFixed(1)}</div>
+ <div class="badge">🗓 Jahres KM: ${yearKm.toFixed(1)}</div>
+ <div class="badge">⏱ Gesamt Minuten: ${Math.round(totalMin)}</div>
+ <div class="badge">🔥 Ziel: 1000 Tage</div>
+ `;
+}
+
+document.getElementById("date").value = new Date().toISOString().split("T")[0];
+render();
+</script>
+
+</body>
+</html>
