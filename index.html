@@ -170,7 +170,7 @@ function render(){
 
    body.innerHTML += `
    <tr>
-   <td>${new date(e.date).toLocaleDataString('de-De')}</td>
+   <td>${new Date(e.date).toLocaleDateString('de-De')}</td>
    <td class="${e.km===bestKm?'gold':''}">${e.km}</td>
    <td class="${e.mins===bestTime?'gold':''}">${fmt(e.mins)}</td>
    <td class="${e.pace===bestPace?'gold':''}">${fmt(e.pace)}</td>
