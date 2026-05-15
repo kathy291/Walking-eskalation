@@ -151,7 +151,7 @@ function render(){
 
  let prev=null;
 
- entries.forEach((e,i)=>{
+ entries.slice().reverse().forEach((e,i)=>{
 
    let status="-";
    let cls="";
