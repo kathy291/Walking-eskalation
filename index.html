@@ -151,7 +151,7 @@ function render(){
 
  let prev=null;
 
- entries.slice().reverse().forEach((e,i)=>{
+ entries.sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach((e,i)=>{
 
    let status="-";
    let cls="";
