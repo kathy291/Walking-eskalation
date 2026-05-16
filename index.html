@@ -141,7 +141,7 @@ function editEntry(i){
 
 function deleteEntry(i){
  entries.splice(i,1);
- localStorage.setItem("kwe_entries",JSON.stringify(entries));
+ localStorage.setItem("kwe_entries",JSON.stringify(entries)); Pop 
  render();
  showInstantMotivation(entry);
 }
@@ -160,68 +160,41 @@ function render(){
  let bestKm=Math.max(...entries.map(x=>x.km));
  let bestTime=Math.max(...entries.map(x=>x.mins));
 
-let prevPace=null;
-let prevKm=null;
-let prevTime=null;
+
 
 
  entries.sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach((e,i)=>{
-
+const compareEntry = entries[i+1];
    let kmClass="";
 
 let timeClass="";
 
 let paceClass="";
 
-if(prevPace!==null){
+ if(compareEntry){
 
-   if(e.km > prevKm){
-
+   if(e.km > compareEntry.km){
       kmClass="green";
-
-   } else if(e.km < prevKm){
-
+   } else if(e.km < compareEntry.km){
       kmClass="red";
-
    }
 
-   if(e.mins > prevTime){
-
+   if(e.mins > compareEntry.mins){
       timeClass="green";
-
-   } else if(e.mins < prevTime){
-
+   } else if(e.mins < compareEntry.mins){
       timeClass="red";
-
    }
 
-   if(e.pace < prevPace){
-
+   if(e.pace < compareEntry.pace){
       paceClass="green";
-
-   } else if(e.pace > prevPace){
-
+   } else if(e.pace > compareEntry.pace){
       paceClass="red";
    }
-}
+} 
+
+
    
   
-
-   
-    
-      
-      
- 
-      
-   
-      
-
-
-   prevPace=e.pace;
-prevKm=e.km;
-prevTime=e.mins;
-
-
 
    body.innerHTML += `
    <tr>
