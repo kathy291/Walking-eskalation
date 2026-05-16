@@ -149,7 +149,10 @@ function render(){
  let bestKm=Math.max(...entries.map(x=>x.km));
  let bestTime=Math.max(...entries.map(x=>x.mins));
 
- let prev=null;
+let prevPace=null;
+let prevKm=null;
+let prevTime=null;
+
 
  entries.sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach((e,i)=>{
 
