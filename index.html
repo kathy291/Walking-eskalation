@@ -66,7 +66,7 @@ td,th{padding:8px;border-bottom:1px solid #374151;text-align:center}
 <th>KM</th>
 <th>Zeit</th>
 <th>Pace</th>
-<th>Status</th>
+
 <th>Notiz</th>
 <th>Aktion</th>
 </tr>
@@ -153,28 +153,69 @@ function render(){
 
  entries.sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach((e,i)=>{
 
-   let status="-";
-   let cls="";
+   let kmClass="";
 
-   if(prev!==null){
-      if(e.pace<prev){
-        status="Verbessert";
-        cls="green";
-      } else {
-        status="Verschlechtert";
-        cls="red";
-      }
+let timeClass="";
+
+let paceClass="";
+
+if(prev!==null){
+
+   if(e.km > prevKm){
+
+      kmClass="green";
+
+   } else if(e.km < prevKm){
+
+      kmClass="red";
+
    }
 
-   prev=e.pace;
+   if(e.mins > prevTime){
+
+      timeClass="green";
+
+   } else if(e.mins < prevTime){
+
+      timeClass="red";
+
+   }
+
+   if(e.pace < prevPace){
+
+      paceClass="green";
+
+   } else if(e.pace > prevPace){
+
+      paceClass="red";
+   }
+}
+   
+  
+
+   
+    
+      
+      
+ 
+      
+   
+      
+
+
+   prevPace=e.pace;
+prevKm=e.km;
+prevTime=e.mins;
+
+
 
    body.innerHTML += `
    <tr>
    <td>${new Date(e.date).toLocaleDateString('de-De')}</td>
-   <td class="${e.km===bestKm?'gold':''}">${e.km}</td>
-   <td class="${e.mins===bestTime?'gold':''}">${fmt(e.mins)}</td>
-   <td class="${e.pace===bestPace?'gold':''}">${fmt(e.pace)}</td>
-   <td class="${cls}">${status}</td>
+   <td class="${e.km===bestKm?'gold':kmClass}">${e.km}</td>
+   <td class="${e.mins===bestTime?'gold':timeClass}">${fmt(e.mins)}</td>
+   <td class="${e.pace===bestPace?'gold':paceClass}">${fmt(e.pace)}</td>
+   
    <td>${e.note}</td>
    <td>
    <button onclick="editEntry(${i})">✏️</button>
