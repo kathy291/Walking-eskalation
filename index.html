@@ -201,7 +201,10 @@ let paceClass="";
    <td>${new Date(e.date).toLocaleDateString('de-De')}</td>
    <td class="${e.km===bestKm?'gold':kmClass}">${e.km}</td>
    <td class="${e.mins===bestTime?'gold':timeClass}">${fmt(e.mins)}</td>
-   <td class="${e.pace===bestPace?'gold':paceClass}">${fmt(e.pace)}</td>
+   <td class="${e.pace===bestPace?'gold':paceClass}">
+${fmt(e.pace)}
+${e.pace <= parseTime(document.getElementById('goalPace').value) ? '👍' : '👎'}
+</td>
    
    <td>${e.note}</td>
    <td>
