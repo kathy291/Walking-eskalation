@@ -199,6 +199,21 @@ let paceClass="";
   
 
    body.innerHTML += `
+   if(e.goalChange){
+
+body.innerHTML += `
+<tr>
+<td>${new Date(e.date).toLocaleDateString('de-DE')}</td>
+<td colspan="6">
+🎯 Ziele geändert:
+Pace ${e.goalPace}
+⏱ ${e.goalMin}
+</td>
+</tr>
+`;
+
+return;
+}
    <tr>
    <td>${new Date(e.date).toLocaleDateString('de-De')}</td>
    <td class="${e.km===bestKm?'gold':kmClass}">${e.km}</td>
