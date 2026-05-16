@@ -45,6 +45,9 @@ td,th{padding:8px;border-bottom:1px solid #374151;text-align:center}
 <option>Wenig Zeit</option>
 <option>Schnee und Glätte</option>
 <option>Unmotiviert</option>
+ <option>Rücken</option>
+ <option>Kopfschmerzen</option>
+ <option>Regen</option>
 </select>
 
 <textarea id="note" placeholder="Eigene Bemerkung"></textarea>
@@ -140,6 +143,7 @@ function deleteEntry(i){
  entries.splice(i,1);
  localStorage.setItem("kwe_entries",JSON.stringify(entries));
  render();
+ showInstantMotivation(entry);
 }
 
 function render(){
@@ -299,3 +303,40 @@ document.getElementById("motivationBox").innerHTML =
 
 </body>
 </html>
+function showInstantMotivation(entry){
+
+let text = "🚶 Starker Walk!";
+
+if(entries.length > 1){
+
+const prev = entries[entries.length-2];
+
+const betterKm = entry.km > prev.km;
+const betterTime = entry.mins > prev.mins;
+const betterPace = entry.pace < prev.pace;
+
+if(betterKm && betterTime && betterPace){
+
+text = "🏆 KOMPLETT GRÜNER WALK!";
+
+}
+else if(betterPace){
+
+text = "🚀 Neue starke Pace!";
+
+}
+else if(betterKm){
+
+text = "🔥 Mehr Kilometer als zuletzt!";
+
+}
+else if(betterTime){
+
+text = "💪 Heute länger durchgezogen!";
+
+}
+}
+
+document.getElementById("motivationBox").innerHTML =
+`<div class="badge">${text}</div>`;
+}
