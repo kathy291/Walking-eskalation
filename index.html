@@ -73,6 +73,13 @@ td,th{padding:8px;border-bottom:1px solid #374151;text-align:center}
 </thead>
 <tbody id="tbody"></tbody>
 </table>
+ </div>
+
+<div class="card">
+<h2>💬 Motivation</h2>
+<div id="motivationBox"></div>
+
+</div>
 </div>
 
 <script>
@@ -256,7 +263,38 @@ prevTime=e.mins;
 }
 
 document.getElementById("date").value = new Date().toISOString().split("T")[0];
-render();
+ function renderMotivation(){
+
+const texts = [
+
+"🔥 Konstanz schlägt Motivation.",
+
+"🚶 Jeder Walk zählt.",
+
+"✨ Du bist stärker als Ausreden.",
+
+"💛 Auch langsame Tage sind starke Tage.",
+
+"🏆 Du ziehst das unglaublich durch.",
+
+"👑 Die 1000 Tage kommen näher.",
+
+"🌧 Selbst schlechtes Wetter hält dich nicht auf.",
+
+"🚀 Kleine Schritte. Riesige Wirkung."
+
+];
+
+const random =
+
+texts[Math.floor(Math.random()*texts.length)];
+
+document.getElementById("motivationBox").innerHTML =
+
+`<div class="badge">${random}</div>`;
+ }
+ render();
+ renderMotivation();
 </script>
 
 </body>
