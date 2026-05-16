@@ -69,7 +69,7 @@ td,th{padding:8px;border-bottom:1px solid #374151;text-align:center}
 <th>KM</th>
 <th>Zeit</th>
 <th>Pace</th>
-
+<th>Bonus</th>
 <th>Notiz</th>
 <th>Aktion</th>
 </tr>
@@ -202,12 +202,28 @@ let paceClass="";
    <tr>
    <td>${new Date(e.date).toLocaleDateString('de-De')}</td>
    <td class="${e.km===bestKm?'gold':kmClass}">${e.km}</td>
-   <td class="${e.mins===bestTime?'gold':timeClass}">${fmt(e.mins)}</td>
+   <td class="${e.mins===bestTime?'gold':timeClass}">
+${fmt(e.mins)}
+${e.mins >= parseTime(e.goalMin) ? '⏱️👍' : '⏱️👎'}
+</td>
    <td class="${e.pace===bestPace?'gold':paceClass}">
 ${fmt(e.pace)}
 ${e.pace <= parseTime(e.goalPace) ? '👍' : '👎'}
 </td>
-   
+  <td>
+
+${(e.pace <= parseTime(e.goalPace) &&
+e.mins >= parseTime(e.goalMin))
+? '🔥 Alle Ziele geschafft ⭐'
+: ''}
+
+${(kmClass==='green' &&
+timeClass==='green' &&
+paceClass==='green')
+? '🏆 Perfekter Walk'
+: ''}
+
+</td> 
    <td>${e.note}</td>
    <td>
    <button onclick="editEntry(${i})">✏️</button>
@@ -240,7 +256,7 @@ ${e.pace <= parseTime(e.goalPace) ? '👍' : '👎'}
  <div class="badge">📅 Monats KM: ${monthKm.toFixed(1)}</div>
  <div class="badge">🗓 Jahres KM: ${yearKm.toFixed(1)}</div>
  <div class="badge">⏱ Gesamt Minuten: ${Math.round(totalMin)}</div>
- <div class="badge">🔥 Ziel: 1000 Tage</div>
+ 
  `;
 }
 
