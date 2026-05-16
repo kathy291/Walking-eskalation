@@ -112,6 +112,8 @@ function saveEntry(){
   mins:mins,
   pace:mins/km,
   note:document.getElementById("preset").value+" "+document.getElementById("note").value
+  goalPace: document.getElementById("goalPace").value,
+goalMin: document.getElementById("goalMin").value,
  };
 
  if(editIndex>=0){
@@ -203,7 +205,7 @@ let paceClass="";
    <td class="${e.mins===bestTime?'gold':timeClass}">${fmt(e.mins)}</td>
    <td class="${e.pace===bestPace?'gold':paceClass}">
 ${fmt(e.pace)}
-${e.pace <= parseTime(document.getElementById('goalPace').value) ? '👍' : '👎'}
+${e.pace <= parseTime(e.goalPace) ? '👍' : '👎'}
 </td>
    
    <td>${e.note}</td>
