@@ -23,6 +23,7 @@ td,th{padding:8px;border-bottom:1px solid #374151;text-align:center}
 
 <div class="card">
 <h2>🎯 Ziele</h2>
+ <button onclick="saveGoals()">Ziele speichern</button>
 <input id="goalDays" type="number" value="1000">
 <input id="goalMin" value="30:00">
 <input id="goalPace" value="08:30">
@@ -349,3 +350,32 @@ text = "💪 Heute länger durchgezogen!";
 document.getElementById("motivationBox").innerHTML =
 `<div class="badge">${text}</div>`;
 }
+ function saveGoals(){
+
+localStorage.setItem(
+"goalPace",
+document.getElementById("goalPace").value
+);
+
+localStorage.setItem(
+"goalMin",
+document.getElementById("goalMin").value
+);
+
+entries.push({
+date: new Date().toISOString().split("T")[0],
+km: 0,
+mins: 0,
+pace: 0,
+note: "🎯 Ziele geändert",
+goalChange: true,
+goalPace: document.getElementById("goalPace").value,
+goalMin: document.getElementById("goalMin").value
+});
+
+localStorage.setItem("kwe_entries",JSON.stringify(entries));
+
+alert("Ziele gespeichert!");
+render();
+}
+ 
