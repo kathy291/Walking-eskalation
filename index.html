@@ -290,78 +290,8 @@ const random =
 texts[Math.floor(Math.random()*texts.length)];
 
 document.getElementById("motivationBox").innerHTML =
-
-`<div class="badge">${random}</div>`;
- }
- render();
- renderMotivation();
-</script>
-
-</body>
-</html>
-function showInstantMotivation(entry){
-
-let text = "🚶 Starker Walk!";
-
-if(entries.length > 1){
-
-const prev = entries[entries.length-2];
-
-const betterKm = entry.km > prev.km;
-const betterTime = entry.mins > prev.mins;
-const betterPace = entry.pace < prev.pace;
-
-if(betterKm && betterTime && betterPace){
-
-text = "🏆 KOMPLETT GRÜNER WALK!";
-
-}
-else if(betterPace){
-
-text = "🚀 Neue starke Pace!";
-
-}
-else if(betterKm){
-
-text = "🔥 Mehr Kilometer als zuletzt!";
-
-}
-else if(betterTime){
-
-text = "💪 Heute länger durchgezogen!";
-
-}
-}
-
-document.getElementById("motivationBox").innerHTML =
 `<div class="badge">${text}</div>`;
 }
- function saveGoals(){
 
-localStorage.setItem(
-"goalPace",
-document.getElementById("goalPace").value
-);
-
-localStorage.setItem(
-"goalMin",
-document.getElementById("goalMin").value
-);
-
-entries.push({
-date: new Date().toISOString().split("T")[0],
-km: 0,
-mins: 0,
-pace: 0,
-note: "🎯 Ziele geändert",
-goalChange: true,
-goalPace: document.getElementById("goalPace").value,
-goalMin: document.getElementById("goalMin").value
-});
-
-localStorage.setItem("kwe_entries",JSON.stringify(entries));
-
-alert("Ziele gespeichert!");
-render();
 }
  
