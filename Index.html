@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kathys Walking Eskalation</title>
+
+<style>
+:root{
+    --bg:#f6f3ee;
+    --card:#ffffff;
+    --gold:#d4af37;
+    --green:#38c172;
+    --red:#ff6b6b;
+    --text:#2b2b2b;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:20px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:120px;
+}
+
+h1,h2,h3,p{
+    margin-top:0;
+}
+
+.card{
+    background:var(--card);
+    border-radius:28px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.hero{
+    border:3px solid var(--gold);
+}
+
+.streak{
+    color:var(--gold);
+    font-weight:700;
+    margin-top:8px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.stat-number{
+    font-size:1.6rem;
+    font-weight:700;
+    margin-top:10px;
+}
+
+.motivation{
+    font-size:1.1rem;
+    font-weight:600;
+}
+
+.walk-card{
+    border-left:8px solid var(--gold);
+}
+
+.walk-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:16px;
+}
+
+.value-box{
+    background:#f7f4ee;
+    padding:12px;
+    border-radius:18px;
+    text-align:center;
+}
+
+.label{
+    color:#666;
+    font-size:0.8rem;
+}
+
+.good{
+    color:var(--green);
+    font-weight:700;
+}
+
+.bad{
+    color:var(--red);
+    font-weight:700;
+}
+
+.notes{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
+}
+
+.note{
+    background:#f2efe9;
+    border-radius:999px;
+    padding:8px 12px;
+    font-size:0.85rem;
+}
+
+.custom-note{
+    margin-top:12px;
+    font-style:italic;
+}
+
+button{
+    border:none;
+    border-radius:18px;
+    cursor:pointer;
+    font-size:1rem;
+}
+
+.fab{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    background:var(--gold);
+    color:white;
+    font-size:2rem;
+    box-shadow:0 12px 24px rgba(212,175,55,0.35);
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    display:none;
+    align-items:flex-end;
+}
+
+.modal.open{
+    display:flex;
+}
+
+.modal-content{
+    background:white;
+    width:100%;
+    border-radius:28px 28px 0 0;
+    padding:22px;
+    max-height:92vh;
+    overflow:auto;
+}
+
+input,textarea{
+    width:100%;
+    margin-top:8px;
+    margin-bottom:18px;
+    padding:14px;
+    border-radius:16px;
+    border:1px solid #ddd;
+    font-size:1rem;
+}
+
+.quick-notes{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.quick-btn{
+    background:#f2efe9;
+    padding:10px 14px;
+    border-radius:999px;
+}
+
+.quick-btn.active{
+    background:var(--gold);
+    color:white;
+}
+
+.save-btn{
+    width:100%;
+    padding:16px;
+    background:var(--gold);
+    color:white;
+    font-weight:700;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>👟 Kathys Walking Eskalation</h1>
+    <div class="streak" id="streakText">🔥 Noch keine Serie</div>
+</div>
+
+<div class="card hero">
+    <p>Heutiger Status</p>
+
+    <div style="font-size:2rem;font-weight:700;" id="todayKm">0,0 km</div>
+
+    <div id="todayTime">00:00</div>
+    <div id="todayPace">Pace 00:00</div>
+
+    <div style="margin-top:12px;">
+        <span id="timeGoal">👎 Zeit-Ziel</span>
+        <span id="paceGoal" style="margin-left:10px;">👎 Pace-Ziel</span>
+    </div>
+</div>
+
+<div class="stats">
+
+    <div class="card">
+        <div>Gesamt-km</div>
+        <div class="stat-number" id="totalKm">0,0</div>
+    </div>
+
+    <div class="card">
+        <div>Monats-km</div>
+        <div class="stat-number" id="monthKm">0,0</div>
+    </div>
+
+    <div class="card">
+        <div>Beste Pace</div>
+        <div class="stat-number" id="bestPace">00:00</div>
+    </div>
+
+    <div class="card">
+        <div>Längster Walk</div>
+        <div class="stat-number" id="longestWalk">0,00</div>
+    </div>
+
+    <div class="card">
+        <div>Längste Zeit</div>
+        <div class="stat-number" id="longestTime">00:00</div>
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="motivation" id="motivationText">
+        🌟 Jeder Walk zählt.
+    </div>
+</div>
+
+<h2>📜 Verlauf</h2>
+
+<div id="history"></div>
+
+<button class="fab" id="openModal">+</button>
+
+<div class="modal" id="modal">
+
+    <div class="modal-content">
+
+        <h2>Neuen Walk hinzufügen</h2>
+
+        <label>Datum</label>
+        <input type="date" id="dateInput">
+
+        <label>Kilometer</label>
+        <input type="text" id="kmInput" placeholder="5,40">
+
+        <label>Zeit (MM:SS)</label>
+        <input type="text" id="timeInput" placeholder="52:18">
+
+        
+
+        <h3>Schnell-Bemerkungen</h3>
+
+        <div class="quick-notes" id="quickNotes"></div>
+
+        <label>Eigene Bemerkung</label>
+        <textarea id="customNote" rows="4"></textarea>
+
+        <button class="save-btn" id="saveWalk">
+            Walk speichern
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = "kathyWalkingApp";
+
+const quickNotesOptions = [
+    "Normal",
+    "Regen",
+    "Rückenschmerzen",
+    "Kopfschmerzen",
+    "unmotiviert",
+    "wenig Zeit",
+    "Krank",
+    "Schnee und Glätte"
+];
+
+const motivations = [
+    "🌟 Jeder Walk zählt.",
+    "🔥 Deine Serie lebt weiter.",
+    "🏆 Neue Bestleistung beginnt mit Konstanz.",
+    "✨ Kleine Schritte machen Fortschritt.",
+    "💪 Dranbleiben ist wichtiger als Perfektion."
+];
+
+let selectedNotes = [];
+let editingId = null;
+
+function loadWalks() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+}
+
+function saveWalks(walks) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(walks));
+}
+
+function formatKm(value) {
+    return Number(value).toFixed(2).replace(".", ",");
+}
+
+function formatMMSS(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+
+    return String(mins).padStart(2, "0") + ":" +
+           String(secs).padStart(2, "0");
+}
+
+function parseMMSS(value) {
+    const parts = value.split(":");
+
+    if(parts.length !== 2) {
+        return 0;
+    }
+
+    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+}
+
+function calculatePace(durationSeconds, kilometers) {
+    return durationSeconds / kilometers;
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+}
+
+function sortWalks(walks) {
+    return walks.sort((a,b) => new Date(b.date) - new Date(a.date));
+}
+
+function renderQuickNotes() {
+
+    const container = document.getElementById("quickNotes");
+    container.innerHTML = "";
+
+    quickNotesOptions.forEach(note => {
+
+        const button = document.createElement("button");
+
+        button.className = "quick-btn";
+        button.textContent = note;
+
+        button.addEventListener("click", () => {
+
+            button.classList.toggle("active");
+
+            if(selectedNotes.includes(note)) {
+                selectedNotes = selectedNotes.filter(n => n !== note);
+            } else {
+                selectedNotes.push(note);
+            }
+
+        });
+
+        container.appendChild(button);
+
+    });
+
+}
+
+function calculateStreak(walks) {
+
+    if(walks.length === 0) {
+        return 0;
+    }
+
+    const sorted = walks
+        .map(w => w.date)
+        .sort((a,b) => new Date(b) - new Date(a));
+
+    let streak = 1;
+
+    for(let i = 0; i < sorted.length - 1; i++) {
+
+        const current = new Date(sorted[i]);
+        const next = new Date(sorted[i + 1]);
+
+        const diff =
+            (current - next) / (1000 * 60 * 60 * 24);
+
+        if(diff === 1) {
+            streak++;
+        } else {
+            break;
+        }
+    }
+
+    return streak;
+}
+
+function renderStats(walks) {
+
+    const totalKm =
+        walks.reduce((sum, walk) => sum + walk.kilometers, 0);
+
+    document.getElementById("totalKm").textContent =
+        formatKm(totalKm);
+
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+
+    const monthWalks = walks.filter(w => {
+
+        const date = new Date(w.date);
+
+        return date.getMonth() === currentMonth &&
+               date.getFullYear() === currentYear;
+    });
+
+    const monthKm =
+        monthWalks.reduce((sum, walk) => sum + walk.kilometers, 0);
+
+    document.getElementById("monthKm").textContent =
+        formatKm(monthKm);
+
+    const bestPace = walks.length
+        ? Math.min(...walks.map(w => w.paceSeconds))
+        : 0;
+
+    document.getElementById("bestPace").textContent =
+        formatMMSS(bestPace);
+
+    const longestWalk = walks.length
+        ? Math.max(...walks.map(w => w.kilometers))
+        : 0;
+
+    document.getElementById("longestWalk").textContent =
+        formatKm(longestWalk);
+
+    const longestTime = walks.length
+        ? Math.max(...walks.map(w => w.durationSeconds))
+        : 0;
+
+    document.getElementById("longestTime").textContent =
+        formatMMSS(longestTime);
+
+    const streak = calculateStreak(walks);
+
+    document.getElementById("streakText").textContent =
+        streak > 0
+        ? `🔥 ${streak} Tage Serie`
+        : "🔥 Noch keine Serie";
+
+    const today = new Date().toISOString().split("T")[0];
+
+    const todayWalk = walks.find(w => w.date === today);
+
+    if(todayWalk) {
+
+        document.getElementById("todayKm").textContent =
+            formatKm(todayWalk.kilometers) + " km";
+
+        document.getElementById("todayTime").textContent =
+            formatMMSS(todayWalk.durationSeconds);
+
+        document.getElementById("todayPace").textContent =
+            "Pace " + formatMMSS(todayWalk.paceSeconds);
+
+        document.getElementById("timeGoal").textContent =
+            todayWalk.durationSeconds >= 1800
+            ? "👍 Zeit-Ziel"
+            : "👎 Zeit-Ziel";
+
+        document.getElementById("paceGoal").textContent =
+            todayWalk.paceSeconds <= 600
+            ? "👍 Pace-Ziel"
+            : "👎 Pace-Ziel";
+    }
+
+    const randomMessage =
+        motivations[Math.floor(Math.random() * motivations.length)];
+
+    document.getElementById("motivationText").textContent =
+        randomMessage;
+}
+
+
+function deleteWalk(id) {
+
+    const confirmed =
+        confirm("Diesen Walk wirklich löschen?");
+
+    if(!confirmed) {
+        return;
+    }
+
+    const walks =
+        loadWalks().filter(w => w.id !== id);
+
+    saveWalks(walks);
+
+    renderApp();
+}
+
+function editWalk(id) {
+
+    const walks = loadWalks();
+
+    const walk = walks.find(w => w.id === id);
+
+    if(!walk) {
+        return;
+    }
+
+    editingId = id;
+
+    document.getElementById("dateInput").value =
+        walk.date;
+
+    document.getElementById("kmInput").value =
+        formatKm(walk.kilometers);
+
+    document.getElementById("timeInput").value =
+        formatMMSS(walk.durationSeconds);
+
+    document.getElementById("customNote").value =
+        walk.customNote || "";
+
+    selectedNotes = [...walk.quickNotes];
+
+    renderQuickNotes();
+
+    document.getElementById("modal")
+    .classList.add("open");
+}
+
+function renderHistory(walks) {
+
+    const history = document.getElementById("history");
+    history.innerHTML = "";
+
+    if(walks.length === 0) {
+
+        history.innerHTML =
+            '<div class="card empty">Noch keine Walks gespeichert.</div>';
+
+        return;
+    }
+
+    walks.forEach((walk, index) => {
+
+        const previous = walks[index + 1];
+
+        let kmClass = "";
+        let timeClass = "";
+        let paceClass = "";
+
+        if(previous) {
+
+            kmClass =
+                walk.kilometers > previous.kilometers
+                ? "good"
+                : "bad";
+
+            timeClass =
+                walk.durationSeconds > previous.durationSeconds
+                ? "good"
+                : "bad";
+
+            paceClass =
+                walk.paceSeconds < previous.paceSeconds
+                ? "good"
+                : "bad";
+        }
+
+        const card = document.createElement("div");
+
+        card.className = "card walk-card";
+
+        card.innerHTML = `
+            <div style="font-weight:700;font-size:1.1rem;">
+                ${formatDate(walk.date)}
+            </div>
+
+            <div class="walk-grid">
+
+                <div class="value-box">
+                    <div class="label">Kilometer</div>
+                    <div class="${kmClass}">
+                        ${formatKm(walk.kilometers)}
+                    </div>
+                </div>
+
+                <div class="value-box">
+                    <div class="label">Zeit</div>
+                    <div class="${timeClass}">
+                        ${formatMMSS(walk.durationSeconds)}
+                    </div>
+                </div>
+
+                <div class="value-box">
+                    <div class="label">Pace</div>
+                    <div class="${paceClass}">
+                        ${formatMMSS(walk.paceSeconds)}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="notes">
+                ${walk.quickNotes.map(note =>
+                    `<div class="note">${note}</div>`
+                ).join("")}
+            </div>
+
+            ${
+                walk.customNote
+                ? `<div class="custom-note">"${walk.customNote}"</div>`
+                : ""
+            }
+        `;
+
+        card.innerHTML += `
+            <div style="display:flex;gap:10px;margin-top:16px;">
+
+                <button
+                    style="flex:1;padding:12px;background:#f2efe9;border:none;border-radius:14px;font-weight:700;"
+                    onclick="editWalk('${walk.id}')">
+                    ✏️ Bearbeiten
+                </button>
+
+                <button
+                    style="flex:1;padding:12px;background:#ffefef;color:#c0392b;border:none;border-radius:14px;font-weight:700;"
+                    onclick="deleteWalk('${walk.id}')">
+                    🗑️ Löschen
+                </button>
+
+            </div>
+        `;
+
+        history.appendChild(card);
+
+    });
+
+}
+
+function renderApp() {
+
+    const walks = sortWalks(loadWalks());
+
+    renderStats(walks);
+    renderHistory(walks);
+
+}
+
+document.getElementById("openModal")
+.addEventListener("click", () => {
+
+    document.getElementById("modal")
+    .classList.add("open");
+
+});
+
+document.getElementById("modal")
+.addEventListener("click", (event) => {
+
+    if(event.target.id === "modal") {
+
+        document.getElementById("modal")
+        .classList.remove("open");
+    }
+
+});
+
+document.getElementById("saveWalk")
+.addEventListener("click", () => {
+
+    const date =
+        document.getElementById("dateInput").value;
+
+    const kilometers = parseFloat(
+        document.getElementById("kmInput")
+        .value.replace(",", ".")
+    );
+
+    const durationSeconds =
+        parseMMSS(
+            document.getElementById("timeInput").value
+        );
+
+    const paceSeconds =
+        calculatePace(durationSeconds, kilometers);
+
+    const customNote =
+        document.getElementById("customNote").value;
+
+    if(!date || !kilometers || !durationSeconds) {
+
+        alert("Bitte alle Felder ausfüllen.");
+        return;
+    }
+
+    const walks = loadWalks();
+
+    if(editingId) {
+
+        const walk =
+            walks.find(w => w.id === editingId);
+
+        walk.date = date;
+        walk.kilometers = kilometers;
+        walk.durationSeconds = durationSeconds;
+        walk.paceSeconds = paceSeconds;
+        walk.quickNotes = selectedNotes;
+        walk.customNote = customNote;
+
+    } else {
+
+        walks.push({
+            id: crypto.randomUUID(),
+            date,
+            kilometers,
+            durationSeconds,
+            paceSeconds,
+            quickNotes: selectedNotes,
+            customNote,
+            createdAt: Date.now()
+        });
+    }
+
+    saveWalks(walks);
+
+    selectedNotes = [];
+    editingId = null;
+
+    document.getElementById("modal")
+    .classList.remove("open");
+
+    document.getElementById("dateInput").value = "";
+    document.getElementById("kmInput").value = "";
+    document.getElementById("timeInput").value = "";
+    document.getElementById("customNote").value = "";
+
+    renderQuickNotes();
+    renderApp();
+
+});
+
+renderQuickNotes();
+renderApp();
+
+</script>
+
+</body>
+</html>
