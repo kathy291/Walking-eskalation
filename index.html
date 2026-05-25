@@ -598,7 +598,8 @@ textarea{
 
 const STORAGE_KEY =
     "kathyWalkingStableV1";
-
+const GOAL_STORAGE_KEY =
+    "kathyWalkingGoals";
 const quickNotesOptions = [
     "Normal",
     "Regen",
@@ -608,7 +609,7 @@ const quickNotesOptions = [
     "wenig Zeit",
     "Krank",
     "Schnee und Glätte"
-      "sehr warm"
+    "sehr warm"
 ];
 
  const motivations = [
@@ -625,7 +626,25 @@ const quickNotesOptions = [
 
 let selectedNotes = [];
 let editingId = null;
+function saveGoals(goals) {
 
+    localStorage.setItem(
+        GOAL_STORAGE_KEY,
+        JSON.stringify(goals)
+    );
+}
+
+function loadGoals() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            GOAL_STORAGE_KEY
+        )
+    ) || {
+        timeGoal:1800,
+        paceGoal:600
+    };
+}
 function loadWalks() {
 
     return JSON.parse(
@@ -1269,7 +1288,49 @@ function renderHistory(walks) {
                 </div>
 
             </div>
+<div style="
+    margin-top:12px;
+    display:flex;
+    gap:10px;
+">
 
+    <div class="
+        ${
+            walk.durationSeconds >=
+            walk.goalTime
+            ? "good"
+            : "bad"
+        }
+    ">
+
+        ${
+            walk.durationSeconds >=
+            walk.goalTime
+            ? "👍 Zeit-Ziel"
+            : "👎 Zeit-Ziel"
+        }
+
+    </div>
+
+    <div class="
+        ${
+            walk.paceSeconds <=
+            walk.goalPace
+            ? "good"
+            : "bad"
+        }
+    ">
+
+        ${
+            walk.paceSeconds <=
+            walk.goalPace
+            ? "👍 Pace-Ziel"
+            : "👎 Pace-Ziel"
+        }
+
+    </div>
+
+</div>
             <div class="notes">
 
                 ${(walk.quickNotes || [])
@@ -1467,6 +1528,24 @@ document.getElementById(
             );
 
         const customNote =
+            const goals = {
+
+    timeGoal:
+        parseMMSS(
+            document.getElementById(
+                "goalTimeInput"
+            ).value || "30:00"
+        ),
+
+    paceGoal:
+        parseMMSS(
+            document.getElementById(
+                "goalPaceInput"
+            ).value || "10:00"
+        )
+};
+
+saveGoals(goals);
             document.getElementById(
                 "customNote"
             ).value;
@@ -1532,7 +1611,11 @@ document.getElementById(
                 durationSeconds,
 
                 paceSeconds,
+goalTime:
+    goals.timeGoal,
 
+goalPace:
+    goals.paceGoal,
                 quickNotes:
                     selectedNotes,
 
