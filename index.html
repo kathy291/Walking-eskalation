@@ -598,9 +598,10 @@ const quickNotesOptions = [
     "wenig Zeit",
     "Krank",
     "Schnee und Glätte"
+      "sehr warm"
 ];
 
-const motivations = [
+ const motivations = [
 
     "🌟 Jeder Walk zählt.",
     "🔥 Deine Serie lebt weiter.",
@@ -1361,6 +1362,36 @@ function renderApp() {
     renderStats(walks);
 
     renderHistory(walks);
+    renderCalendar(walks);
+
+renderBadges(walks);
+
+renderComparisons(walks);
+
+if(walks.length > 0) {
+
+    const newest = walks[0];
+
+    const bestPace =
+        Math.min(
+            ...walks.map(
+                w => w.paceSeconds
+            )
+        );
+
+    if(
+        newest.paceSeconds ===
+        bestPace
+    ) {
+
+        createConfetti();
+
+        document.getElementById(
+            "motivationText"
+        ).textContent =
+            "🏆 Neue Rekord-Pace!";
+    }
+}
 }
 
 document.getElementById(
