@@ -1352,7 +1352,8 @@ function resetForm() {
     renderQuickNotes();
 }
 
-function renderApp() {
+
+    function renderApp() {
 
     const walks =
         sortWalks(
@@ -1362,36 +1363,38 @@ function renderApp() {
     renderStats(walks);
 
     renderHistory(walks);
+
     renderCalendar(walks);
 
-renderBadges(walks);
+    renderBadges(walks);
 
-renderComparisons(walks);
+    renderComparisons(walks);
 
-if(walks.length > 0) {
+    if(walks.length > 0) {
 
-    const newest = walks[0];
+        const newest =
+            walks[0];
 
-    const bestPace =
-        Math.min(
-            ...walks.map(
-                w => w.paceSeconds
-            )
-        );
+        const bestPace =
+            Math.min(
+                ...walks.map(
+                    w => w.paceSeconds
+                )
+            );
 
-    if(
-        newest.paceSeconds ===
-        bestPace
-    ) {
+        if(
+            newest.paceSeconds ===
+            bestPace
+        ) {
 
-        createConfetti();
+            createConfetti();
 
-        document.getElementById(
-            "motivationText"
-        ).textContent =
-            "🏆 Neue Rekord-Pace!";
+            document.getElementById(
+                "motivationText"
+            ).textContent =
+                "🏆 Neue Rekord-Pace!";
+        }
     }
-}
 }
 
 document.getElementById(
