@@ -1514,7 +1514,228 @@ document.getElementById(
 );
 
 renderQuickNotes();
+function renderCalendar(walks) {
 
+    const calendar =
+        document.getElementById(
+            "calendar"
+        );
+
+    calendar.innerHTML = "";
+
+    const now = new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        now.getMonth();
+
+    const daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+    for(let day = 1; day <= daysInMonth; day++) {
+
+        const date =
+            new Date(year,month,day)
+            .toISOString()
+            .split("T")[0];
+
+        const walked =
+            walks.some(
+                w => w.date === date
+            );
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            walked
+            ? "day walked"
+            : "day";
+
+        div.textContent = day;
+
+        calendar.appendChild(div);
+    }
+}
+
+function createConfetti() {
+
+    const container =
+        document.getElementById(
+            "confetti"
+        );
+
+    container.innerHTML = "";
+
+    for(let i = 0; i < 40; i++) {
+
+        const piece =
+            document.createElement(
+                "div"
+            );
+
+        piece.className =
+            "confetti-piece";
+
+        piece.style.left =
+            Math.random() * 100 + "%";
+
+        piece.style.animationDelay =
+            Math.random() + "s";
+
+        piece.style.opacity =
+            Math.random();
+
+        container.appendChild(piece);
+    }
+
+    setTimeout(() => {
+
+        container.innerHTML = "";
+
+    },3000);
+}
+
+function renderBadges(walks) {
+
+    const badges =
+        document.getElementById(
+            "badges"
+        );
+
+    badges.innerHTML = "";
+
+    if(walks.length >= 7) {
+
+        badges.innerHTML += `
+            <div class="badge">
+                🔥 7 Walks geschafft
+            </div>
+        `;
+    }
+
+    if(walks.length >= 30) {
+
+        badges.innerHTML += `
+            <div class="badge">
+                👑 30 Walks Jubiläum
+            </div>
+        `;
+    }
+
+    const streak =
+        calculateStreak(walks);
+
+    if(streak >= 30) {
+
+        badges.innerHTML += `
+            <div class="badge">
+                🏅 Monatsserie erreicht
+            </div>
+        `;
+    }
+
+    if(streak >= 365) {
+
+        badges.innerHTML += `
+            <div class="badge">
+                🌟 Jahresabzeichen
+            </div>
+        `;
+    }
+}
+
+function renderComparisons(walks) {
+
+    const box =
+        document.getElementById(
+            "comparisonBox"
+        );
+
+    const now = new Date();
+
+    const currentWeek =
+        walks.filter(w => {
+
+            const d =
+                new Date(w.date);
+
+            const diff =
+                (now - d) /
+                (1000*60*60*24);
+
+            return diff <= 7;
+        });
+
+    const previousWeek =
+        walks.filter(w => {
+
+            const d =
+                new Date(w.date);
+
+            const diff =
+                (now - d) /
+                (1000*60*60*24);
+
+            return (
+                diff > 7 &&
+                diff <= 14
+            );
+        });
+
+    const currentKm =
+        currentWeek.reduce(
+            (s,w)=>
+                s + w.kilometers,
+            0
+        );
+
+    const previousKm =
+        previousWeek.reduce(
+            (s,w)=>
+                s + w.kilometers,
+            0
+        );
+
+    const better =
+        currentKm >= previousKm;
+
+    box.innerHTML = `
+
+        <div class="
+            ${better ? "good" : "bad"}
+        ">
+
+            ${
+                better
+                ? "📈 Besser als letzte Woche"
+                : "📉 Weniger als letzte Woche"
+            }
+
+        </div>
+
+        <div style="margin-top:10px;">
+
+            Diese Woche:
+            ${formatKm(currentKm)} km
+
+        </div>
+
+        <div>
+
+            Letzte Woche:
+            ${formatKm(previousKm)} km
+
+        </div>
+
+    `;
+}
 renderApp();
 
 </script>
