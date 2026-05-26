@@ -1528,21 +1528,32 @@ document.getElementById(
             );
 
         const customNote =
-            const goals = {
+            const savedGoals =
+    loadGoals();
+
+const goals = {
 
     timeGoal:
-        parseMMSS(
+        document.getElementById(
+            "goalTimeInput"
+        ).value
+        ? parseMMSS(
             document.getElementById(
                 "goalTimeInput"
-            ).value || "30:00"
-        ),
+            ).value
+        )
+        : savedGoals.timeGoal,
 
     paceGoal:
-        parseMMSS(
+        document.getElementById(
+            "goalPaceInput"
+        ).value
+        ? parseMMSS(
             document.getElementById(
                 "goalPaceInput"
-            ).value || "10:00"
+            ).value
         )
+        : savedGoals.paceGoal
 };
 
 saveGoals(goals);
@@ -1863,7 +1874,23 @@ function renderComparisons(walks) {
 
     `;
 }
-renderApp();
+   const existingGoals =
+    loadGoals();
+
+document.getElementById(
+    "goalTimeInput"
+).value =
+    formatMMSS(
+        existingGoals.timeGoal
+    );
+
+document.getElementById(
+    "goalPaceInput"
+).value =
+    formatMMSS(
+        existingGoals.paceGoal
+    ); 
+    renderApp();
 
 </script>
 
