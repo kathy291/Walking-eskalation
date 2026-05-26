@@ -10,7 +10,7 @@
 >
 
 <title>
-    Kathys Walking Eskalation V3
+Kathys Walking Eskalation V4
 </title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -22,6 +22,7 @@
     --bg:#f8f5ef;
     --card:#ffffff;
     --gold:#d4af37;
+    --gold2:#f7d978;
     --green:#2fbf71;
     --red:#ff6b6b;
     --text:#2d2d2d;
@@ -79,11 +80,56 @@ body{
 
 .hero-km{
 
-    font-size:2.5rem;
+    font-size:2.7rem;
 
     font-weight:800;
 
     margin-top:10px;
+}
+
+.level-card{
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff4c7,
+            #e5be52
+        );
+
+    color:white;
+}
+
+.level-number{
+
+    font-size:2.7rem;
+
+    font-weight:900;
+}
+
+.xp-bar{
+
+    width:100%;
+
+    height:18px;
+
+    background:rgba(255,255,255,0.3);
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+    margin-top:16px;
+}
+
+.xp-fill{
+
+    height:100%;
+
+    width:0%;
+
+    background:white;
+
+    border-radius:999px;
 }
 
 .stats{
@@ -97,7 +143,7 @@ body{
 
 .stat-number{
 
-    font-size:1.5rem;
+    font-size:1.6rem;
 
     font-weight:800;
 
@@ -137,20 +183,6 @@ body{
     color:#666;
 
     font-size:0.82rem;
-}
-
-.good{
-
-    color:var(--green);
-
-    font-weight:700;
-}
-
-.bad{
-
-    color:var(--red);
-
-    font-weight:700;
 }
 
 .notes{
@@ -336,6 +368,60 @@ textarea{
     font-weight:800;
 }
 
+.goal-row{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-top:16px;
+}
+
+.goal{
+
+    background:#f4f1ea;
+
+    padding:10px 14px;
+
+    border-radius:999px;
+
+    font-weight:700;
+}
+
+.badge{
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffe89f,
+            #d4af37
+        );
+
+    color:white;
+
+    border-radius:20px;
+
+    padding:14px;
+
+    margin-top:12px;
+
+    font-weight:800;
+}
+
+.challenge{
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff9e4,
+            #fff0bb
+        );
+
+    border:2px solid var(--gold2);
+}
+
 .calendar{
 
     display:grid;
@@ -379,52 +465,8 @@ textarea{
     color:white;
 }
 
-.badge{
-
-    background:
-        linear-gradient(
-            180deg,
-            #ffe89f,
-            #d4af37
-        );
-
-    color:white;
-
-    border-radius:20px;
-
-    padding:14px;
-
-    margin-top:12px;
-
-    font-weight:800;
-
-    text-align:center;
-}
-
-.goal-row{
-
-    display:flex;
-
-    gap:12px;
-
-    flex-wrap:wrap;
-
-    margin-top:16px;
-}
-
-.goal{
-
-    background:#f4f1ea;
-
-    padding:10px 14px;
-
-    border-radius:999px;
-
-    font-weight:700;
-}
-
-.chart-box{
-    margin-top:20px;
+canvas{
+    margin-top:14px;
 }
 
 @media(max-width:420px){
@@ -443,14 +485,42 @@ textarea{
 
 <body>
 
-<div class="card">
+<div class="card level-card">
 
-    <h1>
-        👟 Kathys Walking Eskalation V3
-    </h1>
+    <div>
+        👑 Walking Level
+    </div>
 
-    <div id="streakText">
-        🔥 Noch keine Serie
+    <div
+        class="level-number"
+        id="levelNumber"
+    >
+        Level 1
+    </div>
+
+    <div id="xpText">
+        0 / 100 XP
+    </div>
+
+    <div class="xp-bar">
+
+        <div
+            class="xp-fill"
+            id="xpFill"
+        ></div>
+
+    </div>
+
+</div>
+
+<div class="card challenge">
+
+    <h2>
+        🎯 Tageschallenge
+    </h2>
+
+    <div id="challengeText">
+        Laufe heute mindestens 3 km
     </div>
 
 </div>
@@ -475,51 +545,6 @@ textarea{
     <div id="todayPace">
         Pace 00:00
     </div>
-
-    <div class="goal-row">
-
-        <div
-            class="goal"
-            id="timeGoalStatus"
-        >
-            👎 Zeit-Ziel
-        </div>
-
-        <div
-            class="goal"
-            id="paceGoalStatus"
-        >
-            👎 Pace-Ziel
-        </div>
-
-    </div>
-
-</div>
-
-<div class="card">
-
-    <h2>
-        🎯 Ziele
-    </h2>
-
-    <input
-        type="text"
-        id="goalTimeInput"
-        placeholder="Zeit-Ziel MM:SS"
-    >
-
-    <input
-        type="text"
-        id="goalPaceInput"
-        placeholder="Pace-Ziel MM:SS"
-    >
-
-    <button
-        class="save-btn"
-        id="saveGoalsBtn"
-    >
-        Ziele speichern
-    </button>
 
 </div>
 
@@ -593,9 +618,7 @@ textarea{
         📈 Kilometer Trend
     </h2>
 
-    <div class="chart-box">
-        <canvas id="kmChart"></canvas>
-    </div>
+    <canvas id="kmChart"></canvas>
 
 </div>
 
@@ -605,9 +628,7 @@ textarea{
         ⚡ Pace Trend
     </h2>
 
-    <div class="chart-box">
-        <canvas id="paceChart"></canvas>
-    </div>
+    <canvas id="paceChart"></canvas>
 
 </div>
 
@@ -627,7 +648,7 @@ textarea{
 <div class="card">
 
     <h2>
-        🏆 Erfolge
+        🏆 Achievements
     </h2>
 
     <div id="badges"></div>
@@ -635,7 +656,7 @@ textarea{
 </div>
 
 <h2>
-    📜 Verlauf
+📜 Verlauf
 </h2>
 
 <div id="history"></div>
@@ -644,7 +665,7 @@ textarea{
     class="fab"
     id="openModal"
 >
-    +
++
 </button>
 
 <div
@@ -652,58 +673,54 @@ textarea{
     id="modal"
 >
 
-    <div class="modal-content">
+<div class="modal-content">
 
-        <h2>
-            Neuen Walk hinzufügen
-        </h2>
+<h2>
+Neuen Walk hinzufügen
+</h2>
 
-        <input
-            type="date"
-            id="dateInput"
-        >
+<input
+    type="date"
+    id="dateInput"
+>
 
-        <input
-            type="text"
-            id="kmInput"
-            placeholder="Kilometer 5,40"
-        >
+<input
+    type="text"
+    id="kmInput"
+    placeholder="Kilometer 5,40"
+>
 
-        <input
-            type="text"
-            id="timeInput"
-            placeholder="Zeit MM:SS"
-        >
+<input
+    type="text"
+    id="timeInput"
+    placeholder="Zeit MM:SS"
+>
 
-        <div
-            class="quick-notes"
-            id="quickNotes"
-        ></div>
+<div
+    class="quick-notes"
+    id="quickNotes"
+></div>
 
-        <textarea
-            id="customNote"
-            rows="4"
-            placeholder="Eigene Bemerkung"
-        ></textarea>
+<textarea
+    id="customNote"
+    rows="4"
+    placeholder="Eigene Bemerkung"
+></textarea>
 
-        <button
-            class="save-btn"
-            id="saveWalk"
-        >
-            Walk speichern
-        </button>
+<button
+    class="save-btn"
+    id="saveWalk"
+>
+Walk speichern
+</button>
 
-    </div>
-
+</div>
 </div>
 
 <script>
 
 const STORAGE_KEY =
-    "kathyWalkingStableV3";
-
-const GOAL_STORAGE_KEY =
-    "kathyWalkingGoalsStable";
+    "kathyWalkingStableV4";
 
 const quickNotesOptions = [
 
@@ -740,27 +757,6 @@ function saveWalks(walks){
     localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(walks)
-    );
-}
-
-function loadGoals(){
-
-    return JSON.parse(
-        localStorage.getItem(
-            GOAL_STORAGE_KEY
-        )
-    ) || {
-
-        timeGoal:1800,
-        paceGoal:600
-    };
-}
-
-function saveGoals(goals){
-
-    localStorage.setItem(
-        GOAL_STORAGE_KEY,
-        JSON.stringify(goals)
     );
 }
 
@@ -843,9 +839,7 @@ function renderQuickNotes(){
             note;
 
         if(
-            selectedNotes.includes(
-                note
-            )
+            selectedNotes.includes(note)
         ){
 
             button.classList.add(
@@ -853,37 +847,28 @@ function renderQuickNotes(){
             );
         }
 
-        button.addEventListener(
-            "click",
-            ()=>{
+        button.onclick = ()=>{
 
-                button.classList.toggle(
-                    "active"
-                );
+            button.classList.toggle(
+                "active"
+            );
 
-                if(
-                    selectedNotes.includes(
-                        note
-                    )
-                ){
+            if(
+                selectedNotes.includes(note)
+            ){
 
-                    selectedNotes =
-                        selectedNotes.filter(
-                            n => n !== note
-                        );
-
-                } else {
-
-                    selectedNotes.push(
-                        note
+                selectedNotes =
+                    selectedNotes.filter(
+                        n => n !== note
                     );
-                }
-            }
-        );
 
-        container.appendChild(
-            button
-        );
+            } else {
+
+                selectedNotes.push(note);
+            }
+        };
+
+        container.appendChild(button);
     });
 }
 
@@ -928,9 +913,7 @@ function renderCalendar(walks){
             );
 
         const div =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
         div.className =
             walked
@@ -1033,6 +1016,77 @@ function renderCharts(walks){
     );
 }
 
+function renderLevel(walks){
+
+    const xp =
+        walks.length * 25;
+
+    const level =
+        Math.floor(xp / 100) + 1;
+
+    const currentXP =
+        xp % 100;
+
+    document.getElementById(
+        "levelNumber"
+    ).textContent =
+        "Level " + level;
+
+    document.getElementById(
+        "xpText"
+    ).textContent =
+        currentXP + " / 100 XP";
+
+    document.getElementById(
+        "xpFill"
+    ).style.width =
+        currentXP + "%";
+}
+
+function renderBadges(walks){
+
+    const badges =
+        document.getElementById(
+            "badges"
+        );
+
+    badges.innerHTML = "";
+
+    if(walks.length >= 7){
+
+        badges.innerHTML += `
+            <div class="badge">
+                🔥 7 Walks geschafft
+            </div>
+        `;
+    }
+
+    if(walks.length >= 30){
+
+        badges.innerHTML += `
+            <div class="badge">
+                👑 30 Walks Jubiläum
+            </div>
+        `;
+    }
+
+    const totalKm =
+        walks.reduce(
+            (s,w)=>
+                s + w.kilometers,
+            0
+        );
+
+    if(totalKm >= 100){
+
+        badges.innerHTML += `
+            <div class="badge">
+                💯 100 Kilometer erreicht
+            </div>
+        `;
+    }
+}
+
 function renderStats(walks){
 
     const totalKm =
@@ -1118,50 +1172,6 @@ function renderStats(walks){
             formatMMSS(
                 latest.paceSeconds
             );
-
-        document.getElementById(
-            "timeGoalStatus"
-        ).textContent =
-            latest.durationSeconds >=
-            latest.goalTime
-            ? "👍 Zeit-Ziel"
-            : "👎 Zeit-Ziel";
-
-        document.getElementById(
-            "paceGoalStatus"
-        ).textContent =
-            latest.paceSeconds <=
-            latest.goalPace
-            ? "👍 Pace-Ziel"
-            : "👎 Pace-Ziel";
-    }
-}
-
-function renderBadges(walks){
-
-    const badges =
-        document.getElementById(
-            "badges"
-        );
-
-    badges.innerHTML = "";
-
-    if(walks.length >= 7){
-
-        badges.innerHTML += `
-            <div class="badge">
-                🔥 7 Walks geschafft
-            </div>
-        `;
-    }
-
-    if(walks.length >= 30){
-
-        badges.innerHTML += `
-            <div class="badge">
-                👑 30 Walks Jubiläum
-            </div>
-        `;
     }
 }
 
@@ -1180,9 +1190,7 @@ function renderHistory(walks){
     .forEach(walk=>{
 
         const card =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
         card.className =
             "card walk-card";
@@ -1236,53 +1244,6 @@ function renderHistory(walks){
                             walk.paceSeconds
                         )}
                     </div>
-
-                </div>
-
-            </div>
-
-            <div
-                style="
-                    margin-top:12px;
-                    display:flex;
-                    gap:12px;
-                    flex-wrap:wrap;
-                "
-            >
-
-                <div class="
-                    ${
-                        walk.durationSeconds >=
-                        walk.goalTime
-                        ? "good"
-                        : "bad"
-                    }
-                ">
-
-                    ${
-                        walk.durationSeconds >=
-                        walk.goalTime
-                        ? "👍 Zeit-Ziel"
-                        : "👎 Zeit-Ziel"
-                    }
-
-                </div>
-
-                <div class="
-                    ${
-                        walk.paceSeconds <=
-                        walk.goalPace
-                        ? "good"
-                        : "bad"
-                    }
-                ">
-
-                    ${
-                        walk.paceSeconds <=
-                        walk.goalPace
-                        ? "👍 Pace-Ziel"
-                        : "👎 Pace-Ziel"
-                    }
 
                 </div>
 
@@ -1364,8 +1325,7 @@ function editWalk(id){
 
     document.getElementById(
         "dateInput"
-    ).value =
-        walk.date;
+    ).value = walk.date;
 
     document.getElementById(
         "kmInput"
@@ -1419,208 +1379,148 @@ function renderApp(){
 
     renderCalendar(walks);
 
-    renderBadges(walks);
-
     renderCharts(walks);
 
-    const goals =
-        loadGoals();
+    renderBadges(walks);
 
-    document.getElementById(
-        "goalTimeInput"
-    ).value =
-        formatMMSS(
-            goals.timeGoal
-        );
-
-    document.getElementById(
-        "goalPaceInput"
-    ).value =
-        formatMMSS(
-            goals.paceGoal
-        );
+    renderLevel(walks);
 }
 
 document.getElementById(
     "openModal"
-).addEventListener(
-    "click",
-    ()=>{
+).onclick = ()=>{
 
-        editingId = null;
+    editingId = null;
 
-        selectedNotes = [];
+    selectedNotes = [];
 
-        renderQuickNotes();
+    renderQuickNotes();
 
-        document.getElementById(
-            "dateInput"
-        ).value = "";
+    document.getElementById(
+        "dateInput"
+    ).value = "";
 
-        document.getElementById(
-            "kmInput"
-        ).value = "";
+    document.getElementById(
+        "kmInput"
+    ).value = "";
 
-        document.getElementById(
-            "timeInput"
-        ).value = "";
+    document.getElementById(
+        "timeInput"
+    ).value = "";
 
-        document.getElementById(
-            "customNote"
-        ).value = "";
+    document.getElementById(
+        "customNote"
+    ).value = "";
 
-        document.getElementById(
-            "modal"
-        ).classList.add("open");
-    }
-);
-
-document.getElementById(
-    "saveGoalsBtn"
-).addEventListener(
-    "click",
-    ()=>{
-
-        saveGoals({
-
-            timeGoal:
-                parseMMSS(
-                    document.getElementById(
-                        "goalTimeInput"
-                    ).value
-                ),
-
-            paceGoal:
-                parseMMSS(
-                    document.getElementById(
-                        "goalPaceInput"
-                    ).value
-                )
-        });
-
-        renderApp();
-    }
-);
+    document.getElementById(
+        "modal"
+    ).classList.add("open");
+};
 
 document.getElementById(
     "saveWalk"
-).addEventListener(
-    "click",
-    ()=>{
+).onclick = ()=>{
 
-        const date =
-            document.getElementById(
-                "dateInput"
-            ).value;
-
-        const kilometers =
-            parseKm(
-                document.getElementById(
-                    "kmInput"
-                ).value
-            );
-
-        const durationSeconds =
-            parseMMSS(
-                document.getElementById(
-                    "timeInput"
-                ).value
-            );
-
-        if(
-            !date ||
-            !kilometers ||
-            !durationSeconds
-        ){
-
-            alert(
-                "Bitte Felder ausfüllen."
-            );
-
-            return;
-        }
-
-        const paceSeconds =
-            calculatePace(
-                durationSeconds,
-                kilometers
-            );
-
-        const goals =
-            loadGoals();
-
-        const walks =
-            loadWalks();
-
-        if(editingId){
-
-            const walk =
-                walks.find(
-                    w =>
-                    w.id === editingId
-                );
-
-            walk.date = date;
-
-            walk.kilometers =
-                kilometers;
-
-            walk.durationSeconds =
-                durationSeconds;
-
-            walk.paceSeconds =
-                paceSeconds;
-
-            walk.quickNotes =
-                selectedNotes;
-
-            walk.customNote =
-                document.getElementById(
-                    "customNote"
-                ).value;
-
-        } else {
-
-            walks.push({
-
-                id:
-                    crypto.randomUUID(),
-
-                date,
-
-                kilometers,
-
-                durationSeconds,
-
-                paceSeconds,
-
-                goalTime:
-                    goals.timeGoal,
-
-                goalPace:
-                    goals.paceGoal,
-
-                quickNotes:
-                    selectedNotes,
-
-                customNote:
-                    document.getElementById(
-                        "customNote"
-                    ).value
-            });
-        }
-
-        saveWalks(walks);
-
+    const date =
         document.getElementById(
-            "modal"
-        ).classList.remove(
-            "open"
+            "dateInput"
+        ).value;
+
+    const kilometers =
+        parseKm(
+            document.getElementById(
+                "kmInput"
+            ).value
         );
 
-        renderApp();
+    const durationSeconds =
+        parseMMSS(
+            document.getElementById(
+                "timeInput"
+            ).value
+        );
+
+    if(
+        !date ||
+        !kilometers ||
+        !durationSeconds
+    ){
+
+        alert(
+            "Bitte Felder ausfüllen."
+        );
+
+        return;
     }
-);
+
+    const paceSeconds =
+        calculatePace(
+            durationSeconds,
+            kilometers
+        );
+
+    const walks =
+        loadWalks();
+
+    if(editingId){
+
+        const walk =
+            walks.find(
+                w => w.id === editingId
+            );
+
+        walk.date = date;
+
+        walk.kilometers =
+            kilometers;
+
+        walk.durationSeconds =
+            durationSeconds;
+
+        walk.paceSeconds =
+            paceSeconds;
+
+        walk.quickNotes =
+            selectedNotes;
+
+        walk.customNote =
+            document.getElementById(
+                "customNote"
+            ).value;
+
+    } else {
+
+        walks.push({
+
+            id:
+                crypto.randomUUID(),
+
+            date,
+
+            kilometers,
+
+            durationSeconds,
+
+            paceSeconds,
+
+            quickNotes:
+                selectedNotes,
+
+            customNote:
+                document.getElementById(
+                    "customNote"
+                ).value
+        });
+    }
+
+    saveWalks(walks);
+
+    document.getElementById(
+        "modal"
+    ).classList.remove("open");
+
+    renderApp();
+};
 
 renderQuickNotes();
 
