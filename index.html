@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>
-Kathys Walking Eskalation V4
-</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kathys Walking Eskalation V4.1</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 :root{
-
     --bg:#f8f5ef;
     --card:#ffffff;
     --gold:#d4af37;
@@ -26,9 +17,6 @@ Kathys Walking Eskalation V4
     --green:#2fbf71;
     --red:#ff6b6b;
     --text:#2d2d2d;
-
-    --shadow:
-        0 12px 30px rgba(0,0,0,0.08);
 }
 
 *{
@@ -36,210 +24,142 @@ Kathys Walking Eskalation V4
 }
 
 body{
-
     margin:0;
-
     padding:18px;
-
     padding-bottom:120px;
-
     background:var(--bg);
-
     color:var(--text);
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 .card{
-
     background:var(--card);
-
     border-radius:28px;
-
     padding:20px;
-
     margin-bottom:18px;
-
-    box-shadow:var(--shadow);
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
 .hero{
-
     border:3px solid var(--gold);
-
-    background:
-        linear-gradient(
-            180deg,
-            #fffdf7,
-            #fff5d7
-        );
+    background:linear-gradient(180deg,#fffdf7,#fff5d7);
 }
 
 .hero-km{
-
-    font-size:2.7rem;
-
-    font-weight:800;
-
+    font-size:2.8rem;
+    font-weight:900;
     margin-top:10px;
 }
 
 .level-card{
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff4c7,
-            #e5be52
-        );
-
+    background:linear-gradient(180deg,#fff4c7,#d4af37);
     color:white;
 }
 
 .level-number{
-
-    font-size:2.7rem;
-
+    font-size:2.6rem;
     font-weight:900;
 }
 
 .xp-bar{
-
     width:100%;
-
-    height:18px;
-
+    height:16px;
     background:rgba(255,255,255,0.3);
-
     border-radius:999px;
-
     overflow:hidden;
-
     margin-top:16px;
 }
 
 .xp-fill{
-
     height:100%;
-
-    width:0%;
-
     background:white;
-
-    border-radius:999px;
+    width:0%;
 }
 
 .stats{
-
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
     gap:14px;
 }
 
 .stat-number{
-
-    font-size:1.6rem;
-
+    font-size:1.5rem;
     font-weight:800;
+    margin-top:8px;
+}
 
-    margin-top:10px;
+.compare{
+    background:linear-gradient(180deg,#fff7db,#fff1bc);
+}
+
+.plus{
+    color:var(--green);
+    font-weight:800;
+}
+
+.minus{
+    color:var(--red);
+    font-weight:800;
 }
 
 .walk-card{
-
     border-left:8px solid var(--gold);
 }
 
 .walk-grid{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:10px;
-
-    margin-top:16px;
+    margin-top:14px;
 }
 
 .value-box{
-
     background:#f7f3eb;
-
     border-radius:18px;
-
     padding:12px;
-
     text-align:center;
 }
 
 .label{
-
+    font-size:0.8rem;
     color:#666;
-
-    font-size:0.82rem;
 }
 
 .notes{
-
     display:flex;
-
     flex-wrap:wrap;
-
     gap:8px;
-
     margin-top:14px;
 }
 
 .note{
-
     background:#f4f1ea;
-
-    border-radius:999px;
-
     padding:8px 12px;
-
+    border-radius:999px;
     font-size:0.82rem;
 }
 
 .custom-note{
-
     margin-top:12px;
-
     font-style:italic;
 }
 
 .actions{
-
     display:flex;
-
     gap:10px;
-
     margin-top:18px;
 }
 
 button{
-
     border:none;
-
-    cursor:pointer;
-
     border-radius:16px;
-
+    cursor:pointer;
     font-size:1rem;
 }
 
 .action-btn{
-
     flex:1;
-
     padding:12px;
-
     font-weight:700;
 }
 
@@ -248,46 +168,27 @@ button{
 }
 
 .delete-btn{
-
     background:#ffecec;
-
     color:#c0392b;
 }
 
 .fab{
-
     position:fixed;
-
     right:22px;
-
     bottom:22px;
-
     width:72px;
-
     height:72px;
-
     border-radius:50%;
-
     background:var(--gold);
-
     color:white;
-
     font-size:2rem;
-
-    box-shadow:
-        0 16px 34px rgba(212,175,55,0.35);
 }
 
 .modal{
-
     position:fixed;
-
     inset:0;
-
     background:rgba(0,0,0,0.45);
-
     display:none;
-
     align-items:flex-end;
 }
 
@@ -296,173 +197,81 @@ button{
 }
 
 .modal-content{
-
     background:white;
-
     width:100%;
-
     border-radius:28px 28px 0 0;
-
     padding:22px;
-
     max-height:92vh;
-
     overflow:auto;
 }
 
 input,
 textarea{
-
     width:100%;
-
     margin-top:8px;
-
     margin-bottom:18px;
-
     padding:14px;
-
     border-radius:16px;
-
     border:1px solid #ddd;
-
     font-size:1rem;
 }
 
 .quick-notes{
-
     display:flex;
-
     flex-wrap:wrap;
-
     gap:10px;
-
     margin-bottom:18px;
 }
 
 .quick-btn{
-
     background:#f4f1ea;
-
     padding:10px 14px;
-
     border-radius:999px;
 }
 
 .quick-btn.active{
-
     background:var(--gold);
-
     color:white;
 }
 
 .save-btn{
-
     width:100%;
-
     padding:16px;
-
     background:var(--gold);
-
     color:white;
-
     font-weight:800;
-}
-
-.goal-row{
-
-    display:flex;
-
-    gap:12px;
-
-    flex-wrap:wrap;
-
-    margin-top:16px;
-}
-
-.goal{
-
-    background:#f4f1ea;
-
-    padding:10px 14px;
-
-    border-radius:999px;
-
-    font-weight:700;
-}
-
-.badge{
-
-    background:
-        linear-gradient(
-            180deg,
-            #ffe89f,
-            #d4af37
-        );
-
-    color:white;
-
-    border-radius:20px;
-
-    padding:14px;
-
-    margin-top:12px;
-
-    font-weight:800;
-}
-
-.challenge{
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff9e4,
-            #fff0bb
-        );
-
-    border:2px solid var(--gold2);
 }
 
 .calendar{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(7,1fr);
-
+    grid-template-columns:repeat(7,1fr);
     gap:8px;
-
     margin-top:16px;
 }
 
 .day{
-
     aspect-ratio:1;
-
     border-radius:14px;
-
     background:#f4f1ea;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:0.82rem;
-
     font-weight:700;
 }
 
 .day.walked{
-
-    background:
-        linear-gradient(
-            180deg,
-            #f7d978,
-            #d4af37
-        );
-
+    background:linear-gradient(180deg,#f7d978,#d4af37);
     color:white;
+}
+
+.badge{
+    background:linear-gradient(180deg,#ffe89f,#d4af37);
+    color:white;
+    padding:14px;
+    border-radius:20px;
+    margin-top:12px;
+    font-weight:800;
 }
 
 canvas{
@@ -487,202 +296,111 @@ canvas{
 
 <div class="card level-card">
 
-    <div>
-        👑 Walking Level
-    </div>
+<div>👑 Walking Level</div>
 
-    <div
-        class="level-number"
-        id="levelNumber"
-    >
-        Level 1
-    </div>
-
-    <div id="xpText">
-        0 / 100 XP
-    </div>
-
-    <div class="xp-bar">
-
-        <div
-            class="xp-fill"
-            id="xpFill"
-        ></div>
-
-    </div>
-
+<div class="level-number" id="levelNumber">
+Level 1
 </div>
 
-<div class="card challenge">
+<div id="xpText">
+0 / 100 XP
+</div>
 
-    <h2>
-        🎯 Tageschallenge
-    </h2>
-
-    <div id="challengeText">
-        Laufe heute mindestens 3 km
-    </div>
+<div class="xp-bar">
+<div class="xp-fill" id="xpFill"></div>
+</div>
 
 </div>
 
 <div class="card hero">
 
-    <div>
-        Letzter Walk
-    </div>
+<div>Letzter Walk</div>
 
-    <div
-        class="hero-km"
-        id="todayKm"
-    >
-        0,00 km
-    </div>
+<div class="hero-km" id="todayKm">
+0,00 km
+</div>
 
-    <div id="todayTime">
-        00:00
-    </div>
+<div id="todayTime">
+00:00
+</div>
 
-    <div id="todayPace">
-        Pace 00:00
-    </div>
+<div id="todayPace">
+Pace 00:00
+</div>
 
 </div>
 
 <div class="stats">
 
-    <div class="card">
+<div class="card">
+<div>Gesamt-km</div>
+<div class="stat-number" id="totalKm">0,00</div>
+</div>
 
-        <div>
-            Gesamt-km
-        </div>
+<div class="card">
+<div>Beste Pace</div>
+<div class="stat-number" id="bestPace">00:00</div>
+</div>
 
-        <div
-            class="stat-number"
-            id="totalKm"
-        >
-            0,00
-        </div>
+<div class="card">
+<div>Längster Walk</div>
+<div class="stat-number" id="longestWalk">0,00 km</div>
+</div>
 
-    </div>
+<div class="card">
+<div>Längste Zeit</div>
+<div class="stat-number" id="longestTime">00:00</div>
+</div>
 
-    <div class="card">
+<div class="card compare">
+<div>📅 Monat</div>
+<div class="stat-number" id="monthCurrent">0,00 km</div>
+<div id="monthPrevious">Vormonat: 0,00 km</div>
+<div id="monthDiff"></div>
+</div>
 
-        <div>
-            Beste Pace
-        </div>
-
-        <div
-            class="stat-number"
-            id="bestPace"
-        >
-            00:00
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div>
-            Längster Walk
-        </div>
-
-        <div
-            class="stat-number"
-            id="longestWalk"
-        >
-            0,00 km
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div>
-            Längste Zeit
-        </div>
-
-        <div
-            class="stat-number"
-            id="longestTime"
-        >
-            00:00
-        </div>
-
-    </div>
+<div class="card compare">
+<div>🗓️ Jahr</div>
+<div class="stat-number" id="yearCurrent">0,00 km</div>
+<div id="yearPrevious">Vorjahr: 0,00 km</div>
+<div id="yearDiff"></div>
+</div>
 
 </div>
 
 <div class="card">
-
-    <h2>
-        📈 Kilometer Trend
-    </h2>
-
-    <canvas id="kmChart"></canvas>
-
+<h2>📈 Kilometer Trend</h2>
+<canvas id="kmChart"></canvas>
 </div>
 
 <div class="card">
-
-    <h2>
-        ⚡ Pace Trend
-    </h2>
-
-    <canvas id="paceChart"></canvas>
-
+<h2>⚡ Pace Trend</h2>
+<canvas id="paceChart"></canvas>
 </div>
 
 <div class="card">
-
-    <h2>
-        📅 Monatskalender
-    </h2>
-
-    <div
-        id="calendar"
-        class="calendar"
-    ></div>
-
+<h2>📅 Monatskalender</h2>
+<div class="calendar" id="calendar"></div>
 </div>
 
 <div class="card">
-
-    <h2>
-        🏆 Achievements
-    </h2>
-
-    <div id="badges"></div>
-
+<h2>🏆 Achievements</h2>
+<div id="badges"></div>
 </div>
 
-<h2>
-📜 Verlauf
-</h2>
+<h2>📜 Verlauf</h2>
 
 <div id="history"></div>
 
-<button
-    class="fab"
-    id="openModal"
->
-+
-</button>
+<button class="fab" id="openModal">+</button>
 
-<div
-    class="modal"
-    id="modal"
->
+<div class="modal" id="modal">
 
 <div class="modal-content">
 
-<h2>
-Neuen Walk hinzufügen
-</h2>
+<h2>Neuen Walk hinzufügen</h2>
 
-<input
-    type="date"
-    id="dateInput"
->
+<input type="date" id="dateInput">
 
 <input
     type="text"
@@ -696,10 +414,7 @@ Neuen Walk hinzufügen
     placeholder="Zeit MM:SS"
 >
 
-<div
-    class="quick-notes"
-    id="quickNotes"
-></div>
+<div class="quick-notes" id="quickNotes"></div>
 
 <textarea
     id="customNote"
@@ -707,10 +422,7 @@ Neuen Walk hinzufügen
     placeholder="Eigene Bemerkung"
 ></textarea>
 
-<button
-    class="save-btn"
-    id="saveWalk"
->
+<button class="save-btn" id="saveWalk">
 Walk speichern
 </button>
 
@@ -720,7 +432,7 @@ Walk speichern
 <script>
 
 const STORAGE_KEY =
-    "kathyWalkingStableV4";
+    "kathyWalkingStableV41";
 
 const quickNotesOptions = [
 
@@ -736,19 +448,15 @@ const quickNotesOptions = [
 ];
 
 let selectedNotes = [];
-
 let editingId = null;
 
 let kmChart = null;
-
 let paceChart = null;
 
 function loadWalks(){
 
     return JSON.parse(
-        localStorage.getItem(
-            STORAGE_KEY
-        )
+        localStorage.getItem(STORAGE_KEY)
     ) || [];
 }
 
@@ -776,15 +484,15 @@ function formatKm(value){
 
 function parseMMSS(value){
 
-    const parts =
-        value.split(":");
+    const parts = value.split(":");
 
     if(parts.length !== 2){
         return 0;
     }
 
     return (
-        parseInt(parts[0]) * 60 +
+        parseInt(parts[0]) * 60
+        +
         parseInt(parts[1])
     );
 }
@@ -798,20 +506,15 @@ function formatMMSS(seconds){
         Math.round(seconds % 60);
 
     return (
-        String(mins)
-            .padStart(2,"0")
+        String(mins).padStart(2,"0")
         +
         ":"
         +
-        String(secs)
-            .padStart(2,"0")
+        String(secs).padStart(2,"0")
     );
 }
 
-function calculatePace(
-    duration,
-    km
-){
+function calculatePace(duration,km){
 
     return duration / km;
 }
@@ -828,9 +531,7 @@ function renderQuickNotes(){
     quickNotesOptions.forEach(note=>{
 
         const button =
-            document.createElement(
-                "button"
-            );
+            document.createElement("button");
 
         button.className =
             "quick-btn";
@@ -838,24 +539,16 @@ function renderQuickNotes(){
         button.textContent =
             note;
 
-        if(
-            selectedNotes.includes(note)
-        ){
+        if(selectedNotes.includes(note)){
 
-            button.classList.add(
-                "active"
-            );
+            button.classList.add("active");
         }
 
         button.onclick = ()=>{
 
-            button.classList.toggle(
-                "active"
-            );
+            button.classList.toggle("active");
 
-            if(
-                selectedNotes.includes(note)
-            ){
+            if(selectedNotes.includes(note)){
 
                 selectedNotes =
                     selectedNotes.filter(
@@ -872,22 +565,42 @@ function renderQuickNotes(){
     });
 }
 
+function renderLevel(walks){
+
+    const xp = walks.length * 25;
+
+    const level =
+        Math.floor(xp / 100) + 1;
+
+    const currentXP = xp % 100;
+
+    document.getElementById(
+        "levelNumber"
+    ).textContent =
+        "Level " + level;
+
+    document.getElementById(
+        "xpText"
+    ).textContent =
+        currentXP + " / 100 XP";
+
+    document.getElementById(
+        "xpFill"
+    ).style.width =
+        currentXP + "%";
+}
+
 function renderCalendar(walks){
 
     const calendar =
-        document.getElementById(
-            "calendar"
-        );
+        document.getElementById("calendar");
 
     calendar.innerHTML = "";
 
     const now = new Date();
 
-    const year =
-        now.getFullYear();
-
-    const month =
-        now.getMonth();
+    const year = now.getFullYear();
+    const month = now.getMonth();
 
     const daysInMonth =
         new Date(
@@ -928,21 +641,22 @@ function renderCalendar(walks){
 
 function renderCharts(walks){
 
-    const reversed =
-        [...walks].reverse();
+    const sorted =
+        [...walks].sort(
+            (a,b)=>
+                new Date(a.date)
+                -
+                new Date(b.date)
+        );
 
     const labels =
-        reversed.map(
-            w => w.date
-        );
+        sorted.map(w=>w.date);
 
     const kmData =
-        reversed.map(
-            w => w.kilometers
-        );
+        sorted.map(w=>w.kilometers);
 
     const paceData =
-        reversed.map(
+        sorted.map(
             w =>
                 Number(
                     (
@@ -961,26 +675,17 @@ function renderCharts(walks){
 
     kmChart = new Chart(
 
-        document.getElementById(
-            "kmChart"
-        ),
+        document.getElementById("kmChart"),
 
         {
-
             type:"line",
 
             data:{
-
                 labels,
-
                 datasets:[{
-
                     label:"Kilometer",
-
                     data:kmData,
-
                     borderWidth:3,
-
                     tension:0.3
                 }]
             }
@@ -989,26 +694,17 @@ function renderCharts(walks){
 
     paceChart = new Chart(
 
-        document.getElementById(
-            "paceChart"
-        ),
+        document.getElementById("paceChart"),
 
         {
-
             type:"line",
 
             data:{
-
                 labels,
-
                 datasets:[{
-
                     label:"Pace",
-
                     data:paceData,
-
                     borderWidth:3,
-
                     tension:0.3
                 }]
             }
@@ -1016,39 +712,10 @@ function renderCharts(walks){
     );
 }
 
-function renderLevel(walks){
-
-    const xp =
-        walks.length * 25;
-
-    const level =
-        Math.floor(xp / 100) + 1;
-
-    const currentXP =
-        xp % 100;
-
-    document.getElementById(
-        "levelNumber"
-    ).textContent =
-        "Level " + level;
-
-    document.getElementById(
-        "xpText"
-    ).textContent =
-        currentXP + " / 100 XP";
-
-    document.getElementById(
-        "xpFill"
-    ).style.width =
-        currentXP + "%";
-}
-
 function renderBadges(walks){
 
     const badges =
-        document.getElementById(
-            "badges"
-        );
+        document.getElementById("badges");
 
     badges.innerHTML = "";
 
@@ -1069,30 +736,13 @@ function renderBadges(walks){
             </div>
         `;
     }
-
-    const totalKm =
-        walks.reduce(
-            (s,w)=>
-                s + w.kilometers,
-            0
-        );
-
-    if(totalKm >= 100){
-
-        badges.innerHTML += `
-            <div class="badge">
-                💯 100 Kilometer erreicht
-            </div>
-        `;
-    }
 }
 
 function renderStats(walks){
 
     const totalKm =
         walks.reduce(
-            (s,w)=>
-                s + w.kilometers,
+            (s,w)=>s+w.kilometers,
             0
         );
 
@@ -1144,17 +794,179 @@ function renderStats(walks){
     ).textContent =
         formatMMSS(longestTime);
 
+    const now = new Date();
+
+    const currentMonth =
+        now.getMonth();
+
+    const currentYear =
+        now.getFullYear();
+
+    const lastMonth =
+        currentMonth === 0
+        ? 11
+        : currentMonth - 1;
+
+    const lastMonthYear =
+        currentMonth === 0
+        ? currentYear - 1
+        : currentYear;
+
+    const currentMonthKm =
+        walks.filter(w=>{
+
+            const d = new Date(w.date);
+
+            return (
+                d.getMonth() === currentMonth
+                &&
+                d.getFullYear() === currentYear
+            );
+        })
+        .reduce(
+            (s,w)=>s+w.kilometers,
+            0
+        );
+
+    const lastMonthKm =
+        walks.filter(w=>{
+
+            const d = new Date(w.date);
+
+            return (
+                d.getMonth() === lastMonth
+                &&
+                d.getFullYear() === lastMonthYear
+            );
+        })
+        .reduce(
+            (s,w)=>s+w.kilometers,
+            0
+        );
+
+    const currentYearKm =
+        walks.filter(w=>{
+
+            const d = new Date(w.date);
+
+            return (
+                d.getFullYear() === currentYear
+            );
+        })
+        .reduce(
+            (s,w)=>s+w.kilometers,
+            0
+        );
+
+    const lastYearKm =
+        walks.filter(w=>{
+
+            const d = new Date(w.date);
+
+            return (
+                d.getFullYear() === currentYear - 1
+            );
+        })
+        .reduce(
+            (s,w)=>s+w.kilometers,
+            0
+        );
+
+    const monthDiff =
+        currentMonthKm - lastMonthKm;
+
+    const yearDiff =
+        currentYearKm - lastYearKm;
+
+    document.getElementById(
+        "monthCurrent"
+    ).textContent =
+        formatKm(currentMonthKm)
+        + " km";
+
+    document.getElementById(
+        "monthPrevious"
+    ).textContent =
+        "Vormonat: "
+        +
+        formatKm(lastMonthKm)
+        +
+        " km";
+
+    document.getElementById(
+        "monthDiff"
+    ).innerHTML =
+        `
+        <span class="
+            ${
+                monthDiff >= 0
+                ? "plus"
+                : "minus"
+            }
+        ">
+            ${
+                monthDiff >= 0
+                ? "📈 +"
+                : "📉 "
+            }
+            ${formatKm(
+                Math.abs(monthDiff)
+            )} km
+        </span>
+        `;
+
+    document.getElementById(
+        "yearCurrent"
+    ).textContent =
+        formatKm(currentYearKm)
+        + " km";
+
+    document.getElementById(
+        "yearPrevious"
+    ).textContent =
+        "Vorjahr: "
+        +
+        formatKm(lastYearKm)
+        +
+        " km";
+
+    document.getElementById(
+        "yearDiff"
+    ).innerHTML =
+        `
+        <span class="
+            ${
+                yearDiff >= 0
+                ? "plus"
+                : "minus"
+            }
+        ">
+            ${
+                yearDiff >= 0
+                ? "📈 +"
+                : "📉 "
+            }
+            ${formatKm(
+                Math.abs(yearDiff)
+            )} km
+        </span>
+        `;
+
     if(walks.length > 0){
 
         const latest =
-            walks[walks.length - 1];
+            [...walks]
+            .sort(
+                (a,b)=>
+                    new Date(b.date)
+                    -
+                    new Date(a.date)
+            )[0];
 
         document.getElementById(
             "todayKm"
         ).textContent =
-            formatKm(
-                latest.kilometers
-            )
+            formatKm(latest.kilometers)
             + " km";
 
         document.getElementById(
@@ -1178,16 +990,19 @@ function renderStats(walks){
 function renderHistory(walks){
 
     const history =
-        document.getElementById(
-            "history"
-        );
+        document.getElementById("history");
 
     history.innerHTML = "";
 
-    walks
-    .slice()
-    .reverse()
-    .forEach(walk=>{
+    const sortedWalks =
+        [...walks].sort(
+            (a,b)=>
+                new Date(b.date)
+                -
+                new Date(a.date)
+        );
+
+    sortedWalks.forEach(walk=>{
 
         const card =
             document.createElement("div");
@@ -1206,7 +1021,6 @@ function renderHistory(walks){
             <div class="walk-grid">
 
                 <div class="value-box">
-
                     <div class="label">
                         Kilometer
                     </div>
@@ -1216,11 +1030,9 @@ function renderHistory(walks){
                             walk.kilometers
                         )}
                     </div>
-
                 </div>
 
                 <div class="value-box">
-
                     <div class="label">
                         Zeit
                     </div>
@@ -1230,11 +1042,9 @@ function renderHistory(walks){
                             walk.durationSeconds
                         )}
                     </div>
-
                 </div>
 
                 <div class="value-box">
-
                     <div class="label">
                         Pace
                     </div>
@@ -1244,7 +1054,6 @@ function renderHistory(walks){
                             walk.paceSeconds
                         )}
                     </div>
-
                 </div>
 
             </div>
@@ -1313,8 +1122,7 @@ function renderHistory(walks){
 
 function editWalk(id){
 
-    const walks =
-        loadWalks();
+    const walks = loadWalks();
 
     const walk =
         walks.find(
@@ -1330,9 +1138,7 @@ function editWalk(id){
     document.getElementById(
         "kmInput"
     ).value =
-        formatKm(
-            walk.kilometers
-        );
+        formatKm(walk.kilometers);
 
     document.getElementById(
         "timeInput"
@@ -1370,8 +1176,7 @@ function deleteWalk(id){
 
 function renderApp(){
 
-    const walks =
-        loadWalks();
+    const walks = loadWalks();
 
     renderStats(walks);
 
@@ -1459,8 +1264,7 @@ document.getElementById(
             kilometers
         );
 
-    const walks =
-        loadWalks();
+    const walks = loadWalks();
 
     if(editingId){
 
@@ -1470,18 +1274,10 @@ document.getElementById(
             );
 
         walk.date = date;
-
-        walk.kilometers =
-            kilometers;
-
-        walk.durationSeconds =
-            durationSeconds;
-
-        walk.paceSeconds =
-            paceSeconds;
-
-        walk.quickNotes =
-            selectedNotes;
+        walk.kilometers = kilometers;
+        walk.durationSeconds = durationSeconds;
+        walk.paceSeconds = paceSeconds;
+        walk.quickNotes = selectedNotes;
 
         walk.customNote =
             document.getElementById(
