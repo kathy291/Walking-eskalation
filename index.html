@@ -1,42 +1,30 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Kathys Walking Eskalation V4.2</title>
+<title>Kathys Walking Eskalation V4.3</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-    background:#f8f5ef;
     margin:0;
     padding:18px;
     padding-bottom:120px;
+    background:#f8f5ef;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
     color:#2d2d2d;
 }
 
 .card{
     background:white;
-    border-radius:28px;
+    border-radius:24px;
     padding:20px;
     margin-bottom:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.level-card{
-    background:linear-gradient(180deg,#fff4c7,#d4af37);
-    color:white;
-}
-
-.level-number{
-    font-size:2.6rem;
-    font-weight:900;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
 
 .hero{
@@ -45,12 +33,22 @@ body{
 }
 
 .hero-km{
-    font-size:2.8rem;
+    font-size:2.7rem;
+    font-weight:900;
+}
+
+.level-card{
+    background:linear-gradient(180deg,#ffe89f,#d4af37);
+    color:white;
+}
+
+.level{
+    font-size:2.2rem;
     font-weight:900;
 }
 
 .challenge{
-    background:linear-gradient(180deg,#fff9e4,#fff0bb);
+    background:linear-gradient(180deg,#fff8de,#fff1bc);
 }
 
 .stats{
@@ -87,28 +85,51 @@ body{
     display:flex;
     flex-wrap:wrap;
     gap:8px;
-    margin-top:14px;
+    margin-top:12px;
 }
 
 .note{
     background:#f4f1ea;
-    padding:8px 12px;
     border-radius:999px;
+    padding:8px 12px;
     font-size:0.82rem;
 }
 
-button{
+.goal-result{
+    margin-top:14px;
+    font-weight:800;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    margin-top:16px;
+}
+
+.action-btn{
+    flex:1;
     border:none;
-    border-radius:16px;
-    cursor:pointer;
+    border-radius:14px;
+    padding:12px;
+    font-weight:700;
+}
+
+.edit-btn{
+    background:#f4f1ea;
+}
+
+.delete-btn{
+    background:#ffeaea;
+    color:#c0392b;
 }
 
 .fab{
     position:fixed;
-    right:22px;
-    bottom:22px;
+    right:20px;
+    bottom:20px;
     width:72px;
     height:72px;
+    border:none;
     border-radius:50%;
     background:#d4af37;
     color:white;
@@ -130,8 +151,10 @@ button{
 .modal-content{
     background:white;
     width:100%;
-    border-radius:28px 28px 0 0;
+    border-radius:24px 24px 0 0;
     padding:22px;
+    max-height:90vh;
+    overflow:auto;
 }
 
 input,
@@ -154,8 +177,9 @@ textarea{
 
 .quick-btn{
     background:#f4f1ea;
-    padding:10px 14px;
+    border:none;
     border-radius:999px;
+    padding:10px 14px;
 }
 
 .quick-btn.active{
@@ -165,6 +189,8 @@ textarea{
 
 .save-btn{
     width:100%;
+    border:none;
+    border-radius:16px;
     padding:16px;
     background:#d4af37;
     color:white;
@@ -175,32 +201,53 @@ textarea{
     display:grid;
     grid-template-columns:repeat(7,1fr);
     gap:8px;
-    margin-top:16px;
+    margin-top:14px;
 }
 
 .day{
     aspect-ratio:1;
-    border-radius:14px;
+    border-radius:12px;
     background:#f4f1ea;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:0.82rem;
-    font-weight:700;
 }
 
 .day.walked{
     background:linear-gradient(180deg,#f7d978,#d4af37);
     color:white;
+    font-weight:800;
 }
 
 .badge{
     background:linear-gradient(180deg,#ffe89f,#d4af37);
     color:white;
     padding:14px;
-    border-radius:20px;
+    border-radius:18px;
     margin-top:12px;
     font-weight:800;
+}
+
+.plus{
+    color:#2fbf71;
+    font-weight:800;
+}
+
+.minus{
+    color:#ff6b6b;
+    font-weight:800;
+}
+
+@media(max-width:420px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .walk-grid{
+        grid-template-columns:1fr;
+    }
 }
 
 </style>
@@ -212,12 +259,12 @@ textarea{
 
 <div>👑 Walking Level</div>
 
-<div class="level-number" id="levelNumber">
+<div class="level" id="levelNumber">
 Level 1
 </div>
 
 <div id="xpText">
-0 / 100 XP
+0 XP
 </div>
 
 </div>
@@ -226,9 +273,7 @@ Level 1
 
 <h2>🎯 Tageschallenge</h2>
 
-<div id="challengeText">
-Laufe heute mindestens 3 km
-</div>
+<div id="challengeText"></div>
 
 </div>
 
@@ -266,10 +311,7 @@ Pace 00:00
     placeholder="Zeit Ziel MM:SS"
 >
 
-<button
-    class="save-btn"
-    onclick="saveGoals()"
->
+<button class="save-btn" onclick="saveGoals()">
 Ziele speichern
 </button>
 
@@ -297,6 +339,18 @@ Ziele speichern
 <div class="stat-number" id="longestTime">00:00</div>
 </div>
 
+<div class="card">
+<div>📅 Monat</div>
+<div class="stat-number" id="monthCurrent">0,00 km</div>
+<div id="monthCompare"></div>
+</div>
+
+<div class="card">
+<div>🗓️ Jahr</div>
+<div class="stat-number" id="yearCurrent">0,00 km</div>
+<div id="yearCompare"></div>
+</div>
+
 </div>
 
 <div class="card">
@@ -304,6 +358,22 @@ Ziele speichern
 <h2>📈 Kilometer Trend</h2>
 
 <canvas id="kmChart"></canvas>
+
+</div>
+
+<div class="card">
+
+<h2>⚡ Pace Trend</h2>
+
+<canvas id="paceChart"></canvas>
+
+</div>
+
+<div class="card">
+
+<h2>📅 Monatskalender</h2>
+
+<div class="calendar" id="calendar"></div>
 
 </div>
 
@@ -360,14 +430,10 @@ Walk speichern
 
 <script>
 
-const STORAGE_KEY =
-    "kathyWalkingStableV42";
-
-const GOAL_KEY =
-    "kathyWalkingGoalsV42";
+const STORAGE_KEY = "kathyWalkingV43";
+const GOAL_KEY = "kathyGoalsV43";
 
 const quickNotesOptions = [
-
     "Normal",
     "Regen",
     "Rückenschmerzen",
@@ -380,28 +446,20 @@ const quickNotesOptions = [
 ];
 
 let selectedNotes = [];
+let editingId = null;
+let kmChart = null;
+let paceChart = null;
 
 function loadWalks(){
-
-    return JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-    ) || [];
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 }
 
 function saveWalks(walks){
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(walks)
-    );
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(walks));
 }
 
 function loadGoals(){
-
-    return JSON.parse(
-        localStorage.getItem(GOAL_KEY)
-    ) || {
-
+    return JSON.parse(localStorage.getItem(GOAL_KEY)) || {
         paceGoal:"09:30",
         timeGoal:"45:00"
     };
@@ -410,18 +468,11 @@ function loadGoals(){
 function saveGoals(){
 
     const goals = {
-
-        paceGoal:
-            document.getElementById("paceGoalInput").value,
-
-        timeGoal:
-            document.getElementById("timeGoalInput").value
+        paceGoal:document.getElementById("paceGoalInput").value,
+        timeGoal:document.getElementById("timeGoalInput").value
     };
 
-    localStorage.setItem(
-        GOAL_KEY,
-        JSON.stringify(goals)
-    );
+    localStorage.setItem(GOAL_KEY,JSON.stringify(goals));
 
     alert("Ziele gespeichert");
 }
@@ -438,17 +489,11 @@ function renderGoals(){
 }
 
 function parseKm(value){
-
-    return parseFloat(
-        value.replace(",",".")
-    );
+    return parseFloat(value.replace(",","."));
 }
 
 function formatKm(value){
-
-    return Number(value)
-        .toFixed(2)
-        .replace(".",",");
+    return Number(value).toFixed(2).replace(".",",");
 }
 
 function parseMMSS(value){
@@ -464,11 +509,8 @@ function parseMMSS(value){
 
 function formatMMSS(seconds){
 
-    const mins =
-        Math.floor(seconds / 60);
-
-    const secs =
-        Math.round(seconds % 60);
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.round(seconds % 60);
 
     return (
         String(mins).padStart(2,"0")
@@ -492,7 +534,6 @@ function renderQuickNotes(){
             document.createElement("button");
 
         button.className = "quick-btn";
-
         button.textContent = note;
 
         button.onclick = ()=>{
@@ -502,9 +543,7 @@ function renderQuickNotes(){
             if(selectedNotes.includes(note)){
 
                 selectedNotes =
-                    selectedNotes.filter(
-                        n => n !== note
-                    );
+                    selectedNotes.filter(n=>n!==note);
 
             } else {
 
@@ -516,37 +555,227 @@ function renderQuickNotes(){
     });
 }
 
-function renderApp(){
+function renderChallenge(){
 
-    const walks = loadWalks();
+    const challenges = [
 
-    renderGoals();
+        "Laufe heute mindestens 3 km",
+        "Schaffe heute unter 10:00 Pace",
+        "Mindestens 45 Minuten laufen",
+        "Heute trotz Wetter rausgehen",
+        "Heute mindestens 5 km schaffen"
+    ];
+
+    const day = new Date().getDate();
+
+    document.getElementById("challengeText").textContent =
+        challenges[day % challenges.length];
+}
+
+function renderCalendar(walks){
+
+    const calendar =
+        document.getElementById("calendar");
+
+    calendar.innerHTML = "";
+
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    const daysInMonth =
+        new Date(year,month+1,0).getDate();
+
+    for(let day=1; day<=daysInMonth; day++){
+
+        const date =
+            new Date(year,month,day)
+            .toISOString()
+            .split("T")[0];
+
+        const walked =
+            walks.some(w=>w.date===date);
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            walked ? "day walked" : "day";
+
+        div.textContent = day;
+
+        calendar.appendChild(div);
+    }
+}
+
+function renderCharts(walks){
+
+    const sorted =
+        [...walks].sort(
+            (a,b)=>
+                new Date(a.date)
+                -
+                new Date(b.date)
+        );
+
+    const labels =
+        sorted.map(w=>w.date);
+
+    const kmData =
+        sorted.map(w=>w.kilometers);
+
+    const paceData =
+        sorted.map(
+            w=>
+                Number((w.paceSeconds/60).toFixed(2))
+        );
+
+    if(kmChart){
+        kmChart.destroy();
+    }
+
+    if(paceChart){
+        paceChart.destroy();
+    }
+
+    kmChart = new Chart(
+
+        document.getElementById("kmChart"),
+
+        {
+            type:"line",
+
+            data:{
+                labels,
+                datasets:[{
+                    label:"Kilometer",
+                    data:kmData,
+                    borderWidth:3,
+                    tension:0.3
+                }]
+            }
+        }
+    );
+
+    paceChart = new Chart(
+
+        document.getElementById("paceChart"),
+
+        {
+            type:"line",
+
+            data:{
+                labels,
+                datasets:[{
+                    label:"Pace",
+                    data:paceData,
+                    borderWidth:3,
+                    tension:0.3
+                }]
+            }
+        }
+    );
+}
+
+function renderBadges(walks){
+
+    const badges =
+        document.getElementById("badges");
+
+    badges.innerHTML = "";
+
+    if(walks.length >= 7){
+
+        badges.innerHTML += `
+            <div class="badge">
+                🔥 7 Walks geschafft
+            </div>
+        `;
+    }
+
+    if(walks.length >= 30){
+
+        badges.innerHTML += `
+            <div class="badge">
+                👑 30 Walks Jubiläum
+            </div>
+        `;
+    }
+
+    const totalKm =
+        walks.reduce((s,w)=>s+w.kilometers,0);
+
+    if(totalKm >= 100){
+
+        badges.innerHTML += `
+            <div class="badge">
+                💯 100 Kilometer erreicht
+            </div>
+        `;
+    }
+}
+
+function renderStats(walks){
+
+    const totalKm =
+        walks.reduce((s,w)=>s+w.kilometers,0);
 
     document.getElementById("totalKm").textContent =
-        formatKm(
-            walks.reduce(
-                (s,w)=>s+w.kilometers,
-                0
-            )
-        );
+        formatKm(totalKm);
 
     if(walks.length){
 
+        const bestPace =
+            Math.min(...walks.map(w=>w.paceSeconds));
+
+        document.getElementById("bestPace").textContent =
+            formatMMSS(bestPace);
+
+        const longestWalk =
+            Math.max(...walks.map(w=>w.kilometers));
+
+        document.getElementById("longestWalk").textContent =
+            formatKm(longestWalk)+" km";
+
+        const longestTime =
+            Math.max(...walks.map(w=>w.durationSeconds));
+
+        document.getElementById("longestTime").textContent =
+            formatMMSS(longestTime);
+
         const latest =
-            walks[walks.length - 1];
+            [...walks]
+            .sort(
+                (a,b)=>
+                    new Date(b.date)
+                    -
+                    new Date(a.date)
+            )[0];
 
         document.getElementById("todayKm").textContent =
-            formatKm(latest.kilometers)
-            + " km";
+            formatKm(latest.kilometers)+" km";
 
         document.getElementById("todayTime").textContent =
             formatMMSS(latest.durationSeconds);
 
         document.getElementById("todayPace").textContent =
-            "Pace "
-            +
-            formatMMSS(latest.paceSeconds);
+            "Pace "+formatMMSS(latest.paceSeconds);
     }
+
+    const xp = walks.length * 25;
+
+    const level =
+        Math.floor(xp / 100) + 1;
+
+    document.getElementById("levelNumber").textContent =
+        "Level "+level;
+
+    document.getElementById("xpText").textContent =
+        xp+" XP";
+}
+
+function renderHistory(walks){
 
     const history =
         document.getElementById("history");
@@ -565,8 +794,7 @@ function renderApp(){
         const card =
             document.createElement("div");
 
-        card.className =
-            "card walk-card";
+        card.className = "card walk-card";
 
         card.innerHTML = `
 
@@ -603,13 +831,48 @@ function renderApp(){
 
             </div>
 
-            <div style="margin-top:12px;font-weight:800;">
+            <div class="goal-result">
                 ${walk.goalResult || ""}
+            </div>
+
+            <div class="actions">
+
+                <button
+                    class="action-btn edit-btn"
+                >
+                    ✏️ Bearbeiten
+                </button>
+
+                <button
+                    class="action-btn delete-btn"
+                >
+                    🗑️ Löschen
+                </button>
+
             </div>
         `;
 
         history.appendChild(card);
     });
+}
+
+function renderApp(){
+
+    const walks = loadWalks();
+
+    renderGoals();
+
+    renderChallenge();
+
+    renderStats(walks);
+
+    renderCharts(walks);
+
+    renderCalendar(walks);
+
+    renderBadges(walks);
+
+    renderHistory(walks);
 }
 
 document.getElementById("openModal").onclick = ()=>{
@@ -640,8 +903,7 @@ document.getElementById("saveWalk").onclick = ()=>{
     const paceSeconds =
         durationSeconds / kilometers;
 
-    const goals =
-        loadGoals();
+    const goals = loadGoals();
 
     const paceGoalSeconds =
         parseMMSS(goals.paceGoal);
@@ -676,6 +938,8 @@ document.getElementById("saveWalk").onclick = ()=>{
     const walks = loadWalks();
 
     walks.push({
+
+        id:crypto.randomUUID(),
 
         date,
 
