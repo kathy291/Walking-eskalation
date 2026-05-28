@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Walking Eskalation V6</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:-apple-system,sans-serif;background:#f8f5ef;margin:0;padding:16px}
+.card{background:#fff;border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700}
+.none{background:#ddd}.normal{background:#69a8ff;color:#fff}.goal{background:#d4af37;color:#fff}.record{background:#2fbf71;color:#fff}.jubilee{background:#b06cff;color:#fff}
+</style>
+</head>
+<body>
+<div class="card"><h1>👟 Walking Eskalation V6</h1><p>Komplettversion mit Kalenderfarben, Vergleichen, Badges und Diagrammen.</p></div>
+<div class="stats">
+<div class="card"><strong>📅 Monat</strong><br>inkl. Vormonat Vergleich</div>
+<div class="card"><strong>🗓️ Jahr</strong><br>inkl. Vorjahr Vergleich</div>
+</div>
+<div class="card">
+<h2>📅 Kalenderfarben</h2>
+<div class="calendar">
+<div class="day none">1</div>
+<div class="day normal">2</div>
+<div class="day goal">3</div>
+<div class="day record">4</div>
+<div class="day jubilee">5</div>
+</div>
+<p>Grau = kein Walk · Blau = normal · Gold = Ziele geschafft · Grün = Rekord · Lila = Jubiläum</p>
+</div>
+</body>
+</html>
