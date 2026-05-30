@@ -287,7 +287,7 @@ textarea{
 
 <div class="card level-card">
 
-<div>ð Walking Level</div>
+<div>👑 Walking Level</div>
 
 <div class="level" id="levelNumber">
 Level 1
@@ -307,7 +307,7 @@ Level 1
 
 <div class="card challenge">
 
-<h2>ð¯ Tageschallenge</h2>
+<h2>🎯 Tageschallenge</h2>
 
 <div id="challengeText"></div>
 
@@ -338,7 +338,7 @@ Pace 00:00
 
 <div class="card">
 
-<h2>ð¯ Ziele</h2>
+<h2>🎯 Ziele</h2>
 
 <input
     type="text"
@@ -374,23 +374,23 @@ Ziele speichern
 </div>
 
 <div class="card">
-<div>LÃ¤ngster Walk</div>
+<div>Längster Walk</div>
 <div class="stat-number" id="longestWalk">0,00 km</div>
 </div>
 
 <div class="card">
-<div>LÃ¤ngste Zeit</div>
+<div>Längste Zeit</div>
 <div class="stat-number" id="longestTime">00:00</div>
 </div>
 
 <div class="card">
-<div>ð Monat</div>
+<div>📅 Monat</div>
 <div class="stat-number" id="monthCurrent">0,00 km</div>
 <div id="monthCompare"></div>
 </div>
 
 <div class="card">
-<div>ðï¸ Jahr</div>
+<div>🗓️ Jahr</div>
 <div class="stat-number" id="yearCurrent">0,00 km</div>
 <div id="yearCompare"></div>
 </div>
@@ -399,7 +399,7 @@ Ziele speichern
 
 <div class="card">
 
-<h2>ð Kilometer Trend</h2>
+<h2>📈 Kilometer Trend</h2>
 
 <canvas id="kmChart"></canvas>
 
@@ -407,7 +407,7 @@ Ziele speichern
 
 <div class="card">
 
-<h2>â¡ Pace Trend</h2>
+<h2>⚡ Pace Trend</h2>
 
 <canvas id="paceChart"></canvas>
 
@@ -415,7 +415,7 @@ Ziele speichern
 
 <div class="card">
 
-<h2>ð Monatskalender</h2>
+<h2>📅 Monatskalender</h2>
 
 <div class="calendar" id="calendar"></div>
 
@@ -423,13 +423,13 @@ Ziele speichern
 
 <div class="card">
 
-<h2>ð Erfolge</h2>
+<h2>🏆 Erfolge</h2>
 
 <div id="badges"></div>
 
 </div>
 
-<h2>ð Verlauf</h2>
+<h2>📜 Verlauf</h2>
 
 <div id="history"></div>
 
@@ -441,7 +441,7 @@ Ziele speichern
 
 <div class="modal-content">
 
-<h2>Neuen Walk hinzufÃ¼gen</h2>
+<h2>Neuen Walk hinzufügen</h2>
 
 <input type="date" id="dateInput">
 
@@ -484,23 +484,23 @@ const quickNotesOptions = [
 
     "Normal",
     "Regen",
-    "RÃ¼ckenschmerzen",
+    "Rückenschmerzen",
     "Kopfschmerzen",
     "unmotiviert",
     "wenig Zeit",
     "Krank",
-    "Schnee und GlÃ¤tte",
+    "Schnee und Glätte",
     "sehr warm"
 ];
 
 const motivations = [
 
-    "Heute wird eskaliert ð",
+    "Heute wird eskaliert 👟",
     "Du bist schneller als deine Ausreden.",
-    "Jeder Kilometer zÃ¤hlt.",
+    "Jeder Kilometer zählt.",
     "Kathy gegen die Couch: 1:0",
     "Nur kurz gehen existiert nicht mehr.",
-    "Dein zukÃ¼nftiges Ich wird stolz sein.",
+    "Dein zukünftiges Ich wird stolz sein.",
     "Ein schlechter Walk ist besser als kein Walk.",
     "Heute sammelt Kathy Kilometer."
 ];
@@ -811,27 +811,27 @@ function renderBadges(walks){
     const achievements = [
 
         {
-            text:"ð¥ 7 Walks geschafft",
+            text:"🔥 7 Walks geschafft",
             done:walks.length >= 7
         },
 
         {
-            text:"ð 30 Walks JubilÃ¤um",
+            text:"👑 30 Walks Jubiläum",
             done:walks.length >= 30
         },
 
         {
-            text:"ð¯ 100 Kilometer erreicht",
+            text:"💯 100 Kilometer erreicht",
             done:totalKm >= 100
         },
 
         {
-            text:"â¡ Pace-KÃ¶nigin",
+            text:"⚡ Pace-Königin",
             done:false
         },
 
         {
-            text:"ð Wochenserie geschafft",
+            text:"📅 Wochenserie geschafft",
             done:false
         }
     ];
@@ -842,7 +842,7 @@ function renderBadges(walks){
 
             <div class="badge ${a.done ? "done" : "locked"}">
 
-                ${a.done ? "â" : "ð"}
+                ${a.done ? "✅" : "🔒"}
 
                 ${a.text}
 
@@ -980,8 +980,8 @@ function renderStats(walks){
     document.getElementById("monthCompare")
         .innerHTML =
         monthDiff >= 0
-        ? `<span class="plus">ð +${formatKm(monthDiff)} km</span>`
-        : `<span class="minus">ð ${formatKm(Math.abs(monthDiff))} km</span>`;
+        ? `<span class="plus">📈 +${formatKm(monthDiff)} km</span>`
+        : `<span class="minus">📉 ${formatKm(Math.abs(monthDiff))} km</span>`;
 
     const currentYearKm =
         walks
@@ -1017,8 +1017,8 @@ function renderStats(walks){
     document.getElementById("yearCompare")
         .innerHTML =
         yearDiff >= 0
-        ? `<span class="plus">ð +${formatKm(yearDiff)} km</span>`
-        : `<span class="minus">ð ${formatKm(Math.abs(yearDiff))} km</span>`;
+        ? `<span class="plus">📈 +${formatKm(yearDiff)} km</span>`
+        : `<span class="minus">📉 ${formatKm(Math.abs(yearDiff))} km</span>`;
 }
 
 function renderHistory(walks){
@@ -1151,14 +1151,14 @@ document.getElementById("saveWalk").onclick = ()=>{
 
         goalResult +=
             `<span class="plus">
-                ð Pace Ziel geschafft
+                👍 Pace Ziel geschafft
             </span><br>`;
 
     } else {
 
         goalResult +=
             `<span class="minus">
-                ð Pace Ziel verpasst
+                👎 Pace Ziel verpasst
             </span><br>`;
     }
 
@@ -1166,14 +1166,14 @@ document.getElementById("saveWalk").onclick = ()=>{
 
         goalResult +=
             `<span class="plus">
-                ð Zeit Ziel geschafft
+                👍 Zeit Ziel geschafft
             </span>`;
 
     } else {
 
         goalResult +=
             `<span class="minus">
-                ð Zeit Ziel verpasst
+                👎 Zeit Ziel verpasst
             </span>`;
     }
 
