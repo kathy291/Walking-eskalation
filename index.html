@@ -1217,7 +1217,57 @@ function renderHistory(walks){
         history.appendChild(card);
     });
 }
+function deleteWalk(id){
 
+    const ok =
+        confirm("Diesen Walk wirklich löschen?");
+
+    if(!ok) return;
+
+    const walks =
+        loadWalks().filter(
+            walk => walk.id !== id
+        );
+
+    saveWalks(walks);
+
+    renderApp();
+}
+
+function editWalk(id){
+
+    const walks = loadWalks();
+
+    const walk =
+        walks.find(
+            w => w.id === id
+        );
+
+    if(!walk) return;
+
+    document.getElementById("dateInput").value =
+        walk.date;
+
+    document.getElementById("kmInput").value =
+        String(walk.kilometers)
+            .replace(".",",");
+
+    document.getElementById("timeInput").value =
+        formatMMSS(walk.durationSeconds);
+
+    selectedNotes =
+        [...(walk.quickNotes || [])];
+
+    renderQuickNotes();
+
+    document.getElementById("customNote").value =
+        walk.customNote || "";
+
+    document.getElementById("modal")
+        .classList.add("open");
+
+    deleteWalk(id);
+}
 function renderApp(){
 
     const walks = loadWalks();
