@@ -781,9 +781,11 @@ function renderCalendar(walks){
     for(let day=1; day<=daysInMonth; day++){
 
         const date =
-            new Date(year,month,day)
-            .toISOString()
-            .split("T")[0];
+    year +
+    "-" +
+    String(month + 1).padStart(2,"0") +
+    "-" +
+    String(day).padStart(2,"0");
 
         const walk =
             walks.find(w=>w.date===date);
