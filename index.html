@@ -552,7 +552,7 @@ const motivations = [
 ];
 
 let selectedNotes = [];
-
+let editingWalkId = null;
 let kmChart = null;
 let paceChart = null;
 
@@ -1242,7 +1242,7 @@ function editWalk(id){
         walks.find(
             w => w.id === id
         );
-
+editingWalkId = id;
     if(!walk) return;
 
     document.getElementById("dateInput").value =
@@ -1358,25 +1358,43 @@ document.getElementById("saveWalk").onclick = ()=>{
 
     const walks = loadWalks();
 
-    walks.push({
+    const walkData = {
 
-        id:crypto.randomUUID(),
+    id:
+        editingWalkId
+        || crypto.randomUUID(),
 
-        date,
+    date,
 
-        kilometers,
+    kilometers,
 
-        durationSeconds,
+    durationSeconds,
 
-        paceSeconds,
+    paceSeconds,
 
-        quickNotes:selectedNotes,
+    quickNotes:selectedNotes,
 
-        customNote:
-            document.getElementById("customNote").value,
+    customNote:
+        document.getElementById("customNote").value,
 
-        goalResult
-    });
+    goalResult
+};
+
+if(editingWalkId){
+
+    const index =
+        walks.findIndex(
+            w => w.id === editingWalkId
+        );
+
+    walks[index] = walkData;
+
+    editingWalkId = null;
+
+}else{
+
+    walks.push(walkData);
+}
 
     saveWalks(walks);
 
