@@ -198,7 +198,53 @@ h2{
     color:white;
     font-weight:800;
 }
+.day.normal{
+    background:#4a90e2;
+    color:white;
+    font-weight:800;
+}
 
+.day.goal{
+    background:linear-gradient(180deg,#f7d978,#d4af37);
+    color:white;
+    font-weight:800;
+}
+
+.day.record{
+    background:#2fbf71;
+    color:white;
+    font-weight:800;
+    box-shadow:0 0 15px rgba(47,191,113,.6);
+}
+
+.day.jubilee{
+    background:#9b59b6;
+    color:white;
+    font-weight:800;
+    box-shadow:0 0 15px rgba(155,89,182,.6);
+}
+
+.popup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup-overlay.open{
+    display:flex;
+}
+
+.popup-card{
+    background:white;
+    border-radius:24px;
+    padding:24px;
+    width:90%;
+    max-width:420px;
+}
 .fab{
     position:fixed;
     right:20px;
@@ -674,6 +720,44 @@ function renderQuickNotes(){
     });
 }
 
+function openDayPopup(walk){
+
+    document.getElementById("popupContent")
+        .innerHTML = `
+
+        <strong>${walk.date}</strong>
+
+        <br><br>
+
+        🚶 ${formatKm(walk.kilometers)} km
+
+        <br>
+
+        ⏱️ ${formatMMSS(walk.durationSeconds)}
+
+        <br>
+
+        ⚡ ${formatMMSS(walk.paceSeconds)}
+
+        <br><br>
+
+        ${(walk.quickNotes || []).join(", ")}
+
+        <br><br>
+
+        ${walk.goalResult}
+    `;
+
+    document.getElementById("dayPopup")
+        .classList.add("open");
+}
+
+function closeDayPopup(){
+
+    document.getElementById("dayPopup")
+        .classList.remove("open");
+}
+
 function renderCalendar(walks){
 
     const calendar =
@@ -689,6 +773,11 @@ function renderCalendar(walks){
     const daysInMonth =
         new Date(year,month+1,0).getDate();
 
+    const longestWalk =
+        walks.length
+        ? Math.max(...walks.map(w=>w.kilometers))
+        : 0;
+
     for(let day=1; day<=daysInMonth; day++){
 
         const date =
@@ -696,18 +785,41 @@ function renderCalendar(walks){
             .toISOString()
             .split("T")[0];
 
-        const walked =
-            walks.some(w=>w.date===date);
+        const walk =
+            walks.find(w=>w.date===date);
 
         const div =
             document.createElement("div");
 
-        div.className =
-            walked
-            ? "day walked"
-            : "day";
+        div.className = "day";
 
         div.textContent = day;
+
+        if(walk){
+
+            const goalsMet =
+                walk.goalResult.includes("👍 Pace")
+                &&
+                walk.goalResult.includes("👍 Zeit");
+
+            const isRecord =
+                walk.kilometers === longestWalk;
+
+            if(isRecord){
+
+                div.classList.add("record");
+
+            }else if(goalsMet){
+
+                div.classList.add("goal");
+
+            }else{
+
+                div.classList.add("normal");
+            }
+
+            div.onclick = ()=>openDayPopup(walk);
+        }
 
         calendar.appendChild(div);
     }
@@ -1212,6 +1324,25 @@ renderQuickNotes();
 renderApp();
 
 </script>
+<div class="popup-overlay" id="dayPopup">
 
+    <div class="popup-card">
+
+        <h2>Tagesdetails</h2>
+
+        <div id="popupContent"></div>
+
+        <br>
+
+        <button
+            class="save-btn"
+            onclick="closeDayPopup()"
+        >
+            Schließen
+        </button>
+
+    </div>
+
+</div>
 </body>
 </html>
