@@ -1195,7 +1195,23 @@ function renderHistory(walks){
             <div class="goal-result">
                 ${walk.goalResult}
             </div>
+<div class="actions">
 
+    <button
+        class="action-btn edit-btn"
+        onclick="editWalk('${walk.id}')"
+    >
+        ✏️ Bearbeiten
+    </button>
+
+    <button
+        class="action-btn delete-btn"
+        onclick="deleteWalk('${walk.id}')"
+    >
+        🗑️ Löschen
+    </button>
+
+</div>
         `;
 
         history.appendChild(card);
