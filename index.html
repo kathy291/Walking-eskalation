@@ -922,34 +922,96 @@ function renderBadges(walks){
             0
         );
 
-    const achievements = [
+    const achievements = [];
+const walkMilestones = [
+    10,
+    25,
+    50,
+    100
+];
 
-        {
-            text:"🔥 7 Walks geschafft",
-            done:walks.length >= 7
-        },
+for(let i=150;i<=1000;i+=50){
+    walkMilestones.push(i);
+}
 
-        {
-            text:"👑 30 Walks Jubiläum",
-            done:walks.length >= 30
-        },
+walkMilestones.forEach(m=>{
 
-        {
-            text:"💯 100 Kilometer erreicht",
-            done:totalKm >= 100
-        },
+    achievements.push({
 
-        {
-            text:"⚡ Pace-Königin",
-            done:false
-        },
+        text:`🚶 ${m} Walks erreicht`,
 
-        {
-            text:"📅 Wochenserie geschafft",
-            done:false
-        }
-    ];
+        done:walks.length >= m
+    });
+});
+    const now = new Date();
 
+const monthKm =
+    walks
+    .filter(w=>{
+
+        const d =
+            new Date(w.date);
+
+        return(
+            d.getMonth()===now.getMonth()
+            &&
+            d.getFullYear()===now.getFullYear()
+        );
+
+    })
+    .reduce(
+        (s,w)=>s+w.kilometers,
+        0
+    );
+
+[
+    [25,"🥉 Monats-Bronze"],
+    [50,"🥈 Monats-Silber"],
+    [100,"🥇 Monats-Gold"],
+    [150,"💎 Monats-Platin"],
+    [200,"👑 Monats-Diamant"]
+]
+.forEach(([limit,name])=>{
+
+    achievements.push({
+
+        text:name,
+
+        done:monthKm >= limit
+    });
+});
+    const yearKm =
+    walks
+    .filter(w=>{
+
+        return(
+            new Date(w.date)
+            .getFullYear()
+            === now.getFullYear()
+        );
+
+    })
+    .reduce(
+        (s,w)=>s+w.kilometers,
+        0
+    );
+
+[
+    [250,"🥉 Jahres-Bronze"],
+    [500,"🥈 Jahres-Silber"],
+    [1000,"🥇 Jahres-Gold"],
+    [1500,"💎 Jahres-Platin"],
+    [2000,"👑 Jahres-Diamant"]
+]
+.forEach(([limit,name])=>{
+
+    achievements.push({
+
+        text:name,
+
+        done:yearKm >= limit
+    });
+});
     achievements.forEach(a=>{
 
         badges.innerHTML += `
