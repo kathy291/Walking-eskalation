@@ -918,7 +918,23 @@ function renderCharts(walks){
         }
     );
 }
+function openAchievementsPopup(){
 
+    document
+        .getElementById(
+            "achievementsPopup"
+        )
+        .classList.add("open");
+}
+
+function closeAchievementsPopup(){
+
+    document
+        .getElementById(
+            "achievementsPopup"
+        )
+        .classList.remove("open");
+}
 function renderBadges(walks){
 
     const badges =
