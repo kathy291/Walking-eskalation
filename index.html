@@ -467,11 +467,21 @@ Ziele speichern
 
 </div>
 
+
 <div class="card">
 
 <h2>🏆 Erfolge</h2>
 
 <div id="badges"></div>
+
+<br>
+
+<button
+    class="save-btn"
+    onclick="openAchievementsPopup()"
+>
+🏆 Alle Erfolge anzeigen
+</button>
 
 </div>
 
@@ -1012,9 +1022,58 @@ const monthKm =
         done:yearKm >= limit
     });
 });
+    const achieved =
+    achievements.filter(
+        a => a.done
+    );
+
+const locked =
+    achievements.filter(
+        a => !a.done
+    );
+
+const preview = [];
+
+if(achieved.length){
+
+    preview.push(
+        achieved[
+            achieved.length - 1
+        ]
+    );
+}
+
+preview.push(
+    ...locked.slice(0,3)
+);
+
+preview.forEach(a=>{
+
+    badges.innerHTML += `
+
+        <div class="badge ${a.done ? "done" : "locked"}">
+
+            ${a.done ? "✅" : "🔒"}
+
+            ${a.text}
+
+        </div>
+
+    `;
+});
+
+const popup =
+    document.getElementById(
+        "allAchievementsContent"
+    );
+
+if(popup){
+
+    popup.innerHTML = "";
+
     achievements.forEach(a=>{
 
-        badges.innerHTML += `
+        popup.innerHTML += `
 
             <div class="badge ${a.done ? "done" : "locked"}">
 
@@ -1023,10 +1082,11 @@ const monthKm =
                 ${a.text}
 
             </div>
+
         `;
     });
 }
-
+}
 function renderStats(walks){
 
     const totalKm =
@@ -1471,6 +1531,26 @@ renderQuickNotes();
 renderApp();
 
 </script>
+    <div class="popup-overlay" id="achievementsPopup">
+
+    <div class="popup-card">
+
+        <h2>🏆 Alle Erfolge</h2>
+
+        <div id="allAchievementsContent"></div>
+
+        <br>
+
+        <button
+            class="save-btn"
+            onclick="closeAchievementsPopup()"
+        >
+            Schließen
+        </button>
+
+    </div>
+
+</div>
 <div class="popup-overlay" id="dayPopup">
 
     <div class="popup-card">
