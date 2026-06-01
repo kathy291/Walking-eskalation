@@ -1038,17 +1038,45 @@ const monthKm =
         done:yearKm >= limit
     });
 });
-    const achieved =
-    achievements.filter(
-        a => a.done
+    const walkAchievements =
+    achievements.filter(a =>
+        a.text.includes("🚶")
     );
 
-const locked =
-    achievements.filter(
-        a => !a.done
+const monthAchievements =
+    achievements.filter(a =>
+        a.text.includes("Monats")
+    );
+
+const yearAchievements =
+    achievements.filter(a =>
+        a.text.includes("Jahres")
     );
 
 const preview = [];
+
+// letzter erreichter Walk-Erfolg
+const lastWalk =
+    walkAchievements.filter(a => a.done).slice(-1)[0];
+
+// letzter Monats-Erfolg
+const lastMonth =
+    monthAchievements.filter(a => a.done).slice(-1)[0];
+
+// letzter Jahres-Erfolg
+const lastYear =
+    yearAchievements.filter(a => a.done).slice(-1)[0];
+
+if(lastWalk) preview.push(lastWalk);
+if(lastMonth) preview.push(lastMonth);
+if(lastYear) preview.push(lastYear);
+
+// danach noch kommende Ziele
+preview.push(
+    ...achievements
+        .filter(a => !a.done)
+        .slice(0, 2)
+);
 
 if(achieved.length){
 
