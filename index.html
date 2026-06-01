@@ -1055,29 +1055,41 @@ const yearAchievements =
 
 const preview = [];
 
-// letzter erreichter Walk-Erfolg
 const lastWalk =
     walkAchievements.filter(a => a.done).slice(-1)[0];
 
-// letzter Monats-Erfolg
+const nextWalk =
+    walkAchievements.find(a => !a.done);
+
 const lastMonth =
     monthAchievements.filter(a => a.done).slice(-1)[0];
 
-// letzter Jahres-Erfolg
+const nextMonth =
+    monthAchievements.find(a => !a.done);
+
 const lastYear =
     yearAchievements.filter(a => a.done).slice(-1)[0];
 
-if(lastWalk) preview.push(lastWalk);
-if(lastMonth) preview.push(lastMonth);
-if(lastYear) preview.push(lastYear);
+const nextYear =
+    yearAchievements.find(a => !a.done);
 
-// danach noch kommende Ziele
-preview.push(
-    ...achievements
-        .filter(a => !a.done)
-        .slice(0, 2)
-);
+if(lastWalk){
+    preview.push(lastWalk);
+}else if(nextWalk){
+    preview.push(nextWalk);
+}
 
+if(lastMonth){
+    preview.push(lastMonth);
+}else if(nextMonth){
+    preview.push(nextMonth);
+}
+
+if(lastYear){
+    preview.push(lastYear);
+}else if(nextYear){
+    preview.push(nextYear);
+}
 
 preview.forEach(a=>{
 
