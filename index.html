@@ -1358,12 +1358,29 @@ function renderHistory(walks){
                             </div>
                         `
                     )
-                    .join("")
-                }
-join("")
-                }
+                          .join("")
+
+    }
+
+    ${
+
+        walk.customNote
+
+        ? `
+
+            <div class="note">
+
+                ${walk.customNote}
 
             </div>
+
+          `
+
+        : ""
+
+    }
+
+</div>
 
             <div class="goal-result">
                 ${walk.goalResult}
