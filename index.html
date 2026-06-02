@@ -1114,9 +1114,14 @@ const popup =
         "allAchievementsContent"
     );
 
-if(popup){
+    if(popup){
 
-    popup.innerHTML = "";
+    popup.innerHTML = `
+        <div class="badge done">
+            ✅ TEST
+        </div>
+    `;
+
 
     achievements.forEach(a=>{
 
