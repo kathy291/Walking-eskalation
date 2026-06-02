@@ -1077,22 +1077,24 @@ const nextYear =
 
 if(lastWalk){
     preview.push(lastWalk);
-}else if(nextWalk){
+}
+if(nextWalk){
     preview.push(nextWalk);
 }
 
 if(lastMonth){
     preview.push(lastMonth);
-}else if(nextMonth){
+}
+if(nextMonth){
     preview.push(nextMonth);
 }
 
 if(lastYear){
     preview.push(lastYear);
-}else if(nextYear){
+}
+if(nextYear){
     preview.push(nextYear);
 }
-
 preview.forEach(a=>{
 
     badges.innerHTML += `
