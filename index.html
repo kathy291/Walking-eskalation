@@ -548,7 +548,8 @@ const quickNotesOptions = [
     "wenig Zeit",
     "Krank",
     "Schnee und Glätte",
-    "sehr warm"
+    "sehr warm",
+    "im Urlaub"
 ];
 
 const motivations = [
@@ -1120,26 +1121,21 @@ const popup =
     );
 console.log("Popup gefunden:", popup);
 console.log("Anzahl Erfolge:", achievements.length);
-    if(popup){
+if(popup){
 
-    popup.innerHTML = "";    
+    popup.innerHTML = `
+        <div class="badge done">
+            TEST A
+        </div>
 
+        <div class="badge done">
+            TEST B
+        </div>
 
-
-    achievements.forEach(a=>{
-
-        popup.innerHTML += `
-
-            <div class="badge ${a.done ? "done" : "locked"}">
-
-                ${a.done ? "✅" : "🔒"}
-
-                ${a.text}
-
-            </div>
-
-        `;
-    });
+        <div class="badge done">
+            TEST C
+        </div>
+    `;
 }
 }
 function renderStats(walks){
