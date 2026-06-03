@@ -1057,44 +1057,45 @@ const yearAchievements =
 
 const preview = [];
 
+const achievedWalks =
+    walkAchievements.filter(a => a.done);
+
+const achievedMonths =
+    monthAchievements.filter(a => a.done);
+
+const achievedYears =
+    yearAchievements.filter(a => a.done);
+
 const lastWalk =
-    walkAchievements.filter(a => a.done).slice(-1)[0];
+    achievedWalks.slice(-1)[0];
+
+const prevWalk =
+    achievedWalks.slice(-2)[0];
 
 const nextWalk =
     walkAchievements.find(a => !a.done);
 
 const lastMonth =
-    monthAchievements.filter(a => a.done).slice(-1)[0];
+    achievedMonths.slice(-1)[0];
 
 const nextMonth =
     monthAchievements.find(a => !a.done);
 
 const lastYear =
-    yearAchievements.filter(a => a.done).slice(-1)[0];
+    achievedYears.slice(-1)[0];
 
 const nextYear =
     yearAchievements.find(a => !a.done);
 
-if(lastWalk){
-    preview.push(lastWalk);
-}
-if(nextWalk){
-    preview.push(nextWalk);
-}
+if(prevWalk) preview.push(prevWalk);
+if(lastWalk) preview.push(lastWalk);
+if(nextWalk) preview.push(nextWalk);
 
-if(lastMonth){
-    preview.push(lastMonth);
-}
-if(nextMonth){
-    preview.push(nextMonth);
-}
+if(lastMonth) preview.push(lastMonth);
+if(nextMonth) preview.push(nextMonth);
 
-if(lastYear){
-    preview.push(lastYear);
-}
-if(nextYear){
-    preview.push(nextYear);
-}
+if(lastYear) preview.push(lastYear);
+if(nextYear) preview.push(nextYear);
 preview.forEach(a=>{
 
     badges.innerHTML += `
