@@ -1093,50 +1093,36 @@ const prevMonth =
     achievedMonths.slice(-2)[0];
 
 const prevYear =
-    achievedYears.slice(-2)[0];
-// Walks (2 Einträge)
-if(prevWalk){
-    preview.push(prevWalk);
-}else if(lastWalk){
-    preview.push(lastWalk);
-}
-
+    achievedYears.slice(-2)[
+    // Walk
 if(lastWalk){
     preview.push(lastWalk);
-}else if(nextWalk){
+}
+if(nextWalk){
     preview.push(nextWalk);
 }
 
-// Monat (2 Einträge)
-if(prevMonth){
-    preview.push(prevMonth);
-}else if(lastMonth){
-    preview.push(lastMonth);
-}else if(nextMonth){
-    preview.push(nextMonth);
-}
-
+// Monat
 if(lastMonth){
     preview.push(lastMonth);
 }else if(nextMonth){
     preview.push(nextMonth);
 }
 
-// Jahr (2 Einträge)
-if(prevYear){
-    preview.push(prevYear);
-}else if(lastYear){
-    preview.push(lastYear);
-}else if(nextYear){
-    preview.push(nextYear);
+if(nextMonth){
+    preview.push(nextMonth);
 }
 
+// Jahr
 if(lastYear){
     preview.push(lastYear);
 }else if(nextYear){
     preview.push(nextYear);
 }
 
+if(nextYear){
+    preview.push(nextYear);
+}
     preview.forEach(a=>{
 
     badges.innerHTML += `
