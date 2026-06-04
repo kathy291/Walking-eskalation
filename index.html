@@ -1099,7 +1099,7 @@ if(nextMonth) preview.push(nextMonth);
 
 if(lastYear) preview.push(lastYear);
 if(nextYear) preview.push(nextYear);
-alert("Vor preview");
+
     preview.forEach(a=>{
 
     badges.innerHTML += `
@@ -1114,24 +1114,37 @@ alert("Vor preview");
 
     `;
 });
-console.log("renderBadges läuft");
-console.log(achievements);
-alert("Vor popup");
+
     const popup =
     document.getElementById(
         "allAchievementsContent"
     );
-console.log("Popup gefunden:", popup);
-console.log("Anzahl Erfolge:", achievements.length);
+
+
+    const popup =
+    document.getElementById(
+        "allAchievementsContent"
+    );
+
 if(popup){
 
-    popup.innerHTML = `
-        <div class="badge done">
-            TEST A
-        </div>
-    `;
+    popup.innerHTML = "";
 
-    alert("Popup wurde befüllt");
+    achievements.forEach(a=>{
+
+        popup.innerHTML += `
+
+            <div class="badge ${a.done ? "done" : "locked"}">
+
+                ${a.done ? "✅" : "🔒"}
+
+                ${a.text}
+
+            </div>
+
+        `;
+    });
+}
 }
 }
 function renderStats(walks){
