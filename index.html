@@ -1592,9 +1592,12 @@ if(editingWalkId){
     renderApp();
 };
 
-renderQuickNotes();
+window.onload = () => {
 
-renderApp();
+    renderQuickNotes();
+
+    renderApp();
+};
 
 </script>
     <div class="popup-overlay" id="achievementsPopup">
