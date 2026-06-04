@@ -1089,16 +1089,53 @@ const lastYear =
 
 const nextYear =
     yearAchievements.find(a => !a.done);
+const prevMonth =
+    achievedMonths.slice(-2)[0];
 
-if(prevWalk) preview.push(prevWalk);
-if(lastWalk) preview.push(lastWalk);
-if(nextWalk) preview.push(nextWalk);
+const prevYear =
+    achievedYears.slice(-2)[0];
+// Walks (2 Einträge)
+if(prevWalk){
+    preview.push(prevWalk);
+}else if(lastWalk){
+    preview.push(lastWalk);
+}
 
-if(lastMonth) preview.push(lastMonth);
-if(nextMonth) preview.push(nextMonth);
+if(lastWalk){
+    preview.push(lastWalk);
+}else if(nextWalk){
+    preview.push(nextWalk);
+}
 
-if(lastYear) preview.push(lastYear);
-if(nextYear) preview.push(nextYear);
+// Monat (2 Einträge)
+if(prevMonth){
+    preview.push(prevMonth);
+}else if(lastMonth){
+    preview.push(lastMonth);
+}else if(nextMonth){
+    preview.push(nextMonth);
+}
+
+if(lastMonth){
+    preview.push(lastMonth);
+}else if(nextMonth){
+    preview.push(nextMonth);
+}
+
+// Jahr (2 Einträge)
+if(prevYear){
+    preview.push(prevYear);
+}else if(lastYear){
+    preview.push(lastYear);
+}else if(nextYear){
+    preview.push(nextYear);
+}
+
+if(lastYear){
+    preview.push(lastYear);
+}else if(nextYear){
+    preview.push(nextYear);
+}
 
     preview.forEach(a=>{
 
