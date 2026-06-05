@@ -1250,7 +1250,22 @@ let paceClass = "";
 let kmIcon = "";
 let timeIcon = "";
 let paceIcon = "";
+let score = 0;
 
+if(previous){
+
+    if(latest.kilometers >= previous.kilometers){
+        score++;
+    }
+
+    if(latest.durationSeconds >= previous.durationSeconds){
+        score++;
+    }
+
+    if(latest.paceSeconds <= previous.paceSeconds){
+        score++;
+    }
+}
 if(previous){
 
     kmClass =
@@ -1301,9 +1316,56 @@ document.getElementById("todayPace")
     `<span class="${paceClass}">
         Pace ${formatMMSS(latest.paceSeconds)}${paceIcon}
     </span>`;
-        document.getElementById("lastGoalResult")
-            .innerHTML =
-            latest.goalResult;
+      let walkMessage = "";
+
+if(score === 3){
+
+    walkMessage =
+        `<div style="
+            color:#2fbf71;
+            font-weight:800;
+            margin-top:8px;
+        ">
+            ⭐ Perfekter Walk!
+        </div>`;
+
+}else if(score === 2){
+
+    walkMessage =
+        `<div style="
+            color:#2fbf71;
+            font-weight:800;
+            margin-top:8px;
+        ">
+            🔥 Starke Verbesserung
+        </div>`;
+
+}else if(score === 1){
+
+    walkMessage =
+        `<div style="
+            color:#d4af37;
+            font-weight:800;
+            margin-top:8px;
+        ">
+            👍 Solider Walk
+        </div>`;
+
+}else if(previous){
+
+    walkMessage =
+        `<div style="
+            color:#ff6b6b;
+            font-weight:800;
+            margin-top:8px;
+        ">
+            💪 Nächstes Mal wieder angreifen
+        </div>`;
+}
+
+document.getElementById("lastGoalResult")
+    .innerHTML =
+    latest.goalResult + walkMessage;  
     }
 
     const xp = walks.length * 25;
