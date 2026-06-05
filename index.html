@@ -1103,25 +1103,53 @@ if(nextWalk){
 }
 
 // Monat
+const nextMonthIndex =
+    monthAchievements.findIndex(a => !a.done);
+
+const secondNextMonth =
+    nextMonthIndex >= 0
+        ? monthAchievements[nextMonthIndex + 1]
+        : null;
+
 if(lastMonth){
     preview.push(lastMonth);
 }else if(nextMonth){
     preview.push(nextMonth);
 }
 
-if(nextMonth){
-    preview.push(nextMonth);
+if(lastMonth){
+    if(nextMonth){
+        preview.push(nextMonth);
+    }
+}else{
+    if(secondNextMonth){
+        preview.push(secondNextMonth);
+    }
 }
 
 // Jahr
+const nextYearIndex =
+    yearAchievements.findIndex(a => !a.done);
+
+const secondNextYear =
+    nextYearIndex >= 0
+        ? yearAchievements[nextYearIndex + 1]
+        : null;
+
 if(lastYear){
     preview.push(lastYear);
 }else if(nextYear){
     preview.push(nextYear);
 }
 
-if(nextYear){
-    preview.push(nextYear);
+if(lastYear){
+    if(nextYear){
+        preview.push(nextYear);
+    }
+}else{
+    if(secondNextYear){
+        preview.push(secondNextYear);
+    }
 }
     preview.forEach(a=>{
 
