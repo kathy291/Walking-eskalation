@@ -1369,14 +1369,36 @@ function renderHistory(walks){
     history.innerHTML = "";
 
     walks
-    .sort(
-        (a,b)=>
-            new Date(b.date)
-            -
-            new Date(a.date)
-    )
-    .forEach(walk=>{
+.sort(
+    (a,b)=>
+        new Date(b.date)
+        -
+        new Date(a.date)
+)
+.forEach((walk,index,array)=>{
+const prevWalk = array[index + 1];
 
+let kmClass = "";
+let timeClass = "";
+let paceClass = "";
+
+if(prevWalk){
+
+    kmClass =
+        walk.kilometers >= prevWalk.kilometers
+        ? "plus"
+        : "minus";
+
+    timeClass =
+        walk.durationSeconds >= prevWalk.durationSeconds
+        ? "plus"
+        : "minus";
+
+    paceClass =
+        walk.paceSeconds <= prevWalk.paceSeconds
+        ? "plus"
+        : "minus";
+}
         const card =
             document.createElement("div");
 
@@ -1390,16 +1412,22 @@ function renderHistory(walks){
             <div class="walk-grid">
 
                 <div class="value-box">
-                    ${formatKm(walk.kilometers)} km
-                </div>
+    <span class="${kmClass}">
+        ${formatKm(walk.kilometers)} km
+    </span>
+</div>
 
-                <div class="value-box">
-                    ${formatMMSS(walk.durationSeconds)}
-                </div>
+              <div class="value-box">
+    <span class="${timeClass}">
+        ${formatMMSS(walk.durationSeconds)}
+    </span>
+</div>
 
-                <div class="value-box">
-                    ${formatMMSS(walk.paceSeconds)}
-                </div>
+           <div class="value-box">
+    <span class="${paceClass}">
+        ${formatMMSS(walk.paceSeconds)}
+    </span>
+</div>
 
             </div>
 
