@@ -1231,28 +1231,76 @@ function renderStats(walks){
             .textContent =
             formatMMSS(longestTime);
 
-        const latest =
-            [...walks]
-            .sort(
-                (a,b)=>
-                    new Date(b.date)
-                    -
-                    new Date(a.date)
-            )[0];
+        const sortedWalks =
+    [...walks]
+    .sort(
+        (a,b)=>
+            new Date(b.date)
+            -
+            new Date(a.date)
+    );
 
-        document.getElementById("todayKm")
-            .textContent =
-            formatKm(latest.kilometers)+" km";
+const latest = sortedWalks[0];
+const previous = sortedWalks[1];
 
-        document.getElementById("todayTime")
-            .textContent =
-            formatMMSS(latest.durationSeconds);
+let kmClass = "";
+let timeClass = "";
+let paceClass = "";
 
-        document.getElementById("todayPace")
-            .textContent =
-            "Pace "+
-            formatMMSS(latest.paceSeconds);
+let kmIcon = "";
+let timeIcon = "";
+let paceIcon = "";
 
+if(previous){
+
+    kmClass =
+        latest.kilometers >= previous.kilometers
+        ? "plus"
+        : "minus";
+
+    kmIcon =
+        latest.kilometers >= previous.kilometers
+        ? " ⭐"
+        : " 🥺";
+
+    timeClass =
+        latest.durationSeconds >= previous.durationSeconds
+        ? "plus"
+        : "minus";
+
+    timeIcon =
+        latest.durationSeconds >= previous.durationSeconds
+        ? " ⭐"
+        : " 🥺";
+
+    paceClass =
+        latest.paceSeconds <= previous.paceSeconds
+        ? "plus"
+        : "minus";
+
+    paceIcon =
+        latest.paceSeconds <= previous.paceSeconds
+        ? " ⭐"
+        : " 🥺";
+}
+
+document.getElementById("todayKm")
+    .innerHTML =
+    `<span class="${kmClass}">
+        ${formatKm(latest.kilometers)} km${kmIcon}
+    </span>`;
+
+document.getElementById("todayTime")
+    .innerHTML =
+    `<span class="${timeClass}">
+        ${formatMMSS(latest.durationSeconds)}${timeIcon}
+    </span>`;
+
+document.getElementById("todayPace")
+    .innerHTML =
+    `<span class="${paceClass}">
+        Pace ${formatMMSS(latest.paceSeconds)}${paceIcon}
+    </span>`;
         document.getElementById("lastGoalResult")
             .innerHTML =
             latest.goalResult;
