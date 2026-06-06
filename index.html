@@ -1223,7 +1223,76 @@ if(popup){
     });
 }
 }
-function renderStats(walks){
+function renderStreak(walks){
+
+    if(!walks.length){
+
+        document.getElementById("streakDays")
+            .textContent = "0 Tage";
+
+        document.getElementById("streakMessage")
+            .textContent =
+            "Noch kein Walk vorhanden";
+
+        return;
+    }
+
+    const dates =
+        walks
+        .map(w => w.date)
+        .sort(
+            (a,b)=>
+                new Date(b)
+                -
+                new Date(a)
+        );
+
+    let streak = 1;
+
+    for(let i=0;i<dates.length-1;i++){
+
+        const current =
+            new Date(dates[i]);
+
+        const next =
+            new Date(dates[i+1]);
+
+        const diff =
+            (
+                current - next
+            )
+            /
+            (
+                1000*60*60*24
+            );
+
+        if(diff === 1){
+
+            streak++;
+
+        }else{
+
+            break;
+        }
+    }
+
+    document.getElementById("streakDays")
+        .textContent =
+        streak + " Tage";
+
+    const nextMilestone =
+        Math.ceil(streak / 50) * 50;
+
+    const remaining =
+        nextMilestone - streak;
+
+    document.getElementById("streakMessage")
+        .innerHTML =
+
+        `💎 Seit ${streak} Tagen ohne Pause.<br>
+         Noch ${remaining} Tage bis ${nextMilestone}.`;
+}
+    function renderStats(walks){
 
     const totalKm =
         walks.reduce(
@@ -1693,6 +1762,7 @@ function renderApp(){
     renderChallenge();
 
     renderStats(walks);
+    renderStreak(walks);
 
     renderCharts(walks);
 
