@@ -1238,14 +1238,15 @@ function renderStreak(walks){
     }
 
     const dates =
-        walks
-        .map(w => w.date)
-        .sort(
-            (a,b)=>
-                new Date(b)
-                -
-                new Date(a)
-        );
+    [...new Set(
+        walks.map(w => w.date)
+    )]
+    .sort(
+        (a,b)=>
+            new Date(b)
+            -
+            new Date(a)
+    );
 
     let streak = 1;
 
@@ -1423,7 +1424,7 @@ if(score === 3){
 
     walkMessage =
         `<div style="
-            color:#2fbf71;
+            color:#5aa9ff;
             font-weight:800;
             margin-top:8px;
         ">
@@ -1434,7 +1435,7 @@ if(score === 3){
 
     walkMessage =
         `<div style="
-            color:#d4af37;
+            color:#5aa9ff;
             font-weight:800;
             margin-top:8px;
         ">
@@ -1445,7 +1446,7 @@ if(score === 3){
 
     walkMessage =
         `<div style="
-            color:#d4af37;
+            color:#5aa9ff;
             font-weight:800;
             margin-top:8px;
         ">
@@ -1456,7 +1457,7 @@ if(score === 3){
 
     walkMessage =
         `<div style="
-            color:#ff6b6b;
+            color:#5aa9ff;
             font-weight:800;
             margin-top:8px;
         ">
