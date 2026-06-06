@@ -12,7 +12,7 @@
 
 <style>
 
-:root{
+ :root{
     --gold:#d4af37;
     --goldLight:#f7d978;
     --bg:#f8f5ef;
@@ -65,18 +65,22 @@ h2{
 
 .hero-km{
     font-size:2.7rem;
-    font-weight:
-    
-.card.streak-card{
-
-    background:red !important;
-
-    border:5px solid blue !important;
+    font-weight:900;
 }
 
-.card.streak-card .hero-km{
+.streak-card{
+    background:
+        linear-gradient(
+            180deg,
+            var(--turquoiseLight),
+            white
+        );
 
-    color:blue !important;
+    border:3px solid var(--turquoise);
+}
+
+.streak-card .hero-km{
+    color:var(--turquoise);
 }
 .challenge{
     background:linear-gradient(180deg,#fff9e4,#fff0bb);
