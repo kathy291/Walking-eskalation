@@ -1280,18 +1280,87 @@ function renderStreak(walks){
     document.getElementById("streakDays")
         .textContent =
         streak + " Tage";
+const milestones = [
 
-    const nextMilestone =
-        Math.ceil(streak / 50) * 50;
+    365,
+    450,
+    500,
+
+    550,
+    600,
+    650,
+    700,
+
+    730,
+
+    800,
+    850,
+    900,
+
+    912,
+
+    1000,
+    1095,
+    1277,
+    1460
+];
+
+// danach automatisch alle 50 Tage
+for(let i=1500;i<=5000;i+=50){
+
+    milestones.push(i);
+}
+
+const nextMilestone =
+    milestones.find(
+        m => m > streak
+    );
+
+let message = "";
+
+if(streak === 365){
+
+    message =
+        "🏆 Ein Jahr ohne Unterbrechung!";
+
+}else if(streak === 450){
+
+    message =
+        "👑 Walking-Legende erreicht!";
+
+}else if(streak === 500){
+
+    message =
+        "🔥 500 Tage ohne Pause!";
+
+}else if(streak === 730){
+
+    message =
+        "🏆 Zwei Jahre am Stück!";
+
+}else if(streak === 912){
+
+    message =
+        "⭐ Zweieinhalb Jahre geschafft!";
+
+}else if(streak === 1095){
+
+    message =
+        "👑 Drei Jahre ohne Unterbrechung!";
+
+}else{
 
     const remaining =
         nextMilestone - streak;
 
-    document.getElementById("streakMessage")
-        .innerHTML =
+    message =
+    `💎 Noch ${remaining} Tage bis zum Jubiläum (${nextMilestone})`;
+}
 
-        `💎 Seit ${streak} Tagen ohne Pause.<br>
-         Noch ${remaining} Tage bis ${nextMilestone}.`;
+document.getElementById("streakMessage")
+    .textContent =
+    message;
+    
 }
     function renderStats(walks){
 
