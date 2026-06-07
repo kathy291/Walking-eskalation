@@ -49,15 +49,131 @@ h2{
 }
 
 .level-card{
-    background:linear-gradient(180deg,#ffe89f,#d4af37);
-    color:white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #eadcff,
+            #cdb4ff
+        );
+
+    color:#5d2ebd;
 }
 
 .level{
     font-size:2.5rem;
     font-weight:900;
 }
+.level-title{
 
+    font-size:1.2rem;
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.road-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.road{
+
+    flex:1;
+
+    height:46px;
+
+    border-radius:999px;
+
+    background:#7d63b8;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.road::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    top:50%;
+
+    height:4px;
+
+    transform:
+        translateY(-50%);
+
+    background:
+        repeating-linear-gradient(
+            to right,
+            white 0 18px,
+            transparent 18px 36px
+        );
+}
+
+.road-star{
+
+    width:56px;
+    height:56px;
+
+    border-radius:50%;
+
+    background:#8d6be8;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:900;
+}
+
+.runner{
+
+    position:absolute;
+
+    top:-18px;
+
+    left:0;
+
+    font-size:42px;
+
+    transition:1s;
+}
+
+.xp-progress{
+
+    text-align:center;
+
+    font-size:2rem;
+
+    font-weight:900;
+
+    margin-top:10px;
+}
+
+.xp-next{
+
+    text-align:center;
+
+    margin-top:8px;
+
+    font-weight:700;
+}
 .hero{
     border:3px solid var(--gold);
     background:linear-gradient(180deg,#fffdf7,#fff5d7);
@@ -383,14 +499,52 @@ textarea{
 
 <div class="card level-card">
 
-<div>👑 Walking Level</div>
-
-<div class="level" id="levelNumber">
-Level 1
+<div class="level-title">
+👟 Walking Level
 </div>
 
-<div id="xpText">
-0 XP
+<div
+    class="level"
+    id="levelNumber"
+>
+    Level 1
+</div>
+
+<div class="road-wrapper">
+
+    <div class="road-star">
+        23
+    </div>
+
+    <div class="road">
+
+        <div
+            id="runner"
+            class="runner"
+        >
+            🏃‍♀️
+        </div>
+
+    </div>
+
+    <div class="road-star">
+        24
+    </div>
+
+</div>
+
+<div
+    class="xp-progress"
+    id="xpText"
+>
+    0 / 100 XP
+</div>
+
+<div
+    class="xp-next"
+    id="xpNext"
+>
+    Noch 100 XP bis Level 2
 </div>
 
 </div>
