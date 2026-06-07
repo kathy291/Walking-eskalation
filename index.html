@@ -514,9 +514,12 @@ textarea{
 
 <div class="road-wrapper">
 
-    <div class="road-star">
-        23
-    </div>
+<div
+    class="road-star"
+    id="levelStart"
+>
+    1
+</div>    
 
     <div class="road">
 
@@ -524,14 +527,17 @@ textarea{
             id="runner"
             class="runner"
         >
-            🏃‍♀️
+            🏃
         </div>
 
     </div>
 
-    <div class="road-star">
-        24
-    </div>
+   <div
+    class="road-star"
+    id="levelEnd"
+>
+    2
+</div> 
 
 </div>
 
@@ -1810,15 +1816,29 @@ document.getElementById("lastGoalResult")
 
     const level =
         Math.floor(xp / 100) + 1;
+        
+document.getElementById("levelNumber")
+    .textContent =
+    "Level " + level;
 
-    document.getElementById("levelNumber")
-        .textContent =
-        "Level "+level;
+        document.getElementById("levelStart")
+    .textContent =
+    level;
 
-    document.getElementById("xpText")
-        .textContent =
-        xp+" XP";
+document.getElementById("levelEnd")
+    .textContent =
+    level + 1;
+document.getElementById("xpText")
+    .textContent =
+    currentXp + " / 100 XP";
 
+document.getElementById("xpNext")
+    .textContent =
+    `Noch ${100-currentXp} XP bis Level ${level+1}`;
+
+document.getElementById("runner")
+    .style.left =
+    `${currentXp}%`;
     const now = new Date();
 
     const month = now.getMonth();
