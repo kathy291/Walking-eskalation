@@ -344,7 +344,38 @@ textarea{
         grid-template-columns:1fr;
     }
 }
+#celebrationAnimal{
 
+    position:fixed;
+
+    left:-150px;
+    top:120px;
+
+    font-size:80px;
+
+    z-index:99999;
+
+    display:none;
+}
+
+#celebrationAnimal.run{
+
+    display:block;
+
+    animation:
+        slothRun 5s linear;
+}
+
+@keyframes slothRun{
+
+    from{
+        left:-150px;
+    }
+
+    to{
+        left:110%;
+    }
+}
 </style>
 </head>
 
@@ -564,7 +595,9 @@ Walk speichern
 
 </div>
 </div>
-
+<div id="celebrationAnimal">
+🦥
+</div>
 <script>
 
 const STORAGE_KEY = "kathyWalkingV5";
@@ -1409,7 +1442,36 @@ if(streak === 365){
 document.getElementById("streakMessage")
     .textContent =
     message;
-    
+const animal =
+    document.getElementById(
+        "celebrationAnimal"
+    );
+
+animal.classList.remove("run");
+
+if(
+    streak === 433 ||
+    streak === 450 ||
+    streak === 500 ||
+    streak === 550 ||
+    streak === 600 ||
+    streak === 650 ||
+    streak === 700 ||
+    streak === 730 ||
+    streak === 800 ||
+    streak === 850 ||
+    streak === 900 ||
+    streak === 912 ||
+    streak === 1000 ||
+    streak === 1095 ||
+    streak === 1277 ||
+    streak === 1460
+){
+
+    void animal.offsetWidth;
+
+    animal.classList.add("run");
+}    
 }
     function renderStats(walks){
 
