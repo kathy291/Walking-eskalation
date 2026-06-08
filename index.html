@@ -1813,6 +1813,7 @@ document.getElementById("lastGoalResult")
     }
 
     const xp = walks.length * 25;
+        const currentXp = xp % 100;
 
     const level =
         Math.floor(xp / 100) + 1;
