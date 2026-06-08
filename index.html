@@ -124,10 +124,8 @@ h2{
 
 .road-star{
 
-    width:56px;
-    height:56px;
-
-    border-radius:50%;
+    width:64px;
+    height:64px;
 
     background:#8d6be8;
 
@@ -140,8 +138,22 @@ h2{
     justify-content:center;
 
     font-weight:900;
-}
 
+    font-size:1rem;
+
+    clip-path:polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+}
    .runner{
 
     position:absolute;
@@ -501,7 +513,10 @@ textarea{
 
 <body>
 
-<div class="card level-card">
+<div
+    class="card level-card"
+    onclick="openLevelPopup()"
+>
 
 <div class="level-title">
 👟 Walking Level
@@ -529,7 +544,7 @@ textarea{
     id="runner"
     class="runner"
 >
-    🏃‍♀️
+    🏃🏻‍♀️
 </div>
 
     </div>
@@ -2248,7 +2263,103 @@ if(editingWalkId){
 
     renderApp();
 };
+function openLevelPopup(){
 
+    const walks = loadWalks();
+
+    const walkXp =
+    walks.length * 25;
+
+const paceXp =
+    walks.filter(
+        w =>
+            w.goalResult.includes(
+                "👍 Pace"
+            )
+    ).length * 10;
+
+const timeXp =
+    walks.filter(
+        w =>
+            w.goalResult.includes(
+                "👍 Zeit"
+            )
+    ).length * 10;
+
+const xp =
+    walkXp +
+    paceXp +
+    timeXp;
+
+    const paceXp =
+        walks.filter(
+            w =>
+                w.goalResult.includes(
+                    "👍 Pace"
+                )
+        ).length * 10;
+
+    const timeXp =
+        walks.filter(
+            w =>
+                w.goalResult.includes(
+                    "👍 Zeit"
+                )
+        ).length * 10;
+
+    const totalXp =
+        walkXp +
+        paceXp +
+        timeXp;
+
+    document
+        .getElementById(
+            "levelPopupContent"
+        )
+        .innerHTML = `
+
+        <strong>
+            Gesamt XP:
+            ${totalXp}
+        </strong>
+
+        <br><br>
+
+        🚶 Walks:
+        ${walkXp} XP
+
+        <br>
+
+        ⚡ Pace-Ziele:
+        ${paceXp} XP
+
+        <br>
+
+        ⏱️ Zeit-Ziele:
+        ${timeXp} XP
+
+        <br><br>
+
+        👟 ${walks.length}
+        gespeicherte Walks
+
+        `;
+        
+    document
+        .getElementById(
+            "levelPopup"
+        )
+        .classList.add("open");
+}
+
+function closeLevelPopup(){
+
+    document
+        .getElementById(
+            "levelPopup"
+        )
+        .classList.remove("open");
+}
 window.onload = () => {
 
     renderQuickNotes();
@@ -2290,6 +2401,29 @@ window.onload = () => {
         <button
             class="save-btn"
             onclick="closeDayPopup()"
+        >
+            Schließen
+        </button>
+
+    </div>
+
+</div>
+    <div
+    class="popup-overlay"
+    id="levelPopup"
+>
+
+    <div class="popup-card">
+
+        <h2>👟 Walking Level</h2>
+
+        <div id="levelPopupContent"></div>
+
+        <br>
+
+        <button
+            class="save-btn"
+            onclick="closeLevelPopup()"
         >
             Schließen
         </button>
