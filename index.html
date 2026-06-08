@@ -2287,14 +2287,65 @@ function openLevelPopup(){
         ).length * 10;
 
     const totalXp =
-        walkXp +
-        paceXp +
-        timeXp;
+        walkXp + paceXp + timeXp;
+
+    const today =
+        new Date();
+
+    today.setHours(0,0,0,0);
+
+    const weekStart =
+        new Date(today);
+
+    weekStart.setDate(
+        today.getDate() - 6
+    );
+
+    const weekRows =
+        walks
+        .filter(w =>{
+
+            const d =
+                new Date(w.date);
+
+            d.setHours(0,0,0,0);
+
+            return d >= weekStart && d <= today;
+        })
+        .sort(
+            (a,b)=>
+                new Date(b.date) -
+                new Date(a.date)
+        )
+        .map(w =>{
+
+            let xp = 25;
+            let details = "+25 Walk";
+
+            if(w.goalResult.includes("👍 Pace")){
+                xp += 10;
+                details += ", +10 Pace";
+            }
+
+            if(w.goalResult.includes("👍 Zeit")){
+                xp += 10;
+                details += ", +10 Zeit";
+            }
+
+            return `
+                <div style="margin-bottom:12px;">
+                    <strong>${w.date}</strong><br>
+                    ${details}<br>
+                    <span class="plus">
+                        Gesamt: +${xp} XP
+                    </span>
+                </div>
+            `;
+        })
+        .join("");
 
     document
-        .getElementById(
-            "levelPopupContent"
-        )
+        .getElementById("levelPopupContent")
         .innerHTML = `
 
         <strong>
@@ -2322,12 +2373,19 @@ function openLevelPopup(){
         👟 ${walks.length}
         gespeicherte Walks
 
+        <hr>
+
+        <h3>XP der letzten 7 Tage</h3>
+
+        ${
+            weekRows
+            ||
+            "In den letzten 7 Tagen wurden keine XP gesammelt."
+        }
         `;
-        
+
     document
-        .getElementById(
-            "levelPopup"
-        )
+        .getElementById("levelPopup")
         .classList.add("open");
 }
 
