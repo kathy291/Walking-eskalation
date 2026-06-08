@@ -2263,48 +2263,23 @@ if(editingWalkId){
 
     renderApp();
 };
+
+
 function openLevelPopup(){
 
     const walks = loadWalks();
 
     const walkXp =
-    walks.length * 25;
-
-const paceXp =
-    walks.filter(
-        w =>
-            w.goalResult.includes(
-                "👍 Pace"
-            )
-    ).length * 10;
-
-const timeXp =
-    walks.filter(
-        w =>
-            w.goalResult.includes(
-                "👍 Zeit"
-            )
-    ).length * 10;
-
-const xp =
-    walkXp +
-    paceXp +
-    timeXp;
+        walks.length * 25;
 
     const paceXp =
         walks.filter(
-            w =>
-                w.goalResult.includes(
-                    "👍 Pace"
-                )
+            w => w.goalResult.includes("👍 Pace")
         ).length * 10;
 
     const timeXp =
         walks.filter(
-            w =>
-                w.goalResult.includes(
-                    "👍 Zeit"
-                )
+            w => w.goalResult.includes("👍 Zeit")
         ).length * 10;
 
     const totalXp =
