@@ -2371,7 +2371,7 @@ const xpToNextLevel =
 
             return `
                 <div style="margin-bottom:12px;">
-                    <strong>${w.date}</strong><br>
+                    <strong>${formatDate(w.date)}</strong><br>
                     ${details}<br>
                     <span class="plus">
                         Gesamt: +${xp} XP
@@ -2469,7 +2469,7 @@ const xpToNextLevel =
 
 ${new Date(bestXpWalk.date)
     .toLocaleDateString("de-DE")}
-${bestXpWalk.date}
+${formatDate(bestXpWalk.date)}
 
 <br>
 
