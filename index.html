@@ -2343,6 +2343,32 @@ function openLevelPopup(){
             `;
         })
         .join("");
+    const last30DaysXp =
+    walks
+    .filter(w =>{
+
+        const d =
+            new Date(w.date);
+
+        d.setHours(0,0,0,0);
+
+        return d >= weekStart && d <= today;
+    })
+    .reduce((sum,w)=>{
+
+        let xp = 25;
+
+        if(w.goalResult.includes("👍 Pace")){
+            xp += 10;
+        }
+
+        if(w.goalResult.includes("👍 Zeit")){
+            xp += 10;
+        }
+
+        return sum + xp;
+
+    },0);
 
     document
         .getElementById("levelPopupContent")
@@ -2354,6 +2380,12 @@ function openLevelPopup(){
         </strong>
 
         <br><br>
+        <br><br>
+
+<strong>
+    XP letzte 30 Tage:
+    ${last30DaysXp}
+</strong>
 
         🚶 Walks:
         ${walkXp} XP
