@@ -914,7 +914,12 @@ function formatMMSS(seconds){
         String(secs).padStart(2,"0")
     );
 }
+function formatDate(dateString){
 
+    return new Date(dateString)
+        .toLocaleDateString("de-DE");
+}
+    
 function renderMotivation(){
 
     const day =
@@ -2462,12 +2467,14 @@ const xpToNextLevel =
 
 <br>
 
+${new Date(bestXpWalk.date)
+    .toLocaleDateString("de-DE")}
 ${bestXpWalk.date}
 
 <br>
 
 <span class="plus">
-    +${bestXpWalk.xp} XP
+
 </span>
 
         <hr>
