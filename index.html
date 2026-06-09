@@ -2288,6 +2288,30 @@ function openLevelPopup(){
 
     const totalXp =
         walkXp + paceXp + timeXp;
+    const bestXpWalk =
+    walks.reduce((best, walk) => {
+
+        let xp = 25;
+
+        if(walk.goalResult.includes("👍 Pace")){
+            xp += 10;
+        }
+
+        if(walk.goalResult.includes("👍 Zeit")){
+            xp += 10;
+        }
+
+        if(!best || xp > best.xp){
+
+            return {
+                date: walk.date,
+                xp
+            };
+        }
+
+        return best;
+
+    }, null);
     const currentLevel =
     Math.floor(totalXp / 100) + 1;
 
@@ -2432,6 +2456,19 @@ const xpToNextLevel =
 
         👟 ${walks.length}
         gespeicherte Walks
+        <br><br>
+
+🏆 Bester XP-Tag:
+
+<br>
+
+${bestXpWalk.date}
+
+<br>
+
+<span class="plus">
+    +${bestXpWalk.xp} XP
+</span>
 
         <hr>
 
