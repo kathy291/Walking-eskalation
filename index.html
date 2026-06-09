@@ -1104,7 +1104,9 @@ function renderCharts(walks){
         );
 
     const labels =
-        sorted.map(w=>w.date);
+    sorted.map(
+        w => formatDate(w.date)
+    );
 
     if(kmChart){
         kmChart.destroy();
@@ -2467,8 +2469,6 @@ const xpToNextLevel =
 
 <br>
 
-${new Date(bestXpWalk.date)
-    .toLocaleDateString("de-DE")}
 ${formatDate(bestXpWalk.date)}
 
 <br>
