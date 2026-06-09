@@ -2288,6 +2288,14 @@ function openLevelPopup(){
 
     const totalXp =
         walkXp + paceXp + timeXp;
+    const currentLevel =
+    Math.floor(totalXp / 100) + 1;
+
+const currentLevelXp =
+    totalXp % 100;
+
+const xpToNextLevel =
+    100 - currentLevelXp;
 
     const today =
         new Date();
@@ -2375,11 +2383,18 @@ function openLevelPopup(){
         .innerHTML = `
 
         <strong>
-            Gesamt XP:
-            ${totalXp}
-        </strong>
+    Gesamt XP:
+    ${totalXp}
+</strong>
 
-        <br><br>
+<br>
+
+👟 Level ${currentLevel}
+
+<br>
+
+⭐ Noch ${xpToNextLevel} XP bis Level ${currentLevel + 1}
+
         <br><br>
 
 <strong>
