@@ -1198,6 +1198,44 @@ if(matchingNote){
         list[
             day % list.length
         ];
+   let slothEmoji =
+    "🦥";
+
+if(walks.length){
+
+    const latest =
+        [...walks]
+        .sort(
+            (a,b)=>
+                new Date(b.date)
+                -
+                new Date(a.date)
+        )[0];
+
+    const notes =
+        latest.quickNotes || [];
+
+    if(notes.includes("Regen")){
+
+        slothEmoji =
+            "🌧️🦥";
+
+    }else if(notes.includes("sehr warm")){
+
+        slothEmoji =
+            "☀️🦥";
+
+    }else if(notes.includes("im Urlaub")){
+
+        slothEmoji =
+            "🏖️🦥";
+    }
+}
+
+document
+    .getElementById("slothEmoji")
+    .textContent =
+    slothEmoji;
     document
     .getElementById("slothText")
     .textContent =
