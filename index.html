@@ -1086,7 +1086,25 @@ function renderMotivation(){
                     -
                     new Date(a.date)
             )[0];
+const latestNotes =
+    latest.quickNotes || [];
 
+const matchingNote =
+    latestNotes.find(
+        note => noteMotivations[note]
+    );
+
+if(matchingNote){
+
+    const noteList =
+        noteMotivations[
+            matchingNote
+        ];
+
+    list =
+        noteList;
+
+}else{
         const paceDone =
             latest.goalResult.includes("👍 Pace");
 
@@ -1103,6 +1121,7 @@ function renderMotivation(){
             list =
                 badWalkMotivations;
         }
+    }
     }
 
     const streakText =
