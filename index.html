@@ -943,12 +943,46 @@ function formatDate(dateString){
     
 function renderMotivation(){
 
-    const day =
-        new Date().getDate();
+    const walks =
+        loadWalks();
 
-    document.getElementById("motivationText")
+    const streak =
+        document
+            .getElementById("streakDays")
+            ?.textContent || "";
+
+    let text = "";
+
+    if(streak.includes("1000")){
+
+        text =
+            "👑 Kathy marschiert inzwischen in einer eigenen Liga.";
+
+    }else if(streak.includes("500")){
+
+        text =
+            "🔥 Der Schweinehund erinnert sich nur noch dunkel an seine Siege.";
+
+    }else if(streak.includes("100")){
+
+        text =
+            "🏆 100+ Tage Serie. Der Schweinehund prüft seine Kündigung.";
+
+    }else{
+
+        const day =
+            new Date().getDate();
+
+        text =
+            motivations[
+                day % motivations.length
+            ];
+    }
+
+    document
+        .getElementById("motivationText")
         .textContent =
-        motivations[day % motivations.length];
+        text;
 }
 
 function renderChallenge(){
