@@ -970,42 +970,44 @@ function formatDate(dateString){
     
 function renderMotivation(){
 
-    const walks =
-        loadWalks();
+    const day =
+        new Date().getDate();
 
-    const streak =
+    const streakText =
         document
             .getElementById("streakDays")
             ?.textContent || "";
 
-    let text = "";
+    const streak =
+        parseInt(streakText) || 0;
 
-    if(streak.includes("1000")){
+    let list =
+        motivations;
 
-        text =
-            "👑 Kathy marschiert inzwischen in einer eigenen Liga.";
+    if(streak >= 400){
 
-    }else if(streak.includes("500")){
+        list =
+            streakMotivations;
 
-        text =
-            "🔥 Der Schweinehund erinnert sich nur noch dunkel an seine Siege.";
+    }else if(streak >= 100){
 
-    }else if(streak.includes("100")){
-
-        text =
-            "🏆 100+ Tage Serie. Der Schweinehund prüft seine Kündigung.";
-
-    }else{
-
-        const day =
-            new Date().getDate();
-
-        text =
-            motivations[
-                day % motivations.length
-            ];
+        list =
+            walkMotivations;
     }
 
+    if(day % 5 === 0){
+
+        list =
+            pigMotivations;
+    }
+
+    document
+        .getElementById("motivationText")
+        .textContent =
+        list[
+            day % list.length
+        ];
+}
     document
         .getElementById("motivationText")
         .textContent =
