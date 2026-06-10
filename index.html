@@ -236,8 +236,24 @@ h2{
     font-weight:800;
     text-align:center;
     font-size:1.08rem;
+
+    position:relative;
 }
 
+#slothCorner{
+    margin-top:15px;
+    text-align:right;
+    font-size:40px;
+    opacity:0.95;
+}
+
+#slothText{
+    font-size:0.8rem;
+    color:#9b3f7a;
+    font-style:italic;
+    margin-top:4px;
+}
+    
 .stats{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -590,7 +606,17 @@ textarea{
 <div class="card motivation">
 
 <div id="motivationText"></div>
+<div id="slothCorner">
 
+    🦥
+
+    <div id="slothText">
+
+        Kaffee. Regen. Kein Stress.
+
+    </div>
+
+</div>
 </div>
 
 <div class="card challenge">
@@ -933,6 +959,24 @@ const pigMotivations = [
         "👟 Andere sammeln Souvenirs. Kathy sammelt Kilometer."
     ]
 };
+    const slothTexts = [
+
+    "Kaffee. Regen. Kein Stress.",
+
+    "Heute ist ideales Fensterwetter.",
+
+    "Ich beobachte die Regentropfen.",
+
+    "Langsam ist auch eine Geschwindigkeit.",
+
+    "Das Wetter sieht nach Decke aus.",
+
+    "Regen? Perfektes Faultierwetter.",
+
+    "Heute bewege ich mich emotional.",
+
+    "Das Erdferkel wurde ersetzt."
+];
   const goodWalkMotivations = [
 
     "🔥 Das Erdferkel sucht nach Ausreden.",
@@ -1150,6 +1194,12 @@ if(matchingNote){
         list[
             day % list.length
         ];
+    document
+    .getElementById("slothText")
+    .textContent =
+    slothTexts[
+        day % slothTexts.length
+    ];
 }
    function renderChallenge(){ 
     const challenges = [
