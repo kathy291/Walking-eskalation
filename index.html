@@ -993,8 +993,43 @@ function formatDate(dateString){
     
 function renderMotivation(){
 
+    const walks =
+        loadWalks();
+
     const day =
         new Date().getDate();
+
+    let list =
+        motivations;
+
+    if(walks.length){
+
+        const latest =
+            [...walks]
+            .sort(
+                (a,b)=>
+                    new Date(b.date)
+                    -
+                    new Date(a.date)
+            )[0];
+
+        const paceDone =
+            latest.goalResult.includes("👍 Pace");
+
+        const timeDone =
+            latest.goalResult.includes("👍 Zeit");
+
+        if(paceDone && timeDone){
+
+            list =
+                goodWalkMotivations;
+
+        }else{
+
+            list =
+                badWalkMotivations;
+        }
+    }
 
     const streakText =
         document
@@ -1004,18 +1039,10 @@ function renderMotivation(){
     const streak =
         parseInt(streakText) || 0;
 
-    let list =
-        motivations;
-
-    if(streak >= 400){
+    if(streak >= 400 && day % 3 === 0){
 
         list =
-            streakMotivations;
-
-    }else if(streak >= 100){
-
-        list =
-            walkMotivations;
+            legendMotivations;
     }
 
     if(day % 5 === 0){
@@ -1031,9 +1058,6 @@ function renderMotivation(){
             day % list.length
         ];
 }
-
-function renderChallenge(){
-
     const challenges = [
 
         "Laufe heute mindestens 3 km",
