@@ -240,6 +240,10 @@ h2{
     .streak-card h2{
     color:var(--turquoise);
 }
+    #streakMessage{
+    color:var(--turquoise);
+    font-weight:800;
+}
 .challenge{
 
     background:
@@ -258,26 +262,26 @@ h2{
 
     border:1px solid #e5e0d8;
 
-    padding:18px;
+    padding:12px 14px;
 }
-
 .goals-card h2{
 
     color:#8a8175;
 
-    font-size:1rem;
+    font-size:0.9rem;
 }
 
 .goals-card input{
 
-    margin-bottom:12px;
+    margin-bottom:10px;
+    padding:10px 12px;
+    font-size:0.95rem;
 }
 
 .goals-card .save-btn{
 
-    padding:12px;
-
-    font-size:0.95rem;
+    padding:10px;
+    font-size:0.9rem;
 }
 .motivation{
     background:
@@ -2042,7 +2046,7 @@ if(streak === 365){
         nextMilestone - streak;
 
     message =
-    `💎 Noch ${remaining} Tage bis zum Jubiläum (${nextMilestone})`;
+    `🩵💎 ${remaining} Tage bis ${nextMilestone}`;
 }
 
 document.getElementById("streakMessage")
