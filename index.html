@@ -530,7 +530,16 @@ textarea{
     color:white;
     font-weight:800;
 }
-
+.cancel-btn{
+    width:100%;
+    border:none;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:10px;
+    background:#f4f1ea;
+    color:#666;
+    font-weight:800;
+}
 @media(max-width:480px){
 
     .walk-grid{
@@ -840,6 +849,12 @@ Ziele speichern
     placeholder="Eigene Bemerkung"
 ></textarea>
 
+    <button
+    class="cancel-btn"
+    onclick="closeModal()"
+>
+    Abbrechen
+</button>
 <button
     class="save-btn"
     id="saveWalk"
@@ -2508,6 +2523,7 @@ editingWalkId = id;
         .classList.add("open");
 
 }
+    
 function renderApp(){
 
     const walks = loadWalks();
@@ -2531,7 +2547,16 @@ function renderApp(){
 }
 
 document.getElementById("openModal").onclick = ()=>{
+function closeModal(){
 
+    document
+        .getElementById("modal")
+        .classList
+        .remove("open");
+
+    selectedNotes = [];
+    editingWalkId = null;
+}
     selectedNotes = [];
 
     renderQuickNotes();
