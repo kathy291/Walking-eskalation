@@ -2546,7 +2546,6 @@ function renderApp(){
     renderHistory(walks);
 }
 
-document.getElementById("openModal").onclick = ()=>{
 function closeModal(){
 
     document
@@ -2557,6 +2556,8 @@ function closeModal(){
     selectedNotes = [];
     editingWalkId = null;
 }
+
+document.getElementById("openModal").onclick = ()=>{
     selectedNotes = [];
 
     renderQuickNotes();
