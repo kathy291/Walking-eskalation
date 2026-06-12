@@ -2158,7 +2158,13 @@ document.getElementById("todayPace")
     </span>`;
       let walkMessage = "";
 
-if(score === 3){
+const paceGoalDone =
+    latest.goalResult.includes("👍 Pace");
+
+const timeGoalDone =
+    latest.goalResult.includes("👍 Zeit");
+
+if(paceGoalDone && timeGoalDone){
 
     walkMessage =
         `<div style="
@@ -2169,7 +2175,7 @@ if(score === 3){
             ⭐ Perfekter Walk!
         </div>`;
 
-}else if(score === 2){
+}else if(paceGoalDone || timeGoalDone){
 
     walkMessage =
         `<div style="
@@ -2177,10 +2183,10 @@ if(score === 3){
             font-weight:800;
             margin-top:8px;
         ">
-            🔥 Starke Verbesserung
+            👍 Ein Ziel geschafft
         </div>`;
 
-}else if(score === 1){
+}else{
 
     walkMessage =
         `<div style="
@@ -2188,21 +2194,9 @@ if(score === 3){
             font-weight:800;
             margin-top:8px;
         ">
-            👍 Solider Walk
-        </div>`;
-
-}else if(previous){
-
-    walkMessage =
-        `<div style="
-            color:#5aa9ff;
-            font-weight:800;
-            margin-top:8px;
-        ">
-            💪 Nächstes Mal wieder angreifen
+            💪 Heute war nicht der Tag. Die Serie lebt weiter.
         </div>`;
 }
-
 document.getElementById("lastGoalResult")
     .innerHTML =
     latest.goalResult + walkMessage;  
