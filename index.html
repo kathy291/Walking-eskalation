@@ -270,15 +270,20 @@ h2{
 }
 .goals-card{
 
-    background:#faf8f5;
+    background:
+        linear-gradient(
+            180deg,
+            #fff4e6,
+            #ffe8cc
+        );
 
-    border:1px solid #e5e0d8;
+    border:2px dashed #f0b36a;
 
     padding:12px 14px;
 }
 .goals-card h2{
 
-    color:#8a8175;
+    color:#c97d2a;
 
     font-size:0.9rem;
 }
@@ -294,6 +299,14 @@ h2{
 
     padding:10px;
     font-size:0.9rem;
+}
+    .goal-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
 }
 .motivation{
     background:
@@ -754,17 +767,21 @@ Pace 00:00
 <div class="card goals-card">
 <h2>🧭 Ziele</h2>
 
-<input
-    type="text"
-    id="paceGoalInput"
-    placeholder="Pace Ziel MM:SS"
->
+<div class="goal-grid">
 
-<input
-    type="text"
-    id="timeGoalInput"
-    placeholder="Zeit Ziel MM:SS"
->
+    <input
+        type="text"
+        id="paceGoalInput"
+        placeholder="Pace"
+    >
+
+    <input
+        type="text"
+        id="timeGoalInput"
+        placeholder="Zeit"
+    >
+
+</div>
 
 <button
     class="save-btn"
