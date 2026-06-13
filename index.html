@@ -378,7 +378,16 @@ h2{
     font-weight:800;
     margin-top:8px;
 }
+#totalKmStory{
 
+    margin-top:8px;
+
+    font-size:0.85rem;
+
+    color:#777;
+
+    font-style:italic;
+}
 .plus{
     color:var(--green);
     font-weight:800;
@@ -823,6 +832,7 @@ Ziele speichern
 <div class="card stat-card">
 <div>Gesamt-km</div>
 <div class="stat-number" id="totalKm">0,00</div>
+    <div id="totalKmStory"></div>
 </div>
 
 <div class="card stat-card">
@@ -2148,7 +2158,37 @@ if(
 
     document.getElementById("totalKm").textContent =
         formatKm(totalKm);
+let story = "";
 
+if(totalKm < 250){
+
+    story =
+        "🚗 Von Hütte bis Bremen";
+
+}else if(totalKm < 500){
+
+    story =
+        "🏰 Von Hütte bis Köln";
+
+}else if(totalKm < 1000){
+
+    story =
+        "🇩🇪 Quer durch Deutschland";
+
+}else if(totalKm < 2000){
+
+    story =
+        "🚗 Fast von Hütte bis Rom";
+
+}else{
+
+    story =
+        "🌍 Kilometer sammeln wie ein Weltreisender";
+}
+
+document.getElementById(
+    "totalKmStory"
+).textContent = story;
     if(walks.length){
 
         const bestPace =
