@@ -366,7 +366,46 @@ h2{
 
     text-align:center;
 }
+.total-stat{
 
+    background:
+        linear-gradient(
+            180deg,
+            #f3ffff,
+            #e7fbfb
+        );
+
+    border:2px solid #b9ece8;
+}
+
+.total-stat .stat-number{
+
+    color:var(--turquoise);
+}
+
+.record-stat{
+
+    background:
+        linear-gradient(
+            180deg,
+            #fbfdff,
+            #eef5fb
+        );
+
+    border:2px solid #d7e5f3;
+}
+
+.compare-stat{
+
+    background:
+        linear-gradient(
+            180deg,
+            #faf8ff,
+            #f2effd
+        );
+
+    border:2px solid #ddd4f5;
+}
 .stat-card .stat-number{
     text-align:center;
 }
@@ -852,38 +891,37 @@ Ziele speichern
 </div>
 
 <div class="stats">
-    
-<div class="card stat-card">
+ <div class="card stat-card total-stat">   
 <div>Gesamt-km</div>
 <div class="stat-number" id="totalKm">0,00</div>
     <div id="totalKmStory"></div>
 </div>
 
-<div class="card stat-card">
+<div class="card stat-card record-stat">
 <div>Beste Pace</div>
 <div class="stat-number" id="bestPace">00:00</div>
 <div id="bestPaceDate" class="stat-date"></div>
 </div>
 
-<div class="card stat-card">
+<div class="card stat-card record-stat">
 <div>Längster Walk</div>
 <div class="stat-number" id="longestWalk">0,00 km</div>
 <div id="longestWalkDate" class="stat-date"></div>
 </div>
 
-<div class="card stat-card">
+<div class="card stat-card record-stat">
 <div>Längste Zeit</div>
 <div class="stat-number" id="longestTime">00:00</div>
 <div id="longestTimeDate" class="stat-date"></div>
 </div>
 
-<div class="card stat-card">
+<div class="card stat-card compare-stat">
 <div>📅 Monat</div>
 <div class="stat-number" id="monthCurrent">0,00 km</div>
 <div id="monthCompare"></div>
 </div>
 
-<div class="card stat-card">
+<div class="card stat-card compare-stat">
 <div>🗓️ Jahr</div>
 <div class="stat-number" id="yearCurrent">0,00 km</div>
 <div id="yearCompare"></div>
