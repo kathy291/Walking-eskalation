@@ -2168,7 +2168,7 @@ if(
         );
 
     document.getElementById("totalKm").textContent =
-        formatKm(totalKm);
+    Math.round(totalKm) + " km";
 let story = "";
 
 if(totalKm < 100){
@@ -2256,9 +2256,9 @@ document.getElementById(
                 ...walks.map(w=>w.paceSeconds)
             );
 
-        document.getElementById("bestPace")
-            .textContent =
-            formatMMSS(bestPace);
+       document.getElementById("bestPace")
+    .textContent =
+    formatMMSS(bestPace) + " Min"; 
 const bestPaceWalk =
     walks.find(
         w => w.paceSeconds === bestPace
@@ -2299,8 +2299,8 @@ document.getElementById(
             );
 
         document.getElementById("longestTime")
-            .textContent =
-            formatMMSS(longestTime);
+    .textContent =
+    formatMMSS(longestTime) + " Min";
 const longestTimeData =
     walks.find(
         w => w.durationSeconds === longestTime
