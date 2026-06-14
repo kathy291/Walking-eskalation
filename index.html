@@ -389,7 +389,35 @@ h2{
 .compare-stat .stat-number{
     color:#7b5ac9;
 }
+#monthCompare,
+#yearCompare{
 
+    margin-top:10px;
+
+    line-height:1.25;
+
+    font-size:0.9rem;
+}
+
+#monthCompare .plus,
+#monthCompare .minus,
+#yearCompare .plus,
+#yearCompare .minus{
+
+    font-size:1rem;
+
+    font-weight:900;
+}
+
+#monthCompare div:last-child,
+#yearCompare div:last-child{
+
+    color:#666;
+
+    font-size:0.8rem;
+
+    margin-top:4px;
+}
 .record-stat{
 
     background:
@@ -442,6 +470,16 @@ h2{
 
     color:#8a8a8a;
 }
+ .compare-number{
+
+    font-size:2rem;
+
+    font-weight:900;
+
+    color:#7b5ac9;
+
+    line-height:1.1;
+}   
 .plus{
     color:var(--green);
     font-weight:800;
@@ -924,13 +962,13 @@ Ziele speichern
 
 <div class="card stat-card compare-stat">
 <div>📅 Monat</div>
-<div class="stat-number" id="monthCurrent">0,00 km</div>
+<div class="compare-number" id="monthCurrent">    
 <div id="monthCompare"></div>
 </div>
 
 <div class="card stat-card compare-stat">
 <div>🗓️ Jahr</div>
-<div class="stat-number" id="yearCurrent">0,00 km</div>
+<div class="compare-number" id="yearCurrent">
 <div id="yearCompare"></div>
 </div>
 
