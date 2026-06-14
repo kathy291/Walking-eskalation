@@ -405,7 +405,23 @@ h2{
     color:var(--red);
     font-weight:800;
 }
+#monthCompare .plus,
+#monthCompare .minus,
+#yearCompare .plus,
+#yearCompare .minus{
 
+    text-align:right;
+
+    font-size:0.95rem;
+}
+
+#monthCompare,
+#yearCompare{
+
+    margin-top:4px;
+
+    font-size:0.85rem;
+}
 .walk-card{
     border-left:8px solid var(--gold);
 }
@@ -2502,27 +2518,60 @@ document.getElementById("runner")
             const d =
                 new Date(w.date);
 
-            return (
-                d.getMonth() === month - 1
-            );
+          return (
+    d.getMonth() === (month === 0 ? 11 : month - 1)
+    &&
+    d.getFullYear() === (month === 0 ? year - 1 : year)
+);  
         })
         .reduce(
             (s,w)=>s+w.kilometers,
             0
         );
 
-    document.getElementById("monthCurrent")
-        .textContent =
-        formatKm(currentMonthKm)+" km";
+    const monthNames = [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
+];
 
-    const monthDiff =
-        currentMonthKm - lastMonthKm;
+const currentMonthName =
+    monthNames[month];
 
-    document.getElementById("monthCompare")
-        .innerHTML =
-        monthDiff >= 0
-        ? `<span class="plus">📈 +${formatKm(monthDiff)} km</span>`
-        : `<span class="minus">📉 ${formatKm(Math.abs(monthDiff))} km</span>`;
+const lastMonthName =
+    monthNames[
+        month === 0
+        ? 11
+        : month - 1
+    ];
+
+document.getElementById("monthCurrent")
+    .innerHTML =
+    `${currentMonthName}<br>${formatKm(currentMonthKm)} km`;
+
+const monthDiff =
+    currentMonthKm - lastMonthKm;
+
+document.getElementById("monthCompare")
+    .innerHTML =
+    `
+    <div class="${monthDiff >= 0 ? "plus" : "minus"}">
+        ${monthDiff >= 0 ? "+" : "-"}${formatKm(Math.abs(monthDiff))} km
+    </div>
+
+    <div>
+        ${lastMonthName}: ${formatKm(lastMonthKm)} km
+    </div>
+    `;
 
     const currentYearKm =
         walks
@@ -2549,19 +2598,24 @@ document.getElementById("runner")
         );
 
     document.getElementById("yearCurrent")
-        .textContent =
-        formatKm(currentYearKm)+" km";
+    .innerHTML =
+    `${year}<br>${formatKm(currentYearKm)} km`;
 
-    const yearDiff =
-        currentYearKm - lastYearKm;
+const yearDiff =
+    currentYearKm - lastYearKm;
 
-    document.getElementById("yearCompare")
-        .innerHTML =
-        yearDiff >= 0
-        ? `<span class="plus">📈 +${formatKm(yearDiff)} km</span>`
-        : `<span class="minus">📉 ${formatKm(Math.abs(yearDiff))} km</span>`;
-}
+document.getElementById("yearCompare")
+    .innerHTML =
+    `
+    <div class="${yearDiff >= 0 ? "plus" : "minus"}">
+        ${yearDiff >= 0 ? "+" : "-"}${formatKm(Math.abs(yearDiff))} km
+    </div>
 
+    <div>
+        ${year - 1}: ${formatKm(lastYearKm)} km
+    </div>
+    `;
+    }
 function renderHistory(walks){
 
     const history =
