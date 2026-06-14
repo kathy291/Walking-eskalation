@@ -2281,7 +2281,18 @@ document.getElementById(
         document.getElementById("longestWalk")
             .textContent =
             formatKm(longestWalk)+" km";
+const longestWalkData =
+    walks.find(
+        w => w.kilometers === longestWalk
+    );
 
+document.getElementById(
+    "longestWalkDate"
+).textContent =
+    "📅 " +
+    formatDate(
+        longestWalkData.date
+    );
         const longestTime =
             Math.max(
                 ...walks.map(w=>w.durationSeconds)
@@ -2290,7 +2301,18 @@ document.getElementById(
         document.getElementById("longestTime")
             .textContent =
             formatMMSS(longestTime);
+const longestTimeData =
+    walks.find(
+        w => w.durationSeconds === longestTime
+    );
 
+document.getElementById(
+    "longestTimeDate"
+).textContent =
+    "📅 " +
+    formatDate(
+        longestTimeData.date
+    );
         const sortedWalks =
     [...walks]
     .sort(
