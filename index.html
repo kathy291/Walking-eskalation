@@ -388,6 +388,14 @@ h2{
 
     font-style:italic;
 }
+    .stat-date{
+
+    margin-top:6px;
+
+    font-size:0.8rem;
+
+    color:#777;
+}
 .plus{
     color:var(--green);
     font-weight:800;
@@ -838,16 +846,19 @@ Ziele speichern
 <div class="card stat-card">
 <div>Beste Pace</div>
 <div class="stat-number" id="bestPace">00:00</div>
+<div id="bestPaceDate" class="stat-date"></div>
 </div>
 
 <div class="card stat-card">
 <div>Längster Walk</div>
 <div class="stat-number" id="longestWalk">0,00 km</div>
+<div id="longestWalkDate" class="stat-date"></div>
 </div>
 
 <div class="card stat-card">
 <div>Längste Zeit</div>
 <div class="stat-number" id="longestTime">00:00</div>
+<div id="longestTimeDate" class="stat-date"></div>
 </div>
 
 <div class="card stat-card">
@@ -2248,7 +2259,20 @@ document.getElementById(
         document.getElementById("bestPace")
             .textContent =
             formatMMSS(bestPace);
+const bestPaceWalk =
+    walks.find(
+        w => w.paceSeconds === bestPace
+    );
 
+document.getElementById(
+    "bestPaceDate"
+).textContent =
+    "📅 " +
+    new Date(
+        bestPaceWalk.date
+    ).toLocaleDateString(
+        "de-DE"
+    );
         const longestWalk =
             Math.max(
                 ...walks.map(w=>w.kilometers)
