@@ -1705,6 +1705,129 @@ function renderCharts(walks){
     const sorted =
         [...walks].sort(
             (a,b)=>
+                new Date(a.date)
+                -
+                new Date(b.date)
+        );
+
+    const labels =
+        sorted.map(
+            w => formatDate(w.date)
+        );
+
+    if(kmChart){
+        kmChart.destroy();
+    }
+
+    if(paceChart){
+        paceChart.destroy();
+    }
+
+    const chartOptions = {
+
+        plugins:{
+
+            legend:{
+                labels:{
+                    boxWidth:20
+                }
+            }
+        },
+
+        scales:{
+
+            x:{
+                ticks:{
+                    maxTicksLimit:6
+                }
+            }
+        }
+    };
+
+    kmChart = new Chart(
+
+        document.getElementById("kmChart"),
+
+        {
+
+            type:"line",
+
+            data:{
+
+                labels:labels,
+
+                datasets:[{
+
+                    label:"Kilometer",
+
+                    data:
+                        sorted.map(w=>w.kilometers),
+
+                    borderColor:"#2cc8c3",
+
+                    backgroundColor:"rgba(44,200,195,0.18)",
+
+                    borderWidth:3,
+
+                    pointRadius:3,
+
+                    hoverRadius:5,
+
+                    tension:0.3,
+
+                    fill:true
+                }]
+            },
+
+            options:chartOptions
+        }
+    );
+
+    paceChart = new Chart(
+
+        document.getElementById("paceChart"),
+
+        {
+
+            type:"line",
+
+            data:{
+
+                labels:labels,
+
+                datasets:[{
+
+                    label:"Pace",
+
+                    data:
+                        sorted.map(
+                            w=>
+                                Number(
+                                    (w.paceSeconds/60)
+                                    .toFixed(2)
+                                )
+                        ),
+
+                    borderColor:"#8f6fd8",
+
+                    backgroundColor:"rgba(143,111,216,0.18)",
+
+                    borderWidth:3,
+
+                    pointRadius:3,
+
+                    hoverRadius:5,
+
+                    tension:0.3,
+
+                    fill:true
+                }]
+            },
+
+            options:chartOptions
+        }
+    );
+}
 function openAchievementsPopup(){
 
     document
