@@ -840,7 +840,7 @@ textarea{
     class="xp-next"
     id="xpNext"
 >
-    Noch 100 XP bis Level 2
+ `Noch ${xpPerLevel-currentXp} XP bis Level ${level+1}`   
 </div>
 
 </div>
@@ -2621,7 +2621,7 @@ const xp =
     walkXp + paceXp + timeXp;
 
 const xpPerLevel =
-    250;
+    500;
 
 const currentXp =
     xp % xpPerLevel;
@@ -2641,7 +2641,7 @@ document.getElementById("levelEnd")
     level + 1;
 document.getElementById("xpText")
     .textContent =
-    currentXp + " / 100 XP";
+    currentXp + " / " + xpPerLevel + " XP";
 
 document.getElementById("xpNext")
     .textContent =
@@ -3150,14 +3150,19 @@ function openLevelPopup(){
         return best;
 
     }, null);
-    const currentLevel =
-    Math.floor(totalXp / 100) + 1;
+    const xpPerLevel =
+    500;
+
+const currentLevel =
+    Math.floor(
+        totalXp / xpPerLevel
+    ) + 1;
 
 const currentLevelXp =
-    totalXp % 100;
+    totalXp % xpPerLevel;
 
 const xpToNextLevel =
-    100 - currentLevelXp;
+    xpPerLevel - currentLevelXp;
 
     const today =
         new Date();
