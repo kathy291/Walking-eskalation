@@ -2617,6 +2617,11 @@ const timeXp =
         w => w.goalResult.includes("👍 Zeit")
     ).length * 10;
 
+const challengeXp =
+    walks.filter(
+        w => w.challengeDone
+    ).length * 15;
+        
 const xp =
     walkXp + paceXp + timeXp;
 
@@ -2993,7 +2998,67 @@ function closeModal(){
     selectedNotes = [];
     editingWalkId = null;
 }
+function checkChallengeDone(
+    kilometers,
+    durationSeconds,
+    paceSeconds
+){
 
+    const challengeText =
+        document
+            .getElementById("challengeText")
+            .textContent;
+
+    if(
+        challengeText.includes("3 km")
+        &&
+        kilometers >= 3
+    ){
+        return true;
+    }
+
+    if(
+        challengeText.includes("4 km")
+        &&
+        kilometers >= 4
+    ){
+        return true;
+    }
+
+    if(
+        challengeText.includes("5 km")
+        &&
+        kilometers >= 5
+    ){
+        return true;
+    }
+
+    if(
+        challengeText.includes("40 Minuten")
+        &&
+        durationSeconds >= 40 * 60
+    ){
+        return true;
+    }
+
+    if(
+        challengeText.includes("45 Minuten")
+        &&
+        durationSeconds >= 45 * 60
+    ){
+        return true;
+    }
+
+    if(
+        challengeText.includes("unter 10:00 Pace")
+        &&
+        paceSeconds <= 10 * 60
+    ){
+        return true;
+    }
+
+    return false;
+}
 document.getElementById("openModal").onclick = ()=>{
     selectedNotes = [];
 
@@ -3082,7 +3147,14 @@ document.getElementById("saveWalk").onclick = ()=>{
     customNote:
         document.getElementById("customNote").value,
 
-    goalResult
+    goalResult,
+
+challengeDone:
+    checkChallengeDone(
+        kilometers,
+        durationSeconds,
+        paceSeconds
+    )
 };
 
 if(editingWalkId){
@@ -3127,8 +3199,17 @@ function openLevelPopup(){
             w => w.goalResult.includes("👍 Zeit")
         ).length * 10;
 
-    const totalXp =
-        walkXp + paceXp + timeXp;
+const challengeXp =
+    walks.filter(
+        w => w.challengeDone
+    ).length * 15;
+    
+const totalXp =
+    walkXp +
+    paceXp +
+    timeXp +
+    challengeXp;
+    
     const bestXpWalk =
     walks.reduce((best, walk) => {
 
@@ -3297,6 +3378,11 @@ const xpToNextLevel =
 
         ⏱️ Zeit-Ziele:
         ${timeXp} XP
+
+<br>
+
+🎯 Tageschallenge:
+${challengeXp} XP
 
         <br><br>
 
