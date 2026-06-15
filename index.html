@@ -2604,12 +2604,27 @@ document.getElementById("lastGoalResult")
     latest.goalResult + walkMessage;  
     }
 
-    const xp = walks.length * 25;
-        const currentXp = xp % 100;
+   const walkXp =
+    walks.length * 25;
 
-    const level =
-        Math.floor(xp / 100) + 1;
-        
+const paceXp =
+    walks.filter(
+        w => w.goalResult.includes("👍 Pace")
+    ).length * 10;
+
+const timeXp =
+    walks.filter(
+        w => w.goalResult.includes("👍 Zeit")
+    ).length * 10;
+
+const xp =
+    walkXp + paceXp + timeXp;
+
+const currentXp =
+    xp % 100;
+
+const level =
+    Math.floor(xp / 100) + 1; 
 document.getElementById("levelNumber")
     .textContent =
     "Level " + level;
