@@ -2647,9 +2647,12 @@ document.getElementById("xpNext")
     .textContent =
    `Noch ${xpPerLevel-currentXp} XP bis Level ${level+1}` 
 
+const runnerPercent =
+    (currentXp / xpPerLevel) * 100;
+
 document.getElementById("runner")
     .style.left =
-    `${currentXp}%`;
+    `${runnerPercent}%`;
     const now = new Date();
 
     const month = now.getMonth();
