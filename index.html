@@ -2620,11 +2620,14 @@ const timeXp =
 const xp =
     walkXp + paceXp + timeXp;
 
+const xpPerLevel =
+    250;
+
 const currentXp =
-    xp % 100;
+    xp % xpPerLevel;
 
 const level =
-    Math.floor(xp / 100) + 1; 
+    Math.floor(xp / xpPerLevel) + 1;
 document.getElementById("levelNumber")
     .textContent =
     "Level " + level;
@@ -2642,7 +2645,7 @@ document.getElementById("xpText")
 
 document.getElementById("xpNext")
     .textContent =
-    `Noch ${100-currentXp} XP bis Level ${level+1}`;
+   `Noch ${xpPerLevel-currentXp} XP bis Level ${level+1}` 
 
 document.getElementById("runner")
     .style.left =
