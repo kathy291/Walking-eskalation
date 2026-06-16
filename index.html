@@ -1241,7 +1241,6 @@ const slothMotivations = [
 
     "Heute bewege ich mich emotional.",
 
-    "Das Erdferkel wurde ersetzt."
 ];
   const goodWalkMotivations = [
 
@@ -3056,7 +3055,31 @@ function checkChallengeDone(
     ){
         return true;
     }
-
+if(
+    challengeText.includes("trotz Wetter")
+    ||
+    challengeText.includes("ohne Ausreden")
+    ||
+    challengeText.includes("einfach los")
+    ||
+    challengeText.includes("Couch-Magneten")
+    ||
+    challengeText.includes("rausgehen und anfangen")
+    ||
+    challengeText.includes("Faultier verwirrt")
+    ||
+    challengeText.includes("morgen stolz")
+    ||
+    challengeText.includes("langsam sein")
+    ||
+    challengeText.includes("Serienpunkt")
+    ||
+    challengeText.includes("Wohlfühl-Walk")
+    ||
+    challengeText.includes("keinen Grund zur Hoffnung")
+){
+    return true;
+}
     return false;
 }
 document.getElementById("openModal").onclick = ()=>{
