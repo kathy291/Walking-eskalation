@@ -3244,7 +3244,9 @@ const totalXp =
         if(walk.goalResult.includes("👍 Zeit")){
             xp += 10;
         }
-
+if(walk.challengeDone){
+    xp += 15;
+}
         if(!best || xp > best.xp){
 
             return {
