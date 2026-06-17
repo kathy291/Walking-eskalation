@@ -3177,7 +3177,11 @@ document.getElementById("saveWalk").onclick = ()=>{
 
     goalResult,
 
-    challengeDone:true
+        challengeDone: checkChallengeDone(
+    kilometers,
+    durationSeconds,
+    paceSeconds
+)       
 };
 if(editingWalkId){
 
