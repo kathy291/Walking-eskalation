@@ -3312,7 +3312,10 @@ const xpToNextLevel =
                 xp += 10;
                 details += ", +10 Zeit";
             }
-
+if(w.challengeDone){
+    xp += 15;
+    details += ", +15 Challenge";
+}
             return `
                 <div style="margin-bottom:12px;">
                     <strong>${formatDate(w.date)}</strong><br>
@@ -3346,7 +3349,9 @@ const xpToNextLevel =
         if(w.goalResult.includes("👍 Zeit")){
             xp += 10;
         }
-
+if(w.challengeDone){
+    xp += 15;
+}
         return sum + xp;
 
     },0);
