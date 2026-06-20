@@ -689,6 +689,34 @@ overflow-y: auto;
     font-size:2rem;
 }
 
+.chart-range-buttons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:14px 0;
+    background:#d8efd2;
+    padding:12px;
+    border-radius:18px;
+}
+
+.range-btn{
+    border:2px solid #2f6f55;
+    background:white;
+    color:#2f6f55;
+    border-radius:14px;
+    padding:10px 6px;
+    font-weight:800;
+}
+
+.range-btn.active .range-star{
+    color:#4f8de4;
+}
+
+.range-star{
+    color:#2f6f55;
+    font-weight:900;
+}
+    
 .modal{
     position:fixed;
     inset:0;
@@ -1012,8 +1040,42 @@ Ziele speichern
 <canvas id="kmChart"></canvas>
 <div id="kmTrendInfo" class="trend-info"></div>
 </div>
+    
+<div class="chart-range-buttons">
 
-<div class="card">
+    <button class="range-btn active" data-range="21">
+        <span class="range-star">★</span>
+        21 Tage
+    </button>
+
+    <button class="range-btn" data-range="30">
+        <span class="range-star">☆</span>
+        1 Monat
+    </button>
+
+    <button class="range-btn" data-range="90">
+        <span class="range-star">☆</span>
+        3 Monate
+    </button>
+
+    <button class="range-btn" data-range="180">
+        <span class="range-star">☆</span>
+        6 Monate
+    </button>
+
+    <button class="range-btn" data-range="270">
+        <span class="range-star">☆</span>
+        9 Monate
+    </button>
+
+    <button class="range-btn" data-range="365">
+        <span class="range-star">☆</span>
+        1 Jahr
+    </button>
+
+</div>
+
+    <div class="card">
 
 <h2>⚡ Pace Trend</h2>
 
