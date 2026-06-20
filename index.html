@@ -700,21 +700,46 @@ overflow-y: auto;
 }
 
 .range-btn{
-    border:2px solid #2f6f55;
-    background:white;
-    color:#2f6f55;
-    border-radius:14px;
+
+    background:#d9fbf9;
+
+    border:3px solid #2cc8c3;
+
+    color:#147a76;
+
+    border-radius:16px;
+
     padding:10px 6px;
+
     font-weight:800;
 }
 
-.range-btn.active .range-star{
-    color:#4f8de4;
+.range-star{
+
+    font-size:1.4rem;
+
+    color:#147a76;
+
+    margin-right:4px;
 }
 
-.range-star{
-    color:#2f6f55;
-    font-weight:900;
+.range-btn.active{
+
+    background:
+        linear-gradient(
+            180deg,
+            #52d9d3,
+            #2cc8c3
+        );
+
+    color:white;
+}
+
+.range-btn.active .range-star{
+
+    color:#4f8de4;
+
+    font-size:1.6rem;
 }
     
 .modal{
