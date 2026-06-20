@@ -497,6 +497,20 @@ h2{
     color:var(--red);
     font-weight:800;
 }
+ .trend-info{
+
+    margin-top:10px;
+
+    font-size:0.9rem;
+
+    font-weight:700;
+
+    color:#555;
+
+    line-height:1.4;
+
+    text-align:center;
+}   
 #monthCompare .plus,
 #monthCompare .minus,
 #yearCompare .plus,
@@ -996,7 +1010,7 @@ Ziele speichern
 <h2>📈 Kilometer Trend</h2>
 
 <canvas id="kmChart"></canvas>
-
+<div id="kmTrendInfo" class="trend-info"></div>
 </div>
 
 <div class="card">
@@ -1004,7 +1018,7 @@ Ziele speichern
 <h2>⚡ Pace Trend</h2>
 
 <canvas id="paceChart"></canvas>
-
+<div id="paceTrendInfo" class="trend-info"></div>
 </div>
 
 <div class="card">
@@ -1724,6 +1738,79 @@ const maxKm =
     Math.max(
         ...sorted.map(w => w.kilometers)
     );
+    const today =
+    new Date();
+
+today.setHours(0,0,0,0);
+
+const last7Start =
+    new Date(today);
+
+last7Start.setDate(
+    today.getDate() - 6
+);
+
+const prev7Start =
+    new Date(today);
+
+prev7Start.setDate(
+    today.getDate() - 13
+);
+
+const last7Walks =
+    walks.filter(w => {
+        const d = new Date(w.date);
+        d.setHours(0,0,0,0);
+        return d >= last7Start && d <= today;
+    });
+
+const prev7Walks =
+    walks.filter(w => {
+        const d = new Date(w.date);
+        d.setHours(0,0,0,0);
+        return d >= prev7Start && d < last7Start;
+    });
+
+const avgKm =
+    last7Walks.length
+    ? last7Walks.reduce((s,w)=>s+w.kilometers,0) / last7Walks.length
+    : 0;
+
+const prevAvgKm =
+    prev7Walks.length
+    ? prev7Walks.reduce((s,w)=>s+w.kilometers,0) / prev7Walks.length
+    : 0;
+
+const kmDiff =
+    avgKm - prevAvgKm;
+
+document.getElementById("kmTrendInfo")
+    .innerHTML =
+    `📈 Durchschnitt letzte 7 Tage: ${avgKm.toFixed(1).replace(".", ",")} km<br>
+    <span class="${kmDiff >= 0 ? "plus" : "minus"}">
+        ${kmDiff >= 0 ? "↗ +" : "↘ -"}${Math.abs(kmDiff).toFixed(1).replace(".", ",")} km gegenüber Vorwoche
+    </span>`;
+
+const avgPace =
+    last7Walks.length
+    ? last7Walks.reduce((s,w)=>s+w.paceSeconds,0) / last7Walks.length
+    : 0;
+
+const prevAvgPace =
+    prev7Walks.length
+    ? prev7Walks.reduce((s,w)=>s+w.paceSeconds,0) / prev7Walks.length
+    : 0;
+
+const paceDiff =
+    prevAvgPace - avgPace;
+
+document.getElementById("paceTrendInfo")
+    .innerHTML =
+    `⚡ Durchschnitt letzte 7 Tage: ${formatMMSS(avgPace)} min/km<br>
+    <span class="${paceDiff >= 0 ? "plus" : "minus"}">
+        ${paceDiff >= 0 ? "🚀" : "🐌"} ${Math.abs(Math.round(paceDiff))} Sekunden ${paceDiff >= 0 ? "schneller" : "langsamer"} als Vorwoche
+    </span>`;
+    
     if(kmChart){
         kmChart.destroy();
     }
