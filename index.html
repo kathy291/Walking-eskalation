@@ -1720,7 +1720,10 @@ function renderCharts(walks){
         sorted.map(
             w => formatDate(w.date)
         );
-
+const maxKm =
+    Math.max(
+        ...sorted.map(w => w.kilometers)
+    );
     if(kmChart){
         kmChart.destroy();
     }
@@ -1728,31 +1731,6 @@ function renderCharts(walks){
     if(paceChart){
         paceChart.destroy();
     }
-
-    const chartOptions = {
-
-        plugins:{
-
-            legend:{
-                labels:{
-                    boxWidth:20
-                }
-            }
-        },
-
-        scales:{
-
-    x:{
-        ticks:{
-            maxTicksLimit:6
-        }
-    },
-
-    y:{
-        suggestedMax:20
-    }
-}
-    };
 
     kmChart = new Chart(
 
@@ -1789,7 +1767,32 @@ function renderCharts(walks){
                 }]
             },
 
-            options:chartOptions
+            options:{
+
+    plugins:{
+
+        legend:{
+            labels:{
+                boxWidth:20
+            }
+        }
+    },
+
+    scales:{
+
+        x:{
+            ticks:{
+                maxTicksLimit:6
+            }
+        },
+
+        y:{
+            beginAtZero:true,
+            max:
+                Math.ceil(maxKm + 2)
+        }
+    }
+}
         }
     );
 
@@ -1834,7 +1837,31 @@ function renderCharts(walks){
                 }]
             },
 
-            options:chartOptions
+            options:{
+
+    plugins:{
+
+        legend:{
+            labels:{
+                boxWidth:20
+            }
+        }
+    },
+
+    scales:{
+
+        x:{
+            ticks:{
+                maxTicksLimit:6
+            }
+        },
+
+        y:{
+            beginAtZero:true,
+            max:15
+        }
+    }
+}
         }
     );
 }
