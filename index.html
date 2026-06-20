@@ -1707,12 +1707,14 @@ function renderCalendar(walks){
 function renderCharts(walks){
 
     const sorted =
-        [...walks].sort(
-            (a,b)=>
-                new Date(a.date)
-                -
-                new Date(b.date)
-        );
+    [...walks]
+    .sort(
+        (a,b)=>
+            new Date(a.date)
+            -
+            new Date(b.date)
+    )
+    .slice(-7);
 
     const labels =
         sorted.map(
