@@ -1786,7 +1786,7 @@ const kmDiff =
 
 document.getElementById("kmTrendInfo")
     .innerHTML =
-    `📈 Durchschnitt letzte 7 Tage: ${avgKm.toFixed(1).replace(".", ",")} km<br>
+    `📈 Schnitt letzte 7 Tage: ${avgKm.toFixed(1).replace(".", ",")} km<br>
     <span class="${kmDiff >= 0 ? "plus" : "minus"}">
         ${kmDiff >= 0 ? "↗ +" : "↘ -"}${Math.abs(kmDiff).toFixed(1).replace(".", ",")} km gegenüber Vorwoche
     </span>`;
@@ -1806,7 +1806,7 @@ const paceDiff =
 
 document.getElementById("paceTrendInfo")
     .innerHTML =
-    `⚡ Durchschnitt letzte 7 Tage: ${formatMMSS(avgPace)} min/km<br>
+    `⚡ Schnitt letzte 7 Tage: ${formatMMSS(avgPace)} min/km<br>
     <span class="${paceDiff >= 0 ? "plus" : "minus"}">
         ${paceDiff >= 0 ? "🚀" : "🐌"} ${Math.abs(Math.round(paceDiff))} Sekunden ${paceDiff >= 0 ? "schneller" : "langsamer"} als Vorwoche
     </span>`;
