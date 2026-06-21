@@ -1938,9 +1938,15 @@ document.getElementById("paceTrendInfo")
 
                     borderWidth:3,
 
-                    pointRadius:3,
+                    pointRadius:
+    chartRangeDays <= 30
+    ? 3
+    : 1,
 
-                    hoverRadius:5,
+                    hoverRadius:
+    chartRangeDays <= 30
+    ? 5
+    : 3,
 
                     tension:0.3,
 
@@ -1962,10 +1968,15 @@ document.getElementById("paceTrendInfo")
     scales:{
 
         x:{
-            ticks:{
-                maxTicksLimit:6
-            }
-        },
+    ticks:{
+        maxTicksLimit:
+            chartRangeDays <= 30
+            ? 6
+            : chartRangeDays <= 90
+            ? 8
+            : 12
+    }
+}
 
         y:{
             beginAtZero:true,
@@ -2008,9 +2019,15 @@ document.getElementById("paceTrendInfo")
 
                     borderWidth:3,
 
-                    pointRadius:3,
+                    pointRadius:
+    chartRangeDays <= 30
+    ? 3
+    : 1,
 
-                    hoverRadius:5,
+                    hoverRadius:
+    chartRangeDays <= 30
+    ? 5
+    : 3,
 
                     tension:0.3,
 
@@ -2032,10 +2049,15 @@ document.getElementById("paceTrendInfo")
     scales:{
 
         x:{
-            ticks:{
-                maxTicksLimit:6
-            }
-        },
+    ticks:{
+        maxTicksLimit:
+            chartRangeDays <= 30
+            ? 6
+            : chartRangeDays <= 90
+            ? 8
+            : 12
+    }
+}
 
         y:{
             min:6,
