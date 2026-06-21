@@ -1808,7 +1808,21 @@ function renderCharts(walks){
             -
             new Date(b.date)
     )
-    .slice(-21);
+   .filter(w => {
+    const d =
+        new Date(w.date);
+
+    const start =
+        new Date();
+
+    start.setHours(0,0,0,0);
+
+    start.setDate(
+        start.getDate() - chartRangeDays + 1
+    );
+
+    return d >= start;
+});     
 
     const labels =
         sorted.map(
