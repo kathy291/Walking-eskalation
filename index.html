@@ -1368,6 +1368,8 @@ let editingWalkId = null;
 let kmChart = null;
 let paceChart = null;
 
+let chartRangeDays = 21;
+
 function loadWalks(){
 
     return JSON.parse(
@@ -2030,6 +2032,33 @@ document.getElementById("paceTrendInfo")
         }
     );
 }
+function setupChartRangeButtons(){
+
+    document
+        .querySelectorAll(".range-btn")
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                chartRangeDays =
+                    Number(
+                        button.dataset.range
+                    );
+
+                document
+                    .querySelectorAll(".range-btn")
+                    .forEach(btn =>
+                        btn.classList.remove("active")
+                    );
+
+                button.classList.add("active");
+
+                renderCharts(
+                    loadWalks()
+                );
+            };
+        });
+}    
 function openAchievementsPopup(){
 
     document
