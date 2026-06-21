@@ -2046,6 +2046,15 @@ document.getElementById("paceTrendInfo")
         }
     );
 }
+
+function openAchievementsPopup(){
+
+    document
+        .getElementById(
+            "achievementsPopup"
+        )
+        .classList.add("open");
+}
 function setupChartRangeButtons(){
 
     document
@@ -2055,33 +2064,35 @@ function setupChartRangeButtons(){
             button.onclick = () => {
 
                 chartRangeDays =
-                    Number(
-                        button.dataset.range
-                    );
+                    Number(button.dataset.range);
 
                 document
                     .querySelectorAll(".range-btn")
-                    .forEach(btn =>
-                        btn.classList.remove("active")
-                    );
+                    .forEach(btn => {
+
+                        btn.classList.remove("active");
+
+                        const star =
+                            btn.querySelector(".range-star");
+
+                        if(star){
+                            star.textContent = "☆";
+                        }
+                    });
 
                 button.classList.add("active");
 
-                renderCharts(
-                    loadWalks()
-                );
+                const activeStar =
+                    button.querySelector(".range-star");
+
+                if(activeStar){
+                    activeStar.textContent = "★";
+                }
+
+                renderCharts(loadWalks());
             };
         });
-}    
-function openAchievementsPopup(){
-
-    document
-        .getElementById(
-            "achievementsPopup"
-        )
-        .classList.add("open");
 }
-
 function closeAchievementsPopup(){
 
     document
