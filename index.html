@@ -1800,111 +1800,219 @@ function renderCalendar(walks){
 
 function renderCharts(walks){
 
-    const sorted =
-    [...walks]
-    .sort(
-        (a,b)=>
-            new Date(a.date)
-            -
-            new Date(b.date)
-    )
-   .filter(w => {
-    const d =
-        new Date(w.date);
-
-    const start =
+    const today =
         new Date();
 
-    start.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+
+    const start =
+        new Date(today);
 
     start.setDate(
-        start.getDate() - chartRangeDays + 1
+        today.getDate() - chartRangeDays + 1
     );
 
-    return d >= start;
-});     
+    const prevStart =
+        new Date(today);
+
+    prevStart.setDate(
+        today.getDate() - chartRangeDays * 2 + 1
+    );
+
+    const currentWalks =
+        walks.filter(w => {
+
+            const d =
+                new Date(w.date);
+
+            d.setHours(0,0,0,0);
+
+            return d >= start && d <= today;
+        });
+
+    const previousWalks =
+        walks.filter(w => {
+
+            const d =
+                new Date(w.date);
+
+            d.setHours(0,0,0,0);
+
+            return d >= prevStart && d < start;
+        });
+
+    const monthNames =
+        [
+            "Jan",
+            "Feb",
+            "Mär",
+            "Apr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Okt",
+            "Nov",
+            "Dez"
+        ];
+
+    let chartData;
+
+    if(chartRangeDays <= 90){
+
+        chartData =
+            currentWalks
+            .sort(
+                (a,b)=>
+                    new Date(a.date)
+                    -
+                    new Date(b.date)
+            )
+            .map(w => ({
+
+                label:
+                    formatDate(w.date),
+
+                km:
+                    w.kilometers,
+
+                pace:
+                    Number(
+                        (w.paceSeconds / 60)
+                        .toFixed(2)
+                    )
+            }));
+
+    }else{
+
+        const grouped = {};
+
+        currentWalks.forEach(w => {
+
+            const d =
+                new Date(w.date);
+
+            const key =
+                d.getFullYear()
+                + "-"
+                + d.getMonth();
+
+            if(!grouped[key]){
+
+                grouped[key] = {
+                    year:d.getFullYear(),
+                    month:d.getMonth(),
+                    km:0,
+                    paceSum:0,
+                    count:0
+                };
+            }
+
+            grouped[key].km += w.kilometers;
+            grouped[key].paceSum += w.paceSeconds;
+            grouped[key].count++;
+        });
+
+        chartData =
+            Object
+            .values(grouped)
+            .sort(
+                (a,b)=>
+                    a.year - b.year
+                    ||
+                    a.month - b.month
+            )
+            .map(item => ({
+
+                label:
+                    monthNames[item.month]
+                    + " "
+                    + item.year,
+
+                km:
+                    Number(
+                        item.km.toFixed(2)
+                    ),
+
+                pace:
+                    Number(
+                        (
+                            item.paceSum
+                            / item.count
+                            / 60
+                        ).toFixed(2)
+                    )
+            }));
+    }
 
     const labels =
-        sorted.map(
-            w => formatDate(w.date)
-        );
-const maxKm =
-    Math.max(
-        ...sorted.map(w => w.kilometers)
-    );
-    const today =
-    new Date();
+        chartData.map(item => item.label);
 
-today.setHours(0,0,0,0);
+    const kmValues =
+        chartData.map(item => item.km);
 
-const last7Start =
-    new Date(today);
+    const paceValues =
+        chartData.map(item => item.pace);
 
-last7Start.setDate(
-    today.getDate() - 6
-);
+    const maxKm =
+        kmValues.length
+        ? Math.max(...kmValues)
+        : 10;
 
-const prev7Start =
-    new Date(today);
+    const avgKm =
+        currentWalks.length
+        ? currentWalks.reduce((s,w)=>s+w.kilometers,0) / currentWalks.length
+        : 0;
 
-prev7Start.setDate(
-    today.getDate() - 13
-);
+    const prevAvgKm =
+        previousWalks.length
+        ? previousWalks.reduce((s,w)=>s+w.kilometers,0) / previousWalks.length
+        : 0;
 
-const last7Walks =
-    walks.filter(w => {
-        const d = new Date(w.date);
-        d.setHours(0,0,0,0);
-        return d >= last7Start && d <= today;
-    });
+    const kmDiff =
+        avgKm - prevAvgKm;
 
-const prev7Walks =
-    walks.filter(w => {
-        const d = new Date(w.date);
-        d.setHours(0,0,0,0);
-        return d >= prev7Start && d < last7Start;
-    });
+    const rangeLabel =
+        chartRangeDays === 21
+        ? "21 Tage"
+        : chartRangeDays === 30
+        ? "1 Monat"
+        : chartRangeDays === 90
+        ? "3 Monate"
+        : chartRangeDays === 180
+        ? "6 Monate"
+        : chartRangeDays === 270
+        ? "9 Monate"
+        : "1 Jahr";
 
-const avgKm =
-    last7Walks.length
-    ? last7Walks.reduce((s,w)=>s+w.kilometers,0) / last7Walks.length
-    : 0;
+    document.getElementById("kmTrendInfo")
+        .innerHTML =
+        `📈 Schnitt letzte ${rangeLabel}: ${avgKm.toFixed(1).replace(".", ",")} km<br>
+        <span class="${kmDiff >= 0 ? "plus" : "minus"}">
+            ${kmDiff >= 0 ? "↗ +" : "↘ -"}${Math.abs(kmDiff).toFixed(1).replace(".", ",")} km gegenüber vorherigem Zeitraum
+        </span>`;
 
-const prevAvgKm =
-    prev7Walks.length
-    ? prev7Walks.reduce((s,w)=>s+w.kilometers,0) / prev7Walks.length
-    : 0;
+    const avgPace =
+        currentWalks.length
+        ? currentWalks.reduce((s,w)=>s+w.paceSeconds,0) / currentWalks.length
+        : 0;
 
-const kmDiff =
-    avgKm - prevAvgKm;
+    const prevAvgPace =
+        previousWalks.length
+        ? previousWalks.reduce((s,w)=>s+w.paceSeconds,0) / previousWalks.length
+        : 0;
 
-document.getElementById("kmTrendInfo")
-    .innerHTML =
-    `📈 Schnitt letzte 7 Tage: ${avgKm.toFixed(1).replace(".", ",")} km<br>
-    <span class="${kmDiff >= 0 ? "plus" : "minus"}">
-        ${kmDiff >= 0 ? "↗ +" : "↘ -"}${Math.abs(kmDiff).toFixed(1).replace(".", ",")} km gegenüber Vorwoche
-    </span>`;
+    const paceDiff =
+        prevAvgPace - avgPace;
 
-const avgPace =
-    last7Walks.length
-    ? last7Walks.reduce((s,w)=>s+w.paceSeconds,0) / last7Walks.length
-    : 0;
+    document.getElementById("paceTrendInfo")
+        .innerHTML =
+        `⚡ Schnitt letzte ${rangeLabel}: ${formatMMSS(avgPace)} min/km<br>
+        <span class="${paceDiff >= 0 ? "plus" : "minus"}">
+            ${paceDiff >= 0 ? "🚀" : "🐌"} ${Math.abs(Math.round(paceDiff))} Sekunden ${paceDiff >= 0 ? "schneller" : "langsamer"} als vorheriger Zeitraum
+        </span>`;
 
-const prevAvgPace =
-    prev7Walks.length
-    ? prev7Walks.reduce((s,w)=>s+w.paceSeconds,0) / prev7Walks.length
-    : 0;
-
-const paceDiff =
-    prevAvgPace - avgPace;
-
-document.getElementById("paceTrendInfo")
-    .innerHTML =
-    `⚡ Schnitt letzte 7 Tage: ${formatMMSS(avgPace)} min/km<br>
-    <span class="${paceDiff >= 0 ? "plus" : "minus"}">
-        ${paceDiff >= 0 ? "🚀" : "🐌"} ${Math.abs(Math.round(paceDiff))} Sekunden ${paceDiff >= 0 ? "schneller" : "langsamer"} als Vorwoche
-    </span>`;
-    
     if(kmChart){
         kmChart.destroy();
     }
@@ -1913,160 +2021,112 @@ document.getElementById("paceTrendInfo")
         paceChart.destroy();
     }
 
-    kmChart = new Chart(
+    kmChart =
+        new Chart(
+            document.getElementById("kmChart"),
+            {
+                type:"line",
 
-        document.getElementById("kmChart"),
+                data:{
+                    labels:labels,
 
-        {
+                    datasets:[{
+                        label:"Kilometer",
+                        data:kmValues,
+                        borderColor:"#2cc8c3",
+                        backgroundColor:"rgba(44,200,195,0.18)",
+                        borderWidth:3,
+                        pointRadius:
+                            chartRangeDays <= 30
+                            ? 3
+                            : 2,
+                        hoverRadius:5,
+                        tension:0.3,
+                        fill:true
+                    }]
+                },
 
-            type:"line",
+                options:{
+                    plugins:{
+                        legend:{
+                            labels:{
+                                boxWidth:20
+                            }
+                        }
+                    },
 
-            data:{
+                    scales:{
+                        x:{
+                            ticks:{
+                                maxTicksLimit:
+                                    chartRangeDays <= 90
+                                    ? 8
+                                    : 6
+                            }
+                        },
 
-                labels:labels,
-
-                datasets:[{
-
-                    label:"Kilometer",
-
-                    data:
-                        sorted.map(w=>w.kilometers),
-
-                    borderColor:"#2cc8c3",
-
-                    backgroundColor:"rgba(44,200,195,0.18)",
-
-                    borderWidth:3,
-
-                    pointRadius:
-    chartRangeDays <= 30
-    ? 3
-    : 1,
-
-                    hoverRadius:
-    chartRangeDays <= 30
-    ? 5
-    : 3,
-
-                    tension:0.3,
-
-                    fill:true
-                }]
-            },
-
-            options:{
-
-    plugins:{
-
-        legend:{
-            labels:{
-                boxWidth:20
+                        y:{
+                            beginAtZero:true,
+                            max:
+                                Math.ceil(maxKm + 2)
+                        }
+                    }
+                }
             }
-        }
-    },
+        );
 
-    scales:{
+    paceChart =
+        new Chart(
+            document.getElementById("paceChart"),
+            {
+                type:"line",
 
-        x:{
-    ticks:{
-        maxTicksLimit:
-            chartRangeDays <= 30
-            ? 6
-            : chartRangeDays <= 90
-            ? 8
-            : 12
-    }
-},
+                data:{
+                    labels:labels,
 
-        y:{
-            beginAtZero:true,
-            max:
-                Math.ceil(maxKm + 2)
-        }
-    }
-}
-        }
-    );
+                    datasets:[{
+                        label:"Pace",
+                        data:paceValues,
+                        borderColor:"#8f6fd8",
+                        backgroundColor:"rgba(143,111,216,0.18)",
+                        borderWidth:3,
+                        pointRadius:
+                            chartRangeDays <= 30
+                            ? 3
+                            : 2,
+                        hoverRadius:5,
+                        tension:0.3,
+                        fill:true
+                    }]
+                },
 
-    paceChart = new Chart(
+                options:{
+                    plugins:{
+                        legend:{
+                            labels:{
+                                boxWidth:20
+                            }
+                        }
+                    },
 
-        document.getElementById("paceChart"),
+                    scales:{
+                        x:{
+                            ticks:{
+                                maxTicksLimit:
+                                    chartRangeDays <= 90
+                                    ? 8
+                                    : 6
+                            }
+                        },
 
-        {
-
-            type:"line",
-
-            data:{
-
-                labels:labels,
-
-                datasets:[{
-
-                    label:"Pace",
-
-                    data:
-                        sorted.map(
-                            w=>
-                                Number(
-                                    (w.paceSeconds/60)
-                                    .toFixed(2)
-                                )
-                        ),
-
-                    borderColor:"#8f6fd8",
-
-                    backgroundColor:"rgba(143,111,216,0.18)",
-
-                    borderWidth:3,
-
-                    pointRadius:
-    chartRangeDays <= 30
-    ? 3
-    : 1,
-
-                    hoverRadius:
-    chartRangeDays <= 30
-    ? 5
-    : 3,
-
-                    tension:0.3,
-
-                    fill:true
-                }]
-            },
-
-            options:{
-
-    plugins:{
-
-        legend:{
-            labels:{
-                boxWidth:20
+                        y:{
+                            min:6,
+                            max:13
+                        }
+                    }
+                }
             }
-        }
-    },
-
-    scales:{
-
-        x:{
-    ticks:{
-        maxTicksLimit:
-            chartRangeDays <= 30
-            ? 6
-            : chartRangeDays <= 90
-            ? 8
-            : 12
-    }
-},
-
-        y:{
-            min:6,
-            max:13
-        }
-    }
-}
-        }
-    );
+        );
 }
 
 function openAchievementsPopup(){
