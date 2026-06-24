@@ -2991,7 +2991,8 @@ const runnerPercent =
 
 document.getElementById("runner")
     .style.left =
-    `${runnerPercent}%`;
+    `calc(${runnerPercent}% - 20px)`;
+        
     const now = new Date();
 
     const month = now.getMonth();
