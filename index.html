@@ -804,6 +804,24 @@ textarea{
     color:#666;
     font-weight:800;
 }
+.trend-stats-info{
+
+    margin-top:12px;
+
+    padding:10px 14px;
+
+    background:#f7faf7;
+
+    border:2px solid #dfeedd;
+
+    border-radius:14px;
+
+    font-size:0.9rem;
+
+    line-height:1.6;
+
+    color:#555;
+}    
 @media(max-width:480px){
 
     .walk-grid{
@@ -1055,6 +1073,7 @@ Ziele speichern
 
 <canvas id="kmChart"></canvas>
 <div id="kmTrendInfo" class="trend-info"></div>
+<div id="trendStatsInfo" class="trend-stats-info"></div>    
 </div>
     
 <div class="chart-range-buttons">
@@ -1959,7 +1978,23 @@ function renderCharts(walks){
         kmValues.length
         ? Math.max(...kmValues)
         : 10;
+const longestWalk =
+    currentWalks.length
+    ? Math.max(
+        ...currentWalks.map(
+            w => w.kilometers
+        )
+      )
+    : 0;
 
+const bestPace =
+    currentWalks.length
+    ? Math.min(
+        ...currentWalks.map(
+            w => w.paceSeconds
+        )
+      )
+    : 0;
     const avgKm =
         currentWalks.length
         ? currentWalks.reduce((s,w)=>s+w.kilometers,0) / currentWalks.length
@@ -1986,6 +2021,11 @@ function renderCharts(walks){
         ? "9 Monate"
         : "1 Jahr";
 
+    document.getElementById("trendStatsInfo")
+    .innerHTML =
+    `🏅 Längster Walk: ${longestWalk.toFixed(1).replace(".", ",")} km<br>
+     ⚡ Beste Pace: ${formatMMSS(bestPace)} min/km<br>
+     📊 Walks im Zeitraum: ${currentWalks.length}`;
     document.getElementById("kmTrendInfo")
         .innerHTML =
         `📈 Schnitt letzte ${rangeLabel}: ${avgKm.toFixed(1).replace(".", ",")} km<br>
