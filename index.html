@@ -163,12 +163,9 @@ h2{
         39% 35%
     );
 }
-   .runner{
+ .runner{
 
     position:absolute;
-    transform:translateX(-50%);
-
-    transition:left .4s;   
 
     top:-2px;
 
@@ -176,11 +173,11 @@ h2{
 
     font-size:34px;
 
-    transition:1s;
-
     z-index:1;
 
-    transform:scaleX(-1); 
+    transform:translateX(-50%) scaleX(-1);
+
+    transition:left 1s;
 }
 
 .xp-progress{
@@ -3033,10 +3030,10 @@ document.getElementById("xpNext")
 
 const runnerPercent =
     (currentXp / xpPerLevel) * 100;
-
+        
 document.getElementById("runner")
     .style.left =
-    `calc(${runnerPercent}% - 25px)`;
+    `${runnerPercent}%`;
         
     const now = new Date();
 
