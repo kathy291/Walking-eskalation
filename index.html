@@ -2742,86 +2742,47 @@ if(
 
     document.getElementById("totalKm").textContent =
     Math.round(totalKm) + " km";
+
+const reachedStory =
+    travelStories
+    .filter(item => totalKm >= item.km)
+    .pop();
+
+const nextStory =
+    travelStories
+    .find(item => totalKm < item.km);
+
 let story = "";
 
-if(totalKm < 100){
+if(reachedStory){
 
     story =
-        "🚶 Auf dem Weg von Hütte bis Münster";
-
-}else if(totalKm < 170){
-
-    story =
-        "🏙️ Von Hütte bis Hannover";
-
-}else if(totalKm < 220){
-
-    story =
-        "🌊 Von Hütte bis Bremen";
-
-}else if(totalKm < 280){
-
-    story =
-        "🏰 Von Hütte bis Köln";
-
-}else if(totalKm < 400){
-
-    story =
-        "🌉 Von Hütte bis Hamburg";
-
-}else if(totalKm < 520){
-
-    story =
-        "🧡 Von Hütte bis Frankfurt";
-
-}else if(totalKm < 650){
-
-    story =
-        "🏔️ Von Hütte bis München";
-
-}else if(totalKm < 900){
-
-    story =
-        "🥐 Von Hütte bis Paris";
-
-}else if(totalKm < 1200){
-
-    story =
-        "🏔️ Von Hütte bis in die Alpen";
-
-}else if(totalKm < 1600){
-
-    story =
-        "🏛️ Fast von Hütte bis Rom";
-
-}else if(totalKm < 2200){
-
-    story =
-        "🇮🇹 Von Hütte bis Rom und noch weiter";
-
-}else if(totalKm < 4000){
-
-    story =
-        "🌍 Ein richtig großes Stück durch Europa";
-
-}else if(totalKm < 10000){
-
-    story =
-        "✈️ Mehr Kilometer als viele Urlaubsreisen";
-
-}else if(totalKm < 40075){
-
-    story =
-        "🌍 Auf dem Weg einmal um die Erde";
+        reachedStory.story
+        + "<br>"
+        + reachedStory.sloth;
 
 }else{
 
     story =
-        "🌍 Einmal um die Erde geschafft!";
+        "🚶 Die Reise beginnt bald.<br>"
+        + "🦥 Faultier: „Noch können wir so tun, als wäre das nur ein kurzer Ausflug.“";
 }
+
+if(nextStory){
+
+    const kmLeft =
+        Math.ceil(nextStory.km - totalKm);
+
+    story +=
+        "<br><br>➡️ Noch "
+        + kmLeft
+        + " km bis zur nächsten Etappe.";
+}
+
 document.getElementById(
     "totalKmStory"
-).textContent = story;
+).innerHTML = story;
+        
     if(walks.length){
 
         const bestPace =
