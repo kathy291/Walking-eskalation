@@ -105,7 +105,7 @@ h2{
 
     position:relative;
 
-    overflow:hidden;
+    overflow:visible;
 }
 
 .road::after{
@@ -3040,9 +3040,15 @@ document.getElementById("xpNext")
 const runnerPercent =
     (currentXp / xpPerLevel) * 100;
         
+const runnerLeft =
+    Math.min(
+        96,
+        Math.max(4, runnerPercent)
+    );
+
 document.getElementById("runner")
     .style.left =
-    `${runnerPercent}%`;
+    `${runnerLeft}%`;
         
     const now = new Date();
 
