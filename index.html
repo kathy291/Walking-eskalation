@@ -1117,7 +1117,11 @@ Ziele speichern
 <h2>⚡ Pace Trend</h2>
 
 <canvas id="paceChart"></canvas>
+
 <div id="paceTrendInfo" class="trend-info"></div>
+
+<div id="paceStatsInfo" class="trend-stats-info"></div>
+
 </div>
 
 <div class="card">
@@ -2023,11 +2027,16 @@ const bestPace =
         ? "9 Monate"
         : "1 Jahr";
 
-    document.getElementById("trendStatsInfo")
+document.getElementById("trendStatsInfo")
     .innerHTML =
     `🏅 Längster Walk: ${longestWalk.toFixed(1).replace(".", ",")} km<br>
-     ⚡ Beste Pace: ${formatMMSS(bestPace)} min/km<br>
      📊 Walks im Zeitraum: ${currentWalks.length}`;
+
+document.getElementById("paceStatsInfo")
+    .innerHTML =
+    `⚡ Beste Pace: ${formatMMSS(bestPace)} min/km<br>
+     📊 Walks im Zeitraum: ${currentWalks.length}`;
+    
     document.getElementById("kmTrendInfo")
         .innerHTML =
         `📈 Schnitt letzte ${rangeLabel}: ${avgKm.toFixed(1).replace(".", ",")} km<br>
