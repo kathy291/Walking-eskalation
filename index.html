@@ -1277,11 +1277,14 @@ const quickNotesOptions = [
     "Regen",
     "Rückenschmerzen",
     "Kopfschmerzen",
+    "Fußschmerzen",
+    "Knieschmerzen",
     "unmotiviert",
     "wenig Zeit",
     "Krank",
     "Schnee und Glätte",
     "sehr warm",
+    "extrem warm",
     "im Urlaub"
 ];
 
@@ -1337,6 +1340,31 @@ const slothMotivations = [
 ];
     const noteMotivations = {
 
+     "Fußschmerzen":[
+
+    "🦶 Fußschmerzen und trotzdem gegangen. Das Faultier hätte längst aufgegeben.",
+    "🦥 Das Faultier empfiehlt heute Hausschuhe statt Laufschuhe.",
+    "💪 Jeder Schritt hat heute doppelt gezählt.",
+    "🌟 Manchmal ist Durchhalten die größte Leistung."
+],
+
+"Knieschmerzen":[
+
+    "🦵 Knieschmerzen und trotzdem unterwegs. Das Faultier ist beeindruckt.",
+    "🦥 Das Faultier hätte vorsichtshalber die Beine hochgelegt.",
+    "💪 Nicht jeder Walk fühlt sich leicht an. Dieser zählt besonders.",
+    "🌟 Auch mit Beschwerden die Serie fortgesetzt. Stark."
+],
+
+"Extrem heiß":[
+
+    "🔥 Extreme Hitze und trotzdem gelaufen. Das Faultier ist inzwischen flüssig.",
+    "🥵 Heute war jeder Kilometer ein kleiner Härtetest.",
+    "🦥 Das Faultier hat den Ventilator zum neuen besten Freund erklärt.",
+    "☀️ Der Asphalt glühte. Kathy lief trotzdem."
+    "🦥 Das Faultier sucht Schatten und ein Eis.",
+    "🥵 Bei dieser Hitze überhaupt loszugehen verdient Respekt."
+],   
     "Regen":[
 
         "☔ Regen? Das Faultier hätte aus dem Fenster geschaut und Nein gesagt.",
@@ -1392,14 +1420,13 @@ const slothMotivations = [
         "⛄ Das Wetter war mutig. Kathy auch.",
         "❄️ Glätte draußen. Disziplin drinnen."
     ],
+"sehr warm":[
 
-    "sehr warm":[
-
-        "☀️ Sehr warm. Das Faultier wäre zuhause geblieben.",
-        "🥵 Das Faultier schmilzt schon beim Gedanken daran.",
-        "☀️ Das Faultier sucht Schatten. Kathy sammelt Kilometer.",
-        "🌡️ Warm genug für Ausreden. Nicht warm genug für Kathy."
-    ],
+    "☀️ Angenehm warm und trotzdem fleißig unterwegs.",
+    "🦥 Das Faultier sucht schon den nächsten Schattenplatz.",
+    "🌤️ Bestes Wetter für einen Walk. Das Faultier sieht das anders.",
+    "😎 Die Sonne war da. Kathy auch."
+],
 
     "im Urlaub":[
 
@@ -1822,10 +1849,25 @@ if(walks.length){
     slothEmoji =
         "🌧️🦥";
 
+}else if(notes.includes("Extrem heiß")){
+
+    slothEmoji =
+        "🔥🦥";
+
 }else if(notes.includes("sehr warm")){
 
     slothEmoji =
         "☀️🦥";
+
+}else if(notes.includes("Fußschmerzen")){
+
+    slothEmoji =
+        "🦶🦥";
+
+}else if(notes.includes("Knieschmerzen")){
+
+    slothEmoji =
+        "🦵🦥";
 
 }else if(notes.includes("im Urlaub")){
 
@@ -1846,6 +1888,7 @@ if(walks.length){
 
     slothEmoji =
         "😩🦥";
+}
 }
 }
 
