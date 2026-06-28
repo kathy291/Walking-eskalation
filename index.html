@@ -350,9 +350,10 @@ h2{
     
 .stats{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(6, 1fr);
     gap:14px;
 }
+    
 .stat-card{
 
     background:
@@ -367,7 +368,7 @@ h2{
     text-align:center;
 }
 .total-stat{
-
+grid-column:1 / 7;
     background:
         linear-gradient(
             180deg,
@@ -419,7 +420,7 @@ h2{
     margin-top:4px;
 }
 .record-stat{
-
+grid-column:span 2;
     background:
         linear-gradient(
             180deg,
@@ -431,7 +432,7 @@ h2{
 }
 
 .compare-stat{
-
+grid-column:span 3;
     background:
         linear-gradient(
             180deg,
@@ -994,9 +995,6 @@ Pace 00:00
 <div id="challengeText"></div>
 
 </div>
-
-
-
 
 <div class="stats">
  <div class="card stat-card total-stat">   
