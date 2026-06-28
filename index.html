@@ -500,17 +500,30 @@ grid-column:span 3;
 
 #totalKmStory{
 
-    margin-top:15px;
+    margin-top:18px;
 
-    font-size:1.05rem;
+    font-size:1.15rem;
 
     color:#24a8a5;
 
     font-style:italic;
 
+    font-weight:700;
+
+    line-height:1.5;
+}
+
+    #totalKmSloth{
+
+    margin-top:18px;
+
+    color:#208f8c;
+
+    font-size:1.05rem;
+
     font-weight:600;
 
-    line-height:1.45;
+    line-height:1.5;
 }
     
     .stat-date{
@@ -1047,6 +1060,7 @@ Pace 00:00
 </h2>
 <div class="stat-number" id="totalKm">0,00</div>
     <div id="totalKmStory"></div>
+     <div id="totalKmSloth"></div>
 </div>
 
 <div class="card stat-card record-stat">
@@ -2801,19 +2815,23 @@ const nextStory =
     .find(item => totalKm < item.km);
 
 let story = "";
+let sloth = "";
 
 if(reachedStory){
 
     story =
-        reachedStory.story
-        + "<br>"
-        + reachedStory.sloth;
+        reachedStory.story;
+
+    sloth =
+        reachedStory.sloth;
 
 }else{
 
     story =
-        "🚶 Die Reise beginnt bald.<br>"
-        + "🦥 Faultier: „Noch können wir so tun, als wäre das nur ein kurzer Ausflug.“";
+        "🚶 Die Reise beginnt bald.";
+
+    sloth =
+        "🦥 Faultier: „Noch können wir so tun, als wäre das nur ein kurzer Ausflug.“";
 }
 
 if(nextStory){
@@ -2822,14 +2840,18 @@ if(nextStory){
         Math.ceil(nextStory.km - totalKm);
 
     story +=
-        "<br><br>➡️ Noch "
+        "\n\n➡️ Noch "
         + kmLeft
         + " km bis zur nächsten Etappe.";
 }
 
 document.getElementById(
     "totalKmStory"
-).innerHTML = story;
+).textContent = story;
+
+document.getElementById(
+    "totalKmSloth"
+).textContent = sloth;
         
     if(walks.length){
 
