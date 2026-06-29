@@ -2027,9 +2027,23 @@ document
     const day =
         new Date().getDate();
 
-    document.getElementById("challengeText")
-        .textContent =
-        challenges[day % challenges.length];
+    const challenge =
+    challenges[
+        day % challenges.length
+    ];
+
+document
+    .getElementById("challengeText")
+    .textContent =
+    challenge;
+
+document
+    .getElementById("challengeSloth")
+    .textContent =
+    "🦥 " +
+    challengeMorningTexts[
+        day % challengeMorningTexts.length
+    ];
 }
 
 function renderQuickNotes(){
