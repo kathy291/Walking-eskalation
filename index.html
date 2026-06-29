@@ -2079,14 +2079,21 @@ document
     challenge;
 
 document
+    .getElementById("challengeResult")
+    .textContent =
+    "";
+
+document
+    .getElementById("challengeSlothEmoji")
+    .textContent =
+    "🦥";
+
+document
     .getElementById("challengeSloth")
     .textContent =
-    "🦥 " +
     challengeMorningTexts[
         day % challengeMorningTexts.length
     ];
-}
-
 function renderQuickNotes(){
 
     const container =
