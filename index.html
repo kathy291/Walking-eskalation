@@ -2038,63 +2038,106 @@ document
     slothLine;
 }
    function renderChallenge(){ 
+
     const challenges = [
 
-    "Laufe heute mindestens 3 km",
-    "Schaffe heute unter 10:00 Pace",
-    "Mindestens 45 Minuten laufen",
-    "Heute trotz Wetter rausgehen",
-    "Heute mindestens 5 km schaffen",
+        "Laufe heute mindestens 3 km",
+        "Schaffe heute unter 10:00 Pace",
+        "Mindestens 45 Minuten laufen",
+        "Heute trotz Wetter rausgehen",
+        "Heute mindestens 5 km schaffen",
 
-    "Sammle heute mindestens 30 Minuten Frischluft",
-    "Mach heute einen Walk ohne Ausreden",
-    "Laufe heute einfach los, auch wenn es nur kurz ist",
-    "Schlage heute den inneren Couch-Magneten",
-    "Sammle heute mindestens 4 km",
+        "Sammle heute mindestens 30 Minuten Frischluft",
+        "Mach heute einen Walk ohne Ausreden",
+        "Laufe heute einfach los, auch wenn es nur kurz ist",
+        "Schlage heute den inneren Couch-Magneten",
+        "Sammle heute mindestens 4 km",
 
-    "Heute zählt nur: rausgehen und anfangen",
-    "Laufe heute so, dass das Faultier verwirrt ist",
-    "Mach heute einen Walk, auf den du morgen stolz bist",
-    "Heute darf es langsam sein, aber nicht null",
-    "Sammle heute einen Serienpunkt",
+        "Heute zählt nur: rausgehen und anfangen",
+        "Laufe heute so, dass das Faultier verwirrt ist",
+        "Mach heute einen Walk, auf den du morgen stolz bist",
+        "Heute darf es langsam sein, aber nicht null",
+        "Sammle heute einen Serienpunkt",
 
-    "Laufe heute mindestens 40 Minuten",
-    "Versuche heute eine bessere Pace als beim letzten Walk",
-    "Versuche heute länger unterwegs zu sein als beim letzten Walk",
-    "Mach heute einen Wohlfühl-Walk",
-    "Gib dem Faultier heute keinen Grund zur Hoffnung"
-];
+        "Laufe heute mindestens 40 Minuten",
+        "Versuche heute eine bessere Pace als beim letzten Walk",
+        "Versuche heute länger unterwegs zu sein als beim letzten Walk",
+        "Mach heute einen Wohlfühl-Walk",
+        "Gib dem Faultier heute keinen Grund zur Hoffnung"
+    ];
 
     const day =
         new Date().getDate();
 
+    const today =
+        new Date().toISOString().split("T")[0];
+
     const challenge =
-    challenges[
-        day % challenges.length
-    ];
+        challenges[
+            day % challenges.length
+        ];
 
-document
-    .getElementById("challengeText")
-    .textContent =
-    challenge;
+    const todayWalk =
+        loadWalks().find(
+            walk => walk.date === today
+        );
 
-document
-    .getElementById("challengeResult")
-    .textContent =
-    "";
+    document
+        .getElementById("challengeText")
+        .textContent =
+        challenge;
 
-document
-    .getElementById("challengeSlothEmoji")
-    .textContent =
-    "🦥";
+    document
+        .getElementById("challengeSlothEmoji")
+        .textContent =
+        "🦥";
 
-document
-    .getElementById("challengeSloth")
-    .textContent =
-    challengeMorningTexts[
-        day % challengeMorningTexts.length
-    ];
-   }
+    if(todayWalk){
+
+        if(todayWalk.challengeDone){
+
+            document
+                .getElementById("challengeResult")
+                .textContent =
+                "🎁 Challenge geschafft";
+
+            document
+                .getElementById("challengeSloth")
+                .textContent =
+                challengeWinTexts[
+                    day % challengeWinTexts.length
+                ];
+
+        }else{
+
+            document
+                .getElementById("challengeResult")
+                .textContent =
+                "📦 Challenge nicht geschafft";
+
+            document
+                .getElementById("challengeSloth")
+                .textContent =
+                challengeLoseTexts[
+                    day % challengeLoseTexts.length
+                ];
+        }
+
+    }else{
+
+        document
+            .getElementById("challengeResult")
+            .textContent =
+            "";
+
+        document
+            .getElementById("challengeSloth")
+            .textContent =
+            challengeMorningTexts[
+                day % challengeMorningTexts.length
+            ];
+    }
+}
 function renderQuickNotes(){
 
     const container =
