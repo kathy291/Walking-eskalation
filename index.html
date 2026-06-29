@@ -1765,20 +1765,22 @@ function renderMotivation(){
 const latestNotes =
     latest.quickNotes || [];
 
-const matchingNote =
-    latestNotes.find(
+const availableNotes =
+    latestNotes.filter(
         note => noteMotivations[note]
     );
 
-if(matchingNote){
+if(availableNotes.length){
 
-    const noteList =
-        noteMotivations[
-            matchingNote
+    const randomNote =
+        availableNotes[
+            Math.floor(
+                Math.random() * availableNotes.length
+            )
         ];
 
     list =
-        noteList;
+        noteMotivations[randomNote];
 
 }else{
         const paceDone =
