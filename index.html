@@ -1895,12 +1895,49 @@ document
     .getElementById("slothEmoji")
     .textContent =
     slothEmoji;
-    document
-    .getElementById("slothText")
-    .textContent =
+  let slothLine =
     slothTexts[
         day % slothTexts.length
     ];
+
+if(walks.length){
+
+    const latest =
+        [...walks]
+        .sort(
+            (a,b)=>
+                new Date(b.date) - new Date(a.date)
+        )[0];
+
+    const notes =
+        latest.quickNotes || [];
+
+    if(notes.includes("Extrem heiß")){
+
+        slothLine =
+            "Ich bin offiziell geschmolzen.";
+
+    }else if(notes.includes("Fußschmerzen")){
+
+        slothLine =
+            "Ich hätte heute die Füße hochgelegt.";
+
+    }else if(notes.includes("Knieschmerzen")){
+
+        slothLine =
+            "Treppen? Nein danke.";
+
+    }else if(notes.includes("sehr warm")){
+
+        slothLine =
+            "Schatten ist heute mein Lieblingsort.";
+    }
+}
+
+document
+    .getElementById("slothText")
+    .textContent =
+    slothLine;
 }
    function renderChallenge(){ 
     const challenges = [
