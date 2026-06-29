@@ -1832,6 +1832,8 @@ legendMotivations[0] =
    let slothEmoji =
     "🦥";
 
+let selectedMoodNote = null;
+
 if(walks.length){
 
     const latest =
@@ -1846,53 +1848,67 @@ if(walks.length){
     const notes =
         latest.quickNotes || [];
 
-    if(notes.includes("Regen")){
+    const moodNotes =
+        notes.filter(
+            note => noteMotivations[note]
+        );
 
-    slothEmoji =
-        "🌧️🦥";
+    if(moodNotes.length){
 
-}else if(notes.includes("Extrem heiß")){
+        selectedMoodNote =
+            moodNotes[
+                Math.floor(
+                    Math.random() * moodNotes.length
+                )
+            ];
+    }
 
-    slothEmoji =
-        "🔥🦥";
+    if(selectedMoodNote === "Regen"){
 
-}else if(notes.includes("sehr warm")){
+        slothEmoji =
+            "🌧️🦥";
 
-    slothEmoji =
-        "☀️🦥";
+    }else if(selectedMoodNote === "Extrem heiß"){
 
-}else if(notes.includes("Fußschmerzen")){
+        slothEmoji =
+            "🥵🦥";
 
-    slothEmoji =
-        "🦶🦥";
+    }else if(selectedMoodNote === "sehr warm"){
 
-}else if(notes.includes("Knieschmerzen")){
+        slothEmoji =
+            "☀️🦥";
 
-    slothEmoji =
-        "🦵🦥";
+    }else if(selectedMoodNote === "Fußschmerzen"){
 
-}else if(notes.includes("im Urlaub")){
+        slothEmoji =
+            "🩹🦶🦥";
 
-    slothEmoji =
-        "🏖️🦥";
+    }else if(selectedMoodNote === "Knieschmerzen"){
 
-}else if(notes.includes("Schnee und Glätte")){
+        slothEmoji =
+            "🦵🦥";
 
-    slothEmoji =
-        "❄️🦥";
+    }else if(selectedMoodNote === "im Urlaub"){
 
-}else if(notes.includes("wenig Zeit")){
+        slothEmoji =
+            "🏖️🦥";
 
-    slothEmoji =
-        "⏰🦥";
+    }else if(selectedMoodNote === "Schnee und Glätte"){
 
-}else if(notes.includes("unmotiviert")){
+        slothEmoji =
+            "❄️🦥";
 
-    slothEmoji =
-        "😩🦥";
+    }else if(selectedMoodNote === "wenig Zeit"){
+
+        slothEmoji =
+            "⏰🦥";
+
+    }else if(selectedMoodNote === "unmotiviert"){
+
+        slothEmoji =
+            "😩🦥";
+    }
 }
-}
-
 document
     .getElementById("slothEmoji")
     .textContent =
