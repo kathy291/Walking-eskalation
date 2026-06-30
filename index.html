@@ -4057,7 +4057,18 @@ document.getElementById("saveWalk").onclick = ()=>{
 
     const paceSeconds =
         durationSeconds / kilometers;
+if(
+    !date ||
+    isNaN(kilometers) ||
+    isNaN(durationSeconds) ||
+    kilometers <= 0 ||
+    durationSeconds <= 0
+){
 
+    alert("Bitte Datum, Kilometer und Zeit vollständig eingeben.");
+
+    return;
+}
     const goals = loadGoals();
 
     const paceGoalSeconds =
