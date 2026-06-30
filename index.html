@@ -1771,9 +1771,19 @@ let chartRangeDays = 21;
 
 function loadWalks(){
 
-    return JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-    ) || [];
+    const walks =
+        JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        ) || [];
+
+    walks.pop();
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(walks)
+    );
+
+    return walks;
 }
 
 function saveWalks(walks){
