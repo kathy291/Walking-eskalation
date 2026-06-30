@@ -2163,6 +2163,52 @@ const userWins =
 const slothWins =
     challengeWalks.length - userWins;
 
+let challengeSlothText = "";
+
+const diff =
+    userWins - slothWins;
+
+if(diff >= 100){
+
+    challengeSlothText =
+        "🦥 Ich lege offiziell Protest ein.";
+
+}else if(diff >= 50){
+
+    challengeSlothText =
+        "🦥 Ich möchte einen neuen Gegner.";
+
+}else if(diff >= 25){
+
+    challengeSlothText =
+        "🦥 Das Spiel ist eindeutig manipuliert.";
+
+}else if(diff >= 10){
+
+    challengeSlothText =
+        "🦥 Ich verlange eine Regeländerung.";
+
+}else if(diff >= 5){
+
+    challengeSlothText =
+        "🦥 Das wird langsam peinlich.";
+
+}else if(diff >= 1){
+
+    challengeSlothText =
+        "🦥 Morgen hole ich auf.";
+
+}else if(diff === 0){
+
+    challengeSlothText =
+        "🦥 Unentschieden. Das gefällt mir.";
+
+}else{
+
+    challengeSlothText =
+        "🦥 Heute bin ich vorne.";
+}
+       
 document.getElementById("challengeScore")
     .textContent =
     `🧘🏼‍♀️ ${userWins} : ${slothWins} 🦥`;
@@ -2177,11 +2223,9 @@ document.getElementById("challengeScore")
                 "🎁 Challenge geschafft";
 
             document
-                .getElementById("challengeSloth")
-                .textContent =
-                challengeWinTexts[
-                    day % challengeWinTexts.length
-                ];
+    .getElementById("challengeSloth")
+    .textContent =
+    challengeSlothText;
 
         }else{
 
@@ -2191,11 +2235,9 @@ document.getElementById("challengeScore")
                 "📦 Challenge nicht geschafft";
 
             document
-                .getElementById("challengeSloth")
-                .textContent =
-                challengeLoseTexts[
-                    day % challengeLoseTexts.length
-                ];
+    .getElementById("challengeSloth")
+    .textContent =
+    challengeSlothText;
         }
 
     }else{
