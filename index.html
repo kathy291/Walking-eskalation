@@ -1381,10 +1381,7 @@ Walk speichern
 
 const STORAGE_KEY = "kathyWalkingV5";
 const GOAL_KEY = "kathyGoalsV5";
-alert(
-    "Walk-Daten:\n" +
-    localStorage.getItem(STORAGE_KEY)
-);
+
 const quickNotesOptions = [
 
     "Normal",
@@ -2227,9 +2224,14 @@ if(diff >= 250){
         "🦥 Du hast heute keine Chance.";
 }
        
-document.getElementById("challengeScore")
-    .textContent =
-    `🧘🏼‍♀️ ${userWins} : ${slothWins} 🦥`;
+const challengeScoreElement =
+    document.getElementById("challengeScore");
+
+if(challengeScoreElement){
+
+    challengeScoreElement.textContent =
+        `🧘🏼‍♀️ ${userWins} : ${slothWins} 🦥`;
+}
        
     if(todayWalk){
 
