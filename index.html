@@ -927,17 +927,15 @@ textarea{
 
 #challengeScore{
 
-    margin-top:18px;
+    margin:12px 0;
 
     text-align:center;
 
-    font-size:3rem;
+    font-size:1.3rem;
 
     font-weight:900;
 
-    color:#7bc51b;
-
-    line-height:1;
+    color:#63b84d;
 }
 @media(max-width:480px){
 
@@ -1148,7 +1146,9 @@ Pace 00:00
 <div id="challengeText"></div>
 
 <div id="challengeResult"></div>
-
+    
+<div id="challengeScore"></div>
+    
 <hr class="challenge-divider">
 
 <div id="challengeCorner">
@@ -2133,7 +2133,8 @@ document
         challenges[
             day % challenges.length
         ];
-
+const walks =
+    loadWalks();
     const todayWalk =
         loadWalks().find(
             walk => walk.date === today
@@ -2149,6 +2150,16 @@ document
         .textContent =
         "🦥";
 
+const userWins =
+    walks.filter(w => w.challengeDone).length;
+
+const slothWins =
+    walks.length - userWins;
+
+document.getElementById("challengeScore")
+    .textContent =
+    `🧘🏼‍♀️ ${userWins} : ${slothWins} 🦥`;
+       
     if(todayWalk){
 
         if(todayWalk.challengeDone){
