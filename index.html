@@ -3275,9 +3275,9 @@ document.getElementById(
                 ...walks.map(w=>w.paceSeconds)
             );
 
-       document.getElementById("bestPace")
+    document.getElementById("bestPace")
     .textContent =
-    formatMMSS(bestPace) + "\u00A0Min"
+    formatMMSS(bestPace) + " Min";   
 const bestPaceWalk =
     walks.find(
         w => w.paceSeconds === bestPace
@@ -3297,9 +3297,9 @@ document.getElementById(
                 ...walks.map(w=>w.kilometers)
             );
 
-        document.getElementById("longestWalk")
-            .textContent =
-            formatKm(longestWalk) + "\u00A0km"
+    document.getElementById("longestWalk")
+    .textContent =
+    formatKm(longestWalk) + " km";    
 const longestWalkData =
     walks.find(
         w => w.kilometers === longestWalk
@@ -3319,7 +3319,7 @@ document.getElementById(
 
         document.getElementById("longestTime")
     .textContent =
-    formatMMSS(longestTime) + "\u00A0Min"
+    formatMMSS(longestTime) + " Min";
 const longestTimeData =
     walks.find(
         w => w.durationSeconds === longestTime
