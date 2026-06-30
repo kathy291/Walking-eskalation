@@ -2136,9 +2136,9 @@ document
 const walks =
     loadWalks();
     const todayWalk =
-        loadWalks().find(
-            walk => walk.date === today
-        );
+    walks.find(
+        walk => walk.date === today
+    );
 
     document
         .getElementById("challengeText")
