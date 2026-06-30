@@ -1783,7 +1783,10 @@ function loadWalks(){
         localStorage.getItem(STORAGE_KEY)
     ) || [];
 }
-
+alert(
+    "Speichere Walks: " +
+    walks.length
+);
 function saveWalks(walks){
 
     localStorage.setItem(
