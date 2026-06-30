@@ -2170,7 +2170,12 @@ let challengeSlothText = "";
 const diff =
     userWins - slothWins;
 
-if(diff >= 100){
+if(diff >= 250){
+
+    challengeSlothText =
+        "🦥 Ich glaube, ich kündige.";
+
+}else if(diff >= 100){
 
     challengeSlothText =
         "🦥 Ich lege offiziell Protest ein.";
@@ -2178,12 +2183,12 @@ if(diff >= 100){
 }else if(diff >= 50){
 
     challengeSlothText =
-        "🦥 Ich möchte einen neuen Gegner.";
+        "🦥 Das ist kein Spiel mehr.";
 
 }else if(diff >= 25){
 
     challengeSlothText =
-        "🦥 Das Spiel ist eindeutig manipuliert.";
+        "🦥 Ich habe einen Anwalt eingeschaltet.";
 
 }else if(diff >= 10){
 
@@ -2193,7 +2198,7 @@ if(diff >= 100){
 }else if(diff >= 5){
 
     challengeSlothText =
-        "🦥 Das wird langsam peinlich.";
+        "🦥 Das entwickelt sich ungünstig.";
 
 }else if(diff >= 1){
 
@@ -2203,12 +2208,17 @@ if(diff >= 100){
 }else if(diff === 0){
 
     challengeSlothText =
-        "🦥 Unentschieden. Das gefällt mir.";
+        "🦥 Heute steht es unentschieden.";
+
+}else if(diff > -5){
+
+    challengeSlothText =
+        "🦥 Heute führe ich noch.";
 
 }else{
 
     challengeSlothText =
-        "🦥 Heute bin ich vorne.";
+        "🦥 Du hast heute keine Chance.";
 }
        
 document.getElementById("challengeScore")
