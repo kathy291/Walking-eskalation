@@ -966,14 +966,6 @@ textarea{
     animation:
         slothRun 5s linear;
 }
-#challengeResult{
-
-    margin-top:10px;
-
-    font-weight:800;
-
-    color:#3f8f5a;
-}
 
 .challenge-divider{
 
@@ -1495,7 +1487,7 @@ const challengeLoseTexts = [
     "🌟 Auch mit Beschwerden die Serie fortgesetzt. Stark."
 ],
 
-"Extrem heiß":[
+"extrem heiß":[
 
     "🔥 Extreme Hitze und trotzdem gelaufen. Das Faultier ist inzwischen flüssig.",
     "🥵 Heute war jeder Kilometer ein kleiner Härtetest.",
@@ -1783,10 +1775,7 @@ function loadWalks(){
         localStorage.getItem(STORAGE_KEY)
     ) || [];
 }
-alert(
-    "Speichere Walks: " +
-    walks.length
-);
+
 function saveWalks(walks){
 
     localStorage.setItem(
@@ -2010,7 +1999,7 @@ if(walks.length){
         slothEmoji =
             "🌧️🦥";
 
-    }else if(selectedMoodNote === "Extrem heiß"){
+    }else if(selectedMoodNote === "extrem heiß"){
 
         slothEmoji =
             "🥵🦥";
@@ -2072,7 +2061,7 @@ if(walks.length){
     const notes =
         latest.quickNotes || [];
 
-    if(notes.includes("Extrem heiß")){
+    if(notes.includes("extrem heiß")){
 
         slothLine =
             "Ich bin offiziell geschmolzen.";
@@ -3928,7 +3917,7 @@ editingWalkId = id;
 function renderApp(){
 
     const walks = loadWalks();
-alert("Geladene Walks: " + walks.length);
+
     renderGoals();
 
     renderMotivation();
