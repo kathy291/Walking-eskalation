@@ -1382,8 +1382,8 @@ Walk speichern
 const STORAGE_KEY = "kathyWalkingV5";
 const GOAL_KEY = "kathyGoalsV5";
 alert(
-    "Speicher-Schlüssel:\n" +
-    Object.keys(localStorage).join("\n")
+    "Walk-Daten:\n" +
+    localStorage.getItem(STORAGE_KEY)
 );
 const quickNotesOptions = [
 
