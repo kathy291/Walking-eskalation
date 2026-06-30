@@ -2150,11 +2150,18 @@ const walks =
         .textContent =
         "🦥";
 
+const challengeWalks =
+    walks.filter(
+        w => "challengeDone" in w
+    );
+
 const userWins =
-    walks.filter(w => w.challengeDone).length;
+    challengeWalks.filter(
+        w => w.challengeDone
+    ).length;
 
 const slothWins =
-    walks.length - userWins;
+    challengeWalks.length - userWins;
 
 document.getElementById("challengeScore")
     .textContent =
