@@ -2209,11 +2209,6 @@ const walks =
         .textContent =
         challenge;
 
-    document
-    .getElementById("challengeSlothEmoji")
-    .textContent =
-    moodEmoji[slothMood];
-
 const challengeWalks =
     walks.filter(
         w => "challengeDone" in w
@@ -2226,6 +2221,8 @@ const userWins =
 
 const slothWins =
     challengeWalks.length - userWins;
+       const diff =
+    userWins - slothWins;
 let slothMood = "normal";
 
 if(userWins >= 100){
@@ -2324,8 +2321,7 @@ const moodEmoji = {
 
 };
        
-const diff =
-    userWins - slothWins;
+
 
 const latestWalk =
     walks.length
@@ -2418,7 +2414,7 @@ if(
 
     challengeSlothText =
         "🦥 Das entwickelt sich ungünstig.";
-ùü
+
 }else if(diff >= 1){
 
     challengeSlothText =
