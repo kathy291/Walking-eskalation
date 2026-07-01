@@ -1841,12 +1841,40 @@ function formatKm(value){
 
 function parseMMSS(value){
 
-    const parts = value.split(":");
+    if(
+        !value ||
+        !value.includes(":")
+    ){
+        return NaN;
+    }
+
+    const parts =
+        value.split(":");
+
+    if(parts.length !== 2){
+        return NaN;
+    }
+
+    const minutes =
+        parseInt(parts[0]);
+
+    const seconds =
+        parseInt(parts[1]);
+
+    if(
+        isNaN(minutes) ||
+        isNaN(seconds) ||
+        minutes < 0 ||
+        seconds < 0 ||
+        seconds >= 60
+    ){
+        return NaN;
+    }
 
     return (
-        parseInt(parts[0]) * 60
+        minutes * 60
         +
-        parseInt(parts[1])
+        seconds
     );
 }
 
