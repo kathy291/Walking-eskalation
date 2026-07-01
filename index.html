@@ -382,6 +382,8 @@ h2{
         );
 
     border:3px solid #55d6cf;
+    position:relative;
+overflow:hidden;
 }
 
 .total-stat .stat-number{
@@ -402,6 +404,8 @@ h2{
     text-align:center;
 
     margin-bottom:12px;
+    position:relative;
+z-index:2;
 }
     .record-stat .stat-number{
     color:#2f8fcf;
@@ -518,6 +522,8 @@ grid-column:span 3;
     font-size:1.5rem;
     font-weight:800;
     margin-top:8px;
+    position:relative;
+z-index:2;
 }
 
 #totalKmStory{
@@ -555,6 +561,35 @@ grid-column:span 3;
 
     color:#208f8c;
 }
+    #travelMap{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.08;
+
+    pointer-events:none;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:280px;
+
+    z-index:0;
+}
+
+#travelPin{
+
+    position:absolute;
+
+    font-size:36px;
+
+    transition:all .8s;
+}
  .travel-bar{
 
     position:relative;
@@ -572,6 +607,8 @@ grid-column:span 3;
         0 2px 6px rgba(0,0,0,.12);
 
     overflow:visible;
+     position:relative;
+z-index:2;
 }
 #travelMarker{
 
@@ -1226,6 +1263,13 @@ Pace 00:00
 🌍 Gesamt-km
 </h2>
 <div class="stat-number" id="totalKm">0,00</div>
+     <div id="travelMap">
+
+    🌍
+
+    <div id="travelPin">📍</div>
+
+</div>
     <div id="totalKmStory"></div>
      <div id="travelSouvenir"></div>
      <div id="travelLocation"></div>
@@ -3605,7 +3649,33 @@ const reachedStory =
     travelStories
     .filter(item => totalKm >= item.km)
     .pop();
+const pinPositions = {
 
+    25:{left:"18%",top:"45%"},
+    50:{left:"19%",top:"44%"},
+    75:{left:"20%",top:"43%"},
+    100:{left:"21%",top:"42%"},
+
+    1500:{left:"48%",top:"42%"},
+    1525:{left:"48%",top:"41%"},
+    1550:{left:"49%",top:"40%"},
+    1575:{left:"49%",top:"39%"},
+    1600:{left:"50%",top:"39%"},
+    1625:{left:"50%",top:"39%"},
+    1650:{left:"50%",top:"38%"},
+    1675:{left:"51%",top:"40%"},
+    1700:{left:"51%",top:"42%"},
+    1725:{left:"52%",top:"43%"},
+    1750:{left:"52%",top:"44%"},
+    1775:{left:"53%",top:"45%"},
+    1800:{left:"53%",top:"46%"},
+    1850:{left:"54%",top:"48%"},
+    1900:{left:"55%",top:"50%"},
+    2000:{left:"56%",top:"52%"}
+};
+
+    
+        
 let story = "";
 let sloth = "";
 
@@ -3625,7 +3695,20 @@ if(reachedStory){
     sloth =
         "🦥 Faultier: „Noch können wir so tun, als wäre das nur ein kurzer Ausflug.“";
 }
+if(reachedStory){
 
+    const pos =
+        pinPositions[reachedStory.km];
+
+    if(pos){
+
+        const pin =
+            document.getElementById("travelPin");
+
+        pin.style.left = pos.left;
+        pin.style.top = pos.top;
+    }
+}
 document.getElementById("totalKmStory")
     .textContent = story;
 
