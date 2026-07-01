@@ -581,6 +581,22 @@ z-index:2;
 
     z-index:0;
 }
+    #worldMap{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
+
+    background-repeat:no-repeat;
+
+    background-position:center;
+
+    background-size:88%;
+
+    opacity:.07;
+}
 
 #travelPin{
 
@@ -1265,10 +1281,11 @@ Pace 00:00
 <div class="stat-number" id="totalKm">0,00</div>
      <div id="travelMap">
 
-    🌍
+    <div id="worldMap"></div>
 
     <div id="travelPin">📍</div>
 
+</div>
 </div>
     <div id="totalKmStory"></div>
      <div id="travelSouvenir"></div>
