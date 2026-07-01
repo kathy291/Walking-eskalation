@@ -555,6 +555,35 @@ grid-column:span 3;
 
     color:#208f8c;
 }
+    .travel-bar{
+
+    position:relative;
+
+    height:14px;
+
+    margin-top:12px;
+
+    border-radius:999px;
+
+    background:#d7f5f1;
+
+    overflow:visible;
+}
+
+#travelMarker{
+
+    position:absolute;
+
+    top:-16px;
+
+    left:0;
+
+    font-size:28px;
+
+    transform:translateX(-50%);
+
+    transition:left .8s;
+}
 #totalKmSloth{
 
     margin-top:18px;
@@ -1197,6 +1226,11 @@ Pace 00:00
     <div id="totalKmStory"></div>
      <div id="travelSouvenir"></div>
      <div id="travelLocation"></div>
+     <div class="travel-bar">
+
+    <div id="travelMarker">🚶🏻‍♀️</div>
+
+</div>
      <div id="totalKmSloth"></div>
 </div>
 
@@ -3647,7 +3681,19 @@ document.getElementById(
 ).textContent = souvenir;
 document.getElementById(
     "travelLocation"
-).textContent = location;        
+).textContent = location;  
+   const journeyLength = 2000;
+
+const percent =
+    Math.min(
+        100,
+        (totalKm / journeyLength) * 100
+    );
+
+document.getElementById(
+    "travelMarker"
+).style.left =
+    percent + "%";     
  document.getElementById(
     "totalKmSloth"
 ).textContent = sloth;       
