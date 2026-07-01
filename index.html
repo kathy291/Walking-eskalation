@@ -2219,7 +2219,69 @@ let challengeSlothText = "";
 const diff =
     userWins - slothWins;
 
-if(diff >= 250){
+const latestWalk =
+    walks.length
+    ? [...walks].sort(
+        (a,b)=>
+            new Date(b.date) - new Date(a.date)
+      )[0]
+    : null;
+
+const bestPace =
+    walks.length
+    ? Math.min(...walks.map(w => w.paceSeconds))
+    : null;
+
+const longestWalk =
+    walks.length
+    ? Math.max(...walks.map(w => w.kilometers))
+    : null;
+
+if(
+    latestWalk &&
+    latestWalk.paceSeconds === bestPace
+){
+
+    challengeSlothText =
+        "🦥 Das war eindeutig zu schnell. Ich protestiere.";
+
+}else if(
+    latestWalk &&
+    latestWalk.kilometers === longestWalk
+){
+
+    challengeSlothText =
+        "🦥 Hast du dich verlaufen?";
+
+}else if(
+    latestWalk &&
+    latestWalk.kilometers >= 10
+){
+
+    challengeSlothText =
+        "🦥 Ich hätte spätestens bei Kilometer drei ein Taxi genommen.";
+
+}else if(userWins >= 100){
+
+    challengeSlothText =
+        "🦥 100 Siege? Ich fordere eine Neuauflage.";
+
+}else if(userWins >= 75){
+
+    challengeSlothText =
+        "🦥 Langsam wird das peinlich für mich.";
+
+}else if(userWins >= 50){
+
+    challengeSlothText =
+        "🦥 Ich hätte nie gedacht, dass Spazierengehen so eskalieren kann.";
+
+}else if(userWins >= 25){
+
+    challengeSlothText =
+        "🦥 Seit 25 Challenges suche ich nach einer Schwäche.";
+
+}else if(diff >= 250){
 
     challengeSlothText =
         "🦥 Ich glaube, ich kündige.";
