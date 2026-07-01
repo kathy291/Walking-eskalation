@@ -987,7 +987,20 @@ textarea{
 
     color:#ff7fbd;
 }
+#challengeMood{
 
+    margin-top:2px;
+
+    font-size:0.75rem;
+
+    font-weight:900;
+
+    color:#9b2f6f;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
 #challengeSloth{
 
     margin-top:4px;
@@ -1150,7 +1163,7 @@ Pace 00:00
     <div id="challengeSlothEmoji">
         🦥
     </div>
-
+<div id="challengeMood"></div>
     <div id="challengeSloth"></div>
 
 </div>
@@ -2294,6 +2307,10 @@ const moodTexts = {
         "🦥 Die Couch und ich feiern schon."
     ]
 };
+       document
+    .getElementById("challengeMood")
+    .textContent =
+    slothMood;
 const diff =
     userWins - slothWins;
 
@@ -2388,7 +2405,7 @@ if(
 
     challengeSlothText =
         "🦥 Das entwickelt sich ungünstig.";
-
+ùü
 }else if(diff >= 1){
 
     challengeSlothText =
