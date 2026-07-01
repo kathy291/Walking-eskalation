@@ -3603,17 +3603,13 @@ const reachedStory =
     .filter(item => totalKm >= item.km)
     .pop();
 
-const nextStory =
-    travelStories
-    .find(item => totalKm < item.km);
-
 let story = "";
 let sloth = "";
 
 if(reachedStory){
 
     story =
-        reachedStory.story;
+        reachedStory.story.split(".")[0] + ".";
 
     sloth =
         reachedStory.sloth;
@@ -3627,56 +3623,60 @@ if(reachedStory){
         "🦥 Faultier: „Noch können wir so tun, als wäre das nur ein kurzer Ausflug.“";
 }
 
-if(nextStory){
+document.getElementById("totalKmStory")
+    .textContent = story;
 
-    const kmLeft =
-        Math.ceil(nextStory.km - totalKm);
-
-document.getElementById(
-    "totalKmStory"
-).textContent = story;
 let souvenir = "";
 let location = "";
+
 if(totalKm >= 2000){
 
     souvenir = "🎒 🍋 🌋 🍕";
+    location = "📍 Sizilien";
 
 }else if(totalKm >= 1700){
 
     souvenir = "🎒 🍕 🌋";
+    location = "📍 Neapel";
 
 }else if(totalKm >= 1600){
 
     souvenir = "🎒 🏛️ 🍦";
+    location = "📍 Rom";
 
 }else if(totalKm >= 1500){
 
     souvenir = "🎒 🍷 🌻";
+    location = "📍 Toskana";
 
 }else if(totalKm >= 100){
 
     souvenir = "🎒 🥾";
+    location = "📍 Deutschland";
 
 }else if(totalKm >= 50){
 
     souvenir = "🎒 🌳";
+    location = "📍 Unterwegs";
 
 }else if(totalKm >= 25){
 
     souvenir = "🎒 👟";
+    location = "📍 Start der Reise";
 
 }else{
 
     souvenir = "🎒";
+    location = "📍 Georgsmarienhütte";
 }
 
-document.getElementById(
-    "travelSouvenir"
-).textContent = souvenir;
-document.getElementById(
-    "travelLocation"
-).textContent = location;  
-   const journeyLength = 2000;
+document.getElementById("travelSouvenir")
+    .textContent = souvenir;
+
+document.getElementById("travelLocation")
+    .textContent = location;
+
+const journeyLength = 2000;
 
 const percent =
     Math.min(
@@ -3684,14 +3684,12 @@ const percent =
         (totalKm / journeyLength) * 100
     );
 
-document.getElementById(
-    "travelMarker"
-).style.left =
-    percent + "%";     
- document.getElementById(
-    "totalKmSloth"
-).textContent = sloth;       
-        
+document.getElementById("travelMarker")
+    .style.left =
+    percent + "%";
+
+document.getElementById("totalKmSloth")
+    .textContent = sloth;   
     if(walks.length){
 
         const bestPace =
