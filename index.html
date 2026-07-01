@@ -2210,9 +2210,9 @@ const walks =
         challenge;
 
     document
-        .getElementById("challengeSlothEmoji")
-        .textContent =
-        "🦥";
+    .getElementById("challengeSlothEmoji")
+    .textContent =
+    moodEmoji[slothMood];
 
 const challengeWalks =
     walks.filter(
@@ -2311,6 +2311,19 @@ const moodTexts = {
     .getElementById("challengeMood")
     .textContent =
     slothMood;
+const moodEmoji = {
+
+    normal:"🙂🦥",
+    frech:"😏🦥",
+    genervt:"😤🦥",
+    nervös:"😬🦥",
+    panik:"😱🦥",
+    verzweifelt:"😭🦥",
+    respekt:"🥹🦥",
+    überheblich:"😎🦥"
+
+};
+       
 const diff =
     userWins - slothWins;
 
