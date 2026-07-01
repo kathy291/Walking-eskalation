@@ -545,7 +545,16 @@ grid-column:span 3;
 
     color:#24a8a5;
 }
+#travelLocation{
 
+    margin-top:8px;
+
+    font-size:0.95rem;
+
+    font-weight:700;
+
+    color:#208f8c;
+}
 #totalKmSloth{
 
     margin-top:18px;
@@ -1187,6 +1196,7 @@ Pace 00:00
 <div class="stat-number" id="totalKm">0,00</div>
     <div id="totalKmStory"></div>
      <div id="travelSouvenir"></div>
+     <div id="travelLocation"></div>
      <div id="totalKmSloth"></div>
 </div>
 
@@ -3598,7 +3608,7 @@ document.getElementById(
     "totalKmStory"
 ).textContent = story;
 let souvenir = "";
-
+let location = "";
 if(totalKm >= 2000){
 
     souvenir = "🎒 🍋 🌋 🍕";
@@ -3635,6 +3645,9 @@ if(totalKm >= 2000){
 document.getElementById(
     "travelSouvenir"
 ).textContent = souvenir;
+document.getElementById(
+    "travelLocation"
+).textContent = location;        
  document.getElementById(
     "totalKmSloth"
 ).textContent = sloth;       
