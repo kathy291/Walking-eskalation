@@ -3597,7 +3597,44 @@ if(nextStory){
 document.getElementById(
     "totalKmStory"
 ).textContent = story;
+let souvenir = "";
 
+if(totalKm >= 2000){
+
+    souvenir = "🎒 🍋 🌋 🍕";
+
+}else if(totalKm >= 1700){
+
+    souvenir = "🎒 🍕 🌋";
+
+}else if(totalKm >= 1600){
+
+    souvenir = "🎒 🏛️ 🍦";
+
+}else if(totalKm >= 1500){
+
+    souvenir = "🎒 🍷 🌻";
+
+}else if(totalKm >= 100){
+
+    souvenir = "🎒 🥾";
+
+}else if(totalKm >= 50){
+
+    souvenir = "🎒 🌳";
+
+}else if(totalKm >= 25){
+
+    souvenir = "🎒 👟";
+
+}else{
+
+    souvenir = "🎒";
+}
+
+document.getElementById(
+    "travelSouvenir"
+).textContent = souvenir;
  document.getElementById(
     "totalKmSloth"
 ).textContent = sloth;       
