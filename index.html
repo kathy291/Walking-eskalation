@@ -2213,9 +2213,87 @@ const userWins =
 
 const slothWins =
     challengeWalks.length - userWins;
+let slothMood = "normal";
 
+if(userWins >= 100){
+
+    slothMood = "respekt";
+
+}else if(userWins >= 75){
+
+    slothMood = "verzweifelt";
+
+}else if(userWins >= 50){
+
+    slothMood = "panik";
+
+}else if(userWins >= 25){
+
+    slothMood = "nervös";
+
+}else if(diff >= 10){
+
+    slothMood = "genervt";
+
+}else if(diff >= 1){
+
+    slothMood = "frech";
+
+}else if(diff < 0){
+
+    slothMood = "überheblich";
+}
 let challengeSlothText = "";
+const moodTexts = {
 
+    normal:[
+        "🦥 Heute sehen wir mal weiter.",
+        "🦥 Ich habe noch Hoffnung.",
+        "🦥 Vielleicht wird es heute ja nichts."
+    ],
+
+    frech:[
+        "🦥 Morgen hole ich auf.",
+        "🦥 Noch ist nichts entschieden.",
+        "🦥 Ein bisschen Glück habe ich noch."
+    ],
+
+    genervt:[
+        "🦥 Das entwickelt sich überhaupt nicht nach Plan.",
+        "🦥 Wer hat dir eigentlich diese Disziplin erlaubt?",
+        "🦥 Ich hätte lieber gegen jemanden gespielt, der gerne auf dem Sofa sitzt."
+    ],
+
+    nervös:[
+        "🦥 Ich überprüfe inzwischen jeden Morgen den Spielstand.",
+        "🦥 Seit Wochen läuft hier irgendwas schief.",
+        "🦥 Kannst du nicht einmal ausschlafen?"
+    ],
+
+    panik:[
+        "🦥 Das Faultier-Krisenteam tagt inzwischen täglich.",
+        "🦥 Mein Anwalt geht schon nicht mehr ans Telefon.",
+        "🦥 Ich glaube, ich brauche Verstärkung."
+    ],
+
+    verzweifelt:[
+        "🦥 Ich verstehe langsam, warum ich verliere.",
+        "🦥 Ich habe wirklich alles versucht.",
+        "🦥 Das wird langsam persönlich."
+    ],
+
+    respekt:[
+        "🦥 Weißt du was... Respekt.",
+        "🦥 Ich verliere zwar ständig, aber beeindruckend ist das schon.",
+        "🦥 Ich mache trotzdem morgen wieder mit."
+    ],
+
+    überheblich:[
+        "🦥 Heute gehört der Punkt mir.",
+        "🦥 Endlich läuft es mal für mich.",
+        "🦥 Die Couch und ich feiern schon."
+    ]
+};
 const diff =
     userWins - slothWins;
 
@@ -2330,6 +2408,18 @@ if(
 
     challengeSlothText =
         "🦥 Du hast heute keine Chance.";
+}
+       if(Math.random() < 0.35){
+
+    const texts =
+        moodTexts[slothMood];
+
+    challengeSlothText =
+        texts[
+            Math.floor(
+                Math.random() * texts.length
+            )
+        ];
 }
        
 const challengeScoreElement =
