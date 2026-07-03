@@ -368,7 +368,7 @@ h2{
 .total-stat{
     grid-column:1 / 7;
     padding-bottom:40px;
-min-height:680px;
+min-height:610px;
     color:#24a8a5;
     background:
         linear-gradient(
@@ -575,19 +575,32 @@ height:320px;
 
 #travelPin{
     position:absolute;
-    font-size:42px;
+    width:22px;
+    height:22px;
+    background:#22c7c7;
+    border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
     z-index:3;
-    filter:
-        drop-shadow(0 3px 4px rgba(0,0,0,.35));
-
+    box-shadow:0 3px 6px rgba(0,0,0,.35);
     transition:all .8s;
+}
+
+#travelPin::after{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:white;
+    border-radius:50%;
+    left:7px;
+    top:7px;
 }
 .travel-bar{
     position:absolute;
     z-index:2;
     left:28px;
     right:28px;
-    bottom:255px;
+    top:425px;
     height:14px;
     border-radius:999px;
     background:#7fd4cf;
@@ -609,7 +622,7 @@ height:320px;
     z-index:2;
     left:22px;
     right:22px;
-    bottom:185px;
+    top:495px;
     color:#208f8c;
     font-size:1.05rem;
     font-weight:600;
@@ -1224,7 +1237,7 @@ Pace 00:00
 
     <div id="worldMap"></div>
 
-    <div id="travelPin">📍</div>
+    <div id="travelPin"></div>
 
 </div>
     <div id="totalKmStory"></div>
@@ -3675,27 +3688,27 @@ let location = "";
 if(totalKm >= 2000){
 
     souvenir = "🎒 🍋 🌋 🍕";
-    location = "📍 Sizilien";
+    location = "📍 Sizilien, Italien 🇮🇹";
 
 }else if(totalKm >= 1700){
 
     souvenir = "🎒 🍕 🌋";
-    location = "📍 Neapel";
+    location = "📍 Neapel, Italien 🇮🇹";
 
 }else if(totalKm >= 1600){
 
     souvenir = "🎒 🏛️ 🍦";
-    location = "📍 Rom";
+    location = "📍 Rom, Italien 🇮🇹";
 
 }else if(totalKm >= 1500){
 
     souvenir = "🎒 🍷 🌻";
-    location = "📍 Toskana";
+    location = "📍 Toskana, Italien 🇮🇹";
 
 }else if(totalKm >= 100){
 
     souvenir = "🎒 🥾";
-    location = "📍 Deutschland";
+    location = "📍 Deutschland 🇩🇪";
 
 }else if(totalKm >= 50){
 
