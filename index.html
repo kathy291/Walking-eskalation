@@ -1876,6 +1876,69 @@ const travelStories = [
 }
 
 ];
+const travelPlaces = [
+
+{
+    km:1500,
+    city:"Toskana",
+    country:"Italien",
+    flag:"🇮🇹",
+    left:48,
+    top:43,
+    souvenirs:"🎒 🍷 🌻",
+    story:"🍷 Die Toskana liegt hinter dir.",
+    sloth:"🦥 Faultier: „Ich bin nur wegen des Gelatos noch dabei.“"
+},
+
+{
+    km:1600,
+    city:"Rom",
+    country:"Italien",
+    flag:"🇮🇹",
+    left:52,
+    top:43,
+    souvenirs:"🎒 🏛️ 🍦",
+    story:"⛲ Der Trevi-Brunnen liegt hinter dir.",
+    sloth:"🦥 Faultier: „Ich wünsche mir eine Rolltreppe.“"
+},
+
+{
+    km:1650,
+    city:"Vatikanstadt",
+    country:"Vatikanstadt",
+    flag:"🇻🇦",
+    left:52,
+    top:43,
+    souvenirs:"🎒 🇻🇦 🕊️",
+    story:"🇻🇦 Der Vatikan liegt hinter dir.",
+    sloth:"🦥 Faultier: „So klein könnten von mir aus alle Etappen sein.“"
+},
+
+{
+    km:1700,
+    city:"Neapel",
+    country:"Italien",
+    flag:"🇮🇹",
+    left:52,
+    top:45,
+    souvenirs:"🎒 🍕 🌋",
+    story:"🍕 Neapel erreicht. Pizza, Meer und Abenteuer.",
+    sloth:"🦥 Faultier: „Endlich eine Etappe, die ich geschmacklich unterstütze.“"
+},
+
+{
+    km:2000,
+    city:"Sizilien",
+    country:"Italien",
+    flag:"🇮🇹",
+    left:53,
+    top:49,
+    souvenirs:"🎒 🍋 🌋 🍕",
+    story:"🎉 2000 Kilometer geschafft!",
+    sloth:"🦥 Faultier: „Ich beantrage offiziell eine sehr lange Pause.“"
+}
+
+];
     
 let selectedNotes = [];
 let editingWalkId = null;
@@ -3616,137 +3679,46 @@ if(
     document.getElementById("totalKm").textContent =
     Math.round(totalKm) + " km";
 
-const reachedStory =
-    travelStories
-    .filter(item => totalKm >= item.km)
-    .pop();
-const pinPositions = {
+const currentPlace =
+    [...travelPlaces]
+    .filter(place => totalKm >= place.km)
+    .pop()
+    ||
+    {
+        city:"Georgsmarienhütte",
+        country:"Deutschland",
+        flag:"🇩🇪",
+        left:21,
+        top:42,
+        souvenirs:"🎒",
+        story:"🚶 Die Reise beginnt bald.",
+        sloth:"🦥 Faultier: „Noch können wir so tun, als wäre das nur ein kurzer Ausflug.“"
+    };
 
-    25:{left:"18%",top:"45%"},
-    50:{left:"19%",top:"44%"},
-    75:{left:"20%",top:"43%"},
-    100:{left:"21%",top:"42%"},
-
-    1500:{left:"48%",top:"42%"},
-    1525:{left:"48%",top:"41%"},
-    1550:{left:"49%",top:"40%"},
-    1575:{left:"49%",top:"39%"},
-    1600:{left:"50%",top:"39%"},
-    1625:{left:"50%",top:"39%"},
-    1650:{left:"50%",top:"38%"},
-    1675:{left:"51%",top:"40%"},
-    1700:{left:"51%",top:"42%"},
-    1725:{left:"52%",top:"43%"},
-    1750:{left:"52%",top:"44%"},
-    1775:{left:"53%",top:"45%"},
-    1800:{left:"53%",top:"46%"},
-    1850:{left:"54%",top:"48%"},
-    1900:{left:"55%",top:"50%"},
-    2000:{left:"56%",top:"52%"}
-};
-
-    
-        
-let story = "";
-let sloth = "";
-
-if(reachedStory){
-
-    story =
-        reachedStory.story.split(".")[0] + ".";
-
-    sloth =
-        reachedStory.sloth;
-
-}else{
-
-    story =
-        "🚶 Die Reise beginnt bald.";
-
-    sloth =
-        "🦥 Faultier: „Noch können wir so tun, als wäre das nur ein kurzer Ausflug.“";
-}
-if(reachedStory){
-
-    const pos =
-        pinPositions[reachedStory.km];
-
-    if(pos){
-
-        const pin =
-            document.getElementById("travelPin");
-
-        pin.style.left = pos.left;
-        pin.style.top = pos.top;
-    }
-}
 document.getElementById("totalKmStory")
-    .textContent = story;
-
-let souvenir = "";
-let location = "";
-
-if(totalKm >= 2000){
-
-    souvenir = "🎒 🍋 🌋 🍕";
-    location = "📍 Sizilien, Italien 🇮🇹";
-
-}else if(totalKm >= 1700){
-
-    souvenir = "🎒 🍕 🌋";
-    location = "📍 Neapel, Italien 🇮🇹";
-
-}else if(totalKm >= 1600){
-
-    souvenir = "🎒 🏛️ 🍦";
-    location = "📍 Rom, Italien 🇮🇹";
-
-}else if(totalKm >= 1500){
-
-    souvenir = "🎒 🍷 🌻";
-    location = "📍 Toskana, Italien 🇮🇹";
-
-}else if(totalKm >= 100){
-
-    souvenir = "🎒 🥾";
-    location = "📍 Deutschland 🇩🇪";
-
-}else if(totalKm >= 50){
-
-    souvenir = "🎒 🌳";
-    location = "📍 Unterwegs";
-
-}else if(totalKm >= 25){
-
-    souvenir = "🎒 👟";
-    location = "📍 Start der Reise";
-
-}else{
-
-    souvenir = "🎒";
-    location = "📍 Georgsmarienhütte";
-}
+    .textContent =
+    currentPlace.story;
 
 document.getElementById("travelSouvenir")
-    .textContent = souvenir;
+    .textContent =
+    currentPlace.souvenirs;
 
 document.getElementById("travelLocation")
-    .textContent = location;
-
-const journeyLength = 2000;
-
-const percent =
-    Math.min(
-        100,
-        (totalKm / journeyLength) * 100
-    );
-
-document.getElementById("travelMarker")
-    .style.left =
-    percent + "%";
+    .textContent =
+    `📍 ${currentPlace.city}, ${currentPlace.country} ${currentPlace.flag}`;
 
 document.getElementById("totalKmSloth")
-    .textContent = sloth;   
+    .textContent =
+    currentPlace.sloth;
+
+const pin =
+    document.getElementById("travelPin");
+
+pin.style.left =
+    currentPlace.left + "%";
+
+pin.style.top =
+    currentPlace.top + "%"; 
     if(walks.length){
 
         const bestPace =
