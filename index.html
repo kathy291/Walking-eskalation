@@ -4478,24 +4478,23 @@ if(
 
     let goalResult = "";
 
-    const paceRounded = Math.round(paceSeconds);
+    const paceRounded =
+    Math.round(paceSeconds);
 
 if(paceRounded <= paceGoalSeconds){
 
+    goalResult +=
+        `<span class="plus">
+            👍 Pace Ziel geschafft
+        </span><br>`;
+
+} else {
+
+    goalResult +=
+        `<span class="minus">
+            👎 Pace Ziel verpasst
+        </span><br>`;
 }
-
-        goalResult +=
-            `<span class="plus">
-                👍 Pace Ziel geschafft
-            </span><br>`;
-
-    } else {
-
-        goalResult +=
-            `<span class="minus">
-                👎 Pace Ziel verpasst
-            </span><br>`;
-    }
 
     if(durationSeconds >= timeGoalSeconds){
 
