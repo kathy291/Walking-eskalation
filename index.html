@@ -575,26 +575,22 @@ height:320px;
 
 #travelPin{
     position:absolute;
-    width:22px;
-    height:22px;
-    background:#008080;
-    border-radius:50% 50% 50% 0;
-    transform:rotate(-45deg);
+    width:34px;
+    height:34px;
     z-index:3;
-    drop-shadow(0 0 8px rgba(0,140,140,.8))
-    drop-shadow(0 3px 5px rgba(0,0,0,.45))
+    filter:
+        drop-shadow(0 3px 5px rgba(0,0,0,.45));
     transition:all .8s;
 }
 
-#travelPin::after{
-    content:"";
-    position:absolute;
-    width:8px;
-    height:8px;
-    background:white;
-    border-radius:50%;
-    left:7px;
-    top:7px;
+#travelPin svg{
+    width:100%;
+    height:100%;
+    fill:#d62828;
+}
+
+#travelPin circle{
+    fill:white;
 }
 .travel-bar{
     position:absolute;
@@ -1238,7 +1234,12 @@ Pace 00:00
 
     <div id="worldMap"></div>
 
-    <div id="travelPin"></div>
+    <div id="travelPin">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.8"/>
+    </svg>
+</div>
 
 </div>
     <div id="totalKmStory"></div>
