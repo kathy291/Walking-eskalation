@@ -4478,7 +4478,11 @@ if(
 
     let goalResult = "";
 
-    if(paceSeconds <= paceGoalSeconds){
+    const paceRounded = Math.round(paceSeconds);
+
+if(paceRounded <= paceGoalSeconds){
+    ...
+}
 
         goalResult +=
             `<span class="plus">
