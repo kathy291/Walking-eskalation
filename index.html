@@ -4316,7 +4316,13 @@ function checkChallengeDone(
     ){
         return true;
     }
-
+if(
+    challengeText.includes("30 Minuten")
+    &&
+    durationSeconds >= 30 * 60
+){
+    return true;
+}
     if(
         challengeText.includes("40 Minuten")
         &&
