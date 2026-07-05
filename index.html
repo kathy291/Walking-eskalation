@@ -4317,7 +4317,11 @@ function checkChallengeDone(
         return true;
     }
 if(
-    challengeText.includes("30 Minuten")
+    (
+        challengeText.includes("30 Minuten")
+        ||
+        challengeText.includes("Frischluft")
+    )
     &&
     durationSeconds >= 30 * 60
 ){
