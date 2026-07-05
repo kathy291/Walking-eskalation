@@ -1896,7 +1896,7 @@ const travelPlaces = [
     country:"Italien",
     flag:"🇮🇹",
     left:53,
-    top:30,
+    top:28,
     souvenirs:"🎒 🏛️ 🍦",
     story:"⛲ Der Trevi-Brunnen liegt hinter dir.",
     sloth:"🦥 Faultier: „Ich wünsche mir eine Rolltreppe.“"
@@ -3719,6 +3719,17 @@ pin.style.left =
 
 pin.style.top =
     currentPlace.top + "%"; 
+ const journeyLength = 2000;
+
+const percent =
+    Math.min(
+        100,
+        (totalKm / journeyLength) * 100
+    );
+
+document.getElementById("travelMarker")
+    .style.left =
+    percent + "%";       
     if(walks.length){
 
         const bestPace =
