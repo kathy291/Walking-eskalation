@@ -572,26 +572,6 @@ z-index:2;
     opacity:.08;
 }
 
-#travelPin{
-    position:absolute;
-    width:34px;
-    height:34px;
-    z-index:3;
-    transform:translate(-50%, -100%);
-    filter:
-        drop-shadow(0 3px 5px rgba(0,0,0,.45));
-    transition:all .8s;
-}
-
-#travelPin svg{
-    width:100%;
-    height:100%;
-    fill:#18b8b3;
-}
-
-#travelPin circle{
-    fill:white;
-}
 .travel-bar{
     position:absolute;
     z-index:2;
@@ -1233,13 +1213,6 @@ Pace 00:00
      <div id="travelMap">
 
     <div id="worldMap"></div>
-
-    <div id="travelPin">
-    <svg viewBox="0 0 24 24">
-        <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/>
-        <circle cx="12" cy="9" r="2.8"/>
-    </svg>
-</div>
 
 </div>
     <div id="totalKmStory"></div>
@@ -1884,8 +1857,6 @@ const travelPlaces = [
     city:"Toskana",
     country:"Italien",
     flag:"🇮🇹",
-    left:48,
-    top:43,
     souvenirs:"🎒 🍷 🌻",
     story:"🍷 Die Toskana liegt hinter dir.",
     sloth:"🦥 Faultier: „Ich bin nur wegen des Gelatos noch dabei.“"
@@ -1896,8 +1867,6 @@ const travelPlaces = [
     city:"Rom",
     country:"Italien",
     flag:"🇮🇹",
-    left:57,
-    top:18,
     souvenirs:"🎒 🏛️ 🍦",
     story:"⛲ Der Trevi-Brunnen liegt hinter dir.",
     sloth:"🦥 Faultier: „Ich wünsche mir eine Rolltreppe.“"
@@ -1908,8 +1877,6 @@ const travelPlaces = [
     city:"Vatikanstadt",
     country:"Vatikanstadt",
     flag:"🇻🇦",
-    left:52,
-    top:43,
     souvenirs:"🎒 🇻🇦 🕊️",
     story:"🇻🇦 Der Vatikan liegt hinter dir.",
     sloth:"🦥 Faultier: „So klein könnten von mir aus alle Etappen sein.“"
@@ -1920,8 +1887,6 @@ const travelPlaces = [
     city:"Neapel",
     country:"Italien",
     flag:"🇮🇹",
-    left:52,
-    top:45,
     souvenirs:"🎒 🍕 🌋",
     story:"🍕 Neapel erreicht. Pizza, Meer und Abenteuer.",
     sloth:"🦥 Faultier: „Endlich eine Etappe, die ich geschmacklich unterstütze.“"
@@ -1932,8 +1897,6 @@ const travelPlaces = [
     city:"Sizilien",
     country:"Italien",
     flag:"🇮🇹",
-    left:53,
-    top:49,
     souvenirs:"🎒 🍋 🌋 🍕",
     story:"🎉 2000 Kilometer geschafft!",
     sloth:"🦥 Faultier: „Ich beantrage offiziell eine sehr lange Pause.“"
@@ -3712,14 +3675,6 @@ document.getElementById("totalKmSloth")
     .textContent =
     currentPlace.sloth;
 
-const pin =
-    document.getElementById("travelPin");
-
-pin.style.left =
-    currentPlace.left + "%";
-
-pin.style.top =
-    currentPlace.top + "%"; 
  const journeyLength = 2000;
 
 const percent =
