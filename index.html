@@ -5062,7 +5062,8 @@ function closeLevelPopup(){
                 </div>
             `;
         });
-
+document.getElementById("monthYearPopupTitle")
+    .textContent = "📅 Monatsübersicht";
     document.getElementById("monthYearPopup")
         .classList.add("open");
 }
@@ -5097,7 +5098,8 @@ function openYearPopup(){
                 </div>
             `;
         });
-
+document.getElementById("monthYearPopupTitle")
+    .textContent = "🗓️ Jahresübersicht";
     document.getElementById("monthYearPopup")
         .classList.add("open");
 }
@@ -5198,7 +5200,7 @@ window.onload = () => {
             ✕
         </button>
 
-        <h2>📅 Monats- & Jahresübersicht</h2>
+       <h2 id="monthYearPopupTitle"></h2> 
 
         <div id="monthYearPopupContent"></div>
 
