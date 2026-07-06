@@ -802,11 +802,42 @@ z-index:2;
     color:#888;
 }
 
+.calendar-scroll{
+    display:flex;
+    gap:18px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding-bottom:8px;
+}
+
+.calendar-month{
+    min-width:100%;
+    scroll-snap-align:start;
+}
+
+.calendar-title{
+    text-align:center;
+    font-weight:900;
+    color:#24a8a5;
+    margin-bottom:12px;
+}
+
 .calendar{
     display:grid;
     grid-template-columns:repeat(7,1fr);
     gap:8px;
     margin-top:14px;
+}
+
+.weekday{
+    font-size:.75rem;
+    font-weight:900;
+    color:#888;
+    text-align:center;
+}
+
+.day.empty{
+    background:transparent;
 }
 
 .day{
@@ -1393,10 +1424,9 @@ Pace 00:00
 
 <div class="card">
 
-<h2>📅 Monatskalender</h2>
+<h2 id="calendarTitle">📅 Monatskalender</h2>
 
-<div class="calendar" id="calendar"></div>
-
+<div class="calendar-scroll" id="calendarScroll"></div>
 </div>
 
 
@@ -2753,70 +2783,167 @@ function closeDayPopup(){
 
 function renderCalendar(walks){
 
-    const calendar =
-        document.getElementById("calendar");
+    const scroll =
+        document.getElementById("calendarScroll");
 
-    calendar.innerHTML = "";
+    scroll.innerHTML = "";
 
-    const now = new Date();
+    const monthNames = [
+        "Januar","Februar","März","April","Mai","Juni",
+        "Juli","August","September","Oktober","November","Dezember"
+    ];
 
-    const year = now.getFullYear();
-    const month = now.getMonth();
+    const weekdays = [
+        "Mo","Di","Mi","Do","Fr","Sa","So"
+    ];
 
-    const daysInMonth =
-        new Date(year,month+1,0).getDate();
+    const today =
+        new Date();
 
-    const longestWalk =
-        walks.length
-        ? Math.max(...walks.map(w=>w.kilometers))
-        : 0;
+    for(let offset = 0; offset < 12; offset++){
 
-    for(let day=1; day<=daysInMonth; day++){
+        const viewDate =
+            new Date(
+                today.getFullYear(),
+                today.getMonth() - offset,
+                1
+            );
 
-        const date =
-    year +
-    "-" +
-    String(month + 1).padStart(2,"0") +
-    "-" +
-    String(day).padStart(2,"0");
+        const year =
+            viewDate.getFullYear();
 
-        const walk =
-            walks.find(w=>w.date===date);
+        const month =
+            viewDate.getMonth();
 
-        const div =
+        const monthWrapper =
             document.createElement("div");
 
-        div.className = "day";
+        monthWrapper.className =
+            "calendar-month";
 
-        div.textContent = day;
+        const title =
+            document.createElement("div");
 
-        if(walk){
+        title.className =
+            "calendar-title";
 
-            const goalsMet =
-                walk.goalResult.includes("👍 Pace")
-                &&
-                walk.goalResult.includes("👍 Zeit");
+        title.textContent =
+            monthNames[month] + " " + year;
 
-            const isRecord =
-                walk.kilometers === longestWalk;
+        const calendar =
+            document.createElement("div");
 
-            if(isRecord){
+        calendar.className =
+            "calendar";
 
-                div.classList.add("record");
+        weekdays.forEach(day => {
 
-            }else if(goalsMet){
+            const div =
+                document.createElement("div");
 
-                div.classList.add("goal");
+            div.className =
+                "weekday";
 
-            }else{
+            div.textContent =
+                day;
 
-                div.classList.add("normal");
-            }
+            calendar.appendChild(div);
+        });
 
-            div.onclick = ()=>openDayPopup(walk);
+        const firstDay =
+            new Date(year, month, 1).getDay();
+
+        const mondayIndex =
+            firstDay === 0
+            ? 6
+            : firstDay - 1;
+
+        for(let i = 0; i < mondayIndex; i++){
+
+            const empty =
+                document.createElement("div");
+
+            empty.className =
+                "day empty";
+
+            calendar.appendChild(empty);
         }
 
-        calendar.appendChild(div);
+        const daysInMonth =
+            new Date(year, month + 1, 0).getDate();
+
+        const monthWalks =
+            walks.filter(w => {
+
+                const d =
+                    new Date(w.date);
+
+                return (
+                    d.getFullYear() === year
+                    &&
+                    d.getMonth() === month
+                );
+            });
+
+        const longestWalk =
+            monthWalks.length
+            ? Math.max(...monthWalks.map(w=>w.kilometers))
+            : 0;
+
+        for(let day = 1; day <= daysInMonth; day++){
+
+            const date =
+                year +
+                "-" +
+                String(month + 1).padStart(2,"0") +
+                "-" +
+                String(day).padStart(2,"0");
+
+            const walk =
+                walks.find(w => w.date === date);
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "day";
+
+            div.textContent =
+                day;
+
+            if(walk){
+
+                const goalsMet =
+                    walk.goalResult.includes("👍 Pace")
+                    &&
+                    walk.goalResult.includes("👍 Zeit");
+
+                const isRecord =
+                    walk.kilometers === longestWalk;
+
+                if(isRecord){
+
+                    div.classList.add("record");
+
+                }else if(goalsMet){
+
+                    div.classList.add("goal");
+
+                }else{
+
+                    div.classList.add("normal");
+                }
+
+                div.onclick =
+                    () => openDayPopup(walk);
+            }
+
+            calendar.appendChild(div);
+        }
+
+        monthWrapper.appendChild(title);
+        monthWrapper.appendChild(calendar);
+        scroll.appendChild(monthWrapper);
     }
 }
 
