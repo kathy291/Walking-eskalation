@@ -1309,7 +1309,7 @@ Pace 00:00
 
 <div
     class="card stat-card compare-stat"
-    onclick="openMonthYearPopup()"
+    onclick="openMonthPopup()"
 >
     <div>📅 Monat</div>
 
@@ -1323,7 +1323,7 @@ Pace 00:00
 
 <div
     class="card stat-card compare-stat"
-    onclick="openMonthYearPopup()"
+    onclick="openYearPopup()"
 >
     <div>🗓️ Jahr</div>
 
@@ -4838,7 +4838,7 @@ function closeLevelPopup(){
         .classList.remove("open");
 }
 
-    function openMonthYearPopup(){
+    function openMonthPopup(){
 
     const walks =
         loadWalks();
@@ -4899,24 +4899,23 @@ function closeLevelPopup(){
             `;
         });
 
-    content.innerHTML += `<h3 class="archive-section">🗓️ Jahre</h3>`;
+    document.getElementById("monthYearPopup")
+        .classList.add("open");
+}
+function openYearPopup(){
+
+    const walks = loadWalks();
+    const content = document.getElementById("monthYearPopupContent");
+
+    content.innerHTML = "";
 
     const years = {};
 
     walks.forEach(walk => {
-
-        const d =
-            new Date(walk.date);
-
-        const year =
-            d.getFullYear();
+        const year = new Date(walk.date).getFullYear();
 
         if(!years[year]){
-            years[year] = {
-                year,
-                km:0,
-                walks:0
-            };
+            years[year] = { year, km:0, walks:0 };
         }
 
         years[year].km += walk.kilometers;
@@ -4926,20 +4925,11 @@ function closeLevelPopup(){
     Object.values(years)
         .sort((a,b)=>b.year-a.year)
         .forEach(item => {
-
             content.innerHTML += `
                 <div class="archive-card year">
-                    <div class="archive-title">
-                        🗓️ ${item.year}
-                    </div>
-
-                    <div class="archive-km">
-                        ${formatKm(item.km)} km
-                    </div>
-
-                    <div class="archive-info">
-                        👟 ${item.walks} Walks
-                    </div>
+                    <div class="archive-title">🗓️ ${item.year}</div>
+                    <div class="archive-km">${formatKm(item.km)} km</div>
+                    <div class="archive-info">👟 ${item.walks} Walks</div>
                 </div>
             `;
         });
@@ -4947,7 +4937,7 @@ function closeLevelPopup(){
     document.getElementById("monthYearPopup")
         .classList.add("open");
 }
-
+    
 function closeMonthYearPopup(){
 
     document.getElementById("monthYearPopup")
