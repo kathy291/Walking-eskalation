@@ -801,7 +801,37 @@ z-index:2;
     background:#f4f1ea;
     color:#888;
 }
+.calendar-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin-top:12px;
+    font-size:.85rem;
+    font-weight:800;
+    color:#666;
+}
 
+.legend-dot{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    margin-right:5px;
+    vertical-align:-2px;
+}
+
+.legend-dot.normal{
+    background:#4a90e2;
+}
+
+.legend-dot.goal{
+    background:#d4af37;
+}
+
+.legend-dot.record{
+    background:#2fbf71;
+}
 .calendar-scroll{
     display:flex;
     gap:18px;
@@ -1427,6 +1457,11 @@ Pace 00:00
 <h2 id="calendarTitle">📅 Monatskalender</h2>
 
 <div class="calendar-scroll" id="calendarScroll"></div>
+    <div class="calendar-legend">
+    <div><span class="legend-dot normal"></span> Walk</div>
+    <div><span class="legend-dot goal"></span> Ziele geschafft</div>
+    <div><span class="legend-dot record"></span> Längster Walk</div>
+</div>
 </div>
 
 
@@ -2800,7 +2835,7 @@ function renderCalendar(walks){
     const today =
         new Date();
 
-    for(let offset = 0; offset < 12; offset++){
+    for(let offset = 11; offset >= 0; offset--){
 
         const viewDate =
             new Date(
@@ -2945,6 +2980,8 @@ function renderCalendar(walks){
         monthWrapper.appendChild(calendar);
         scroll.appendChild(monthWrapper);
     }
+        scroll.scrollLeft =
+    scroll.scrollWidth;
 }
 
 function renderCharts(walks){
