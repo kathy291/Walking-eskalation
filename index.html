@@ -1329,7 +1329,10 @@ Pace 00:00
 </div>
 
 <div class="stats">
- <div class="card stat-card total-stat">   
+ <div
+    class="card stat-card total-stat"
+    onclick="openJourneyPopup()"
+> 
 <h2 class="total-title">
 🌍 Gesamt-km
 </h2>
@@ -5205,7 +5208,38 @@ window.onload = () => {
         <div id="monthYearPopupContent"></div>
 
     </div>
+<div
+    class="popup-overlay"
+    id="journeyPopup"
+>
 
+    <div class="popup-card">
+
+        <button
+            class="popup-close"
+            onclick="closeJourneyPopup()"
+        >
+            ✕
+        </button>
+
+        <div id="journeyPopupContent"></div>
+
+    </div>
+
+</div>
+        function openJourneyPopup(){
+
+    document.getElementById("journeyPopup")
+        .style.display = "flex";
+
+}
+
+function closeJourneyPopup(){
+
+    document.getElementById("journeyPopup")
+        .style.display = "none";
+
+}
 </div>
 </body>
 </html>
