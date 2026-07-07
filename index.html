@@ -5202,6 +5202,152 @@ function closeMonthYearPopup(){
     document.getElementById("monthYearPopup")
         .classList.remove("open");
 }
+   let journeyPageIndex = 0;
+
+function getArrivalDate(targetKm){
+
+    let sum = 0;
+
+    const sortedWalks =
+        [...loadWalks()].sort(
+            (a,b)=>new Date(a.date) - new Date(b.date)
+        );
+
+    for(const walk of sortedWalks){
+
+        sum += walk.kilometers;
+
+        if(sum >= targetKm){
+            return formatDate(walk.date);
+        }
+    }
+
+    return null;
+}
+
+function getJourneyPages(){
+
+    const totalKm =
+        loadWalks().reduce(
+            (s,w)=>s+w.kilometers,
+            0
+        );
+
+    const reached =
+        travelPlaces.filter(
+            place => totalKm >= place.km
+        );
+
+    const next =
+        travelPlaces.find(
+            place => totalKm < place.km
+        );
+
+    return next
+        ? [...reached,next]
+        : reached;
+}
+
+function openJourneyPopup(){
+
+    journeyPageIndex =
+        Math.max(
+            0,
+            getJourneyPages().length - 1
+        );
+
+    renderJourneyPage();
+
+    document.getElementById("journeyPopup")
+        .classList.add("open");
+}
+
+function closeJourneyPopup(){
+
+    document.getElementById("journeyPopup")
+        .classList.remove("open");
+}
+
+function changeJourneyPage(direction){
+
+    const pages =
+        getJourneyPages();
+
+    journeyPageIndex =
+        Math.min(
+            pages.length - 1,
+            Math.max(0, journeyPageIndex + direction)
+        );
+
+    renderJourneyPage();
+}
+
+function renderJourneyPage(){
+
+    const pages = getJourneyPages();
+    const page = pages[journeyPageIndex];
+
+    const totalKm = loadWalks().reduce(
+        (s,w)=>s+w.kilometers,
+        0
+    );
+
+    const reached = totalKm >= page.km;
+    const arrival = getArrivalDate(page.km);
+
+    const content =
+        document.getElementById("journeyPopupContent");
+
+    content.innerHTML = `
+        <div class="journey-page ${reached ? "" : "journey-locked"}">
+
+            <h2>🌍 Reisetagebuch</h2>
+
+            <div class="journey-nav">
+                <button onclick="changeJourneyPage(-1)">⬅️</button>
+                <div>Seite ${journeyPageIndex + 1} von ${pages.length}</div>
+                <button onclick="changeJourneyPage(1)">➡️</button>
+            </div>
+
+            ${
+                reached
+                ? `<div class="journey-stamp">✓ BESUCHT<br>${arrival}</div>`
+                : `<div class="journey-stamp">🔒<br>NOCH OFFEN</div>`
+            }
+
+            <h2>${page.city}, ${page.country} ${page.flag}</h2>
+
+            <hr class="journey-divider">
+
+            ${
+                reached
+                ? `
+                    <p>📅 <strong>Angekommen am:</strong> ${arrival}</p>
+                    <p>📏 <strong>Gesamtkilometer:</strong> ${formatKm(page.km)} km</p>
+                `
+                : `
+                    <p>🔒 Noch <strong>${formatKm(page.km - totalKm)} km</strong> bis ${page.city}.</p>
+                `
+            }
+
+            <hr class="journey-divider">
+
+            <h3>🌟 Sehenswürdigkeiten</h3>
+            ${(page.sights || []).map(sight => `<p>${sight}</p>`).join("")}
+
+            <hr class="journey-divider">
+
+            <h3>💡 Wusstest du?</h3>
+            <p>${page.fact || "Hier gibt es bald mehr zu entdecken."}</p>
+
+            <hr class="journey-divider">
+
+            <h3>🦥 Faultier</h3>
+            <p><em>${page.sloth.replace("🦥 Faultier: ","")}</em></p>
+
+        </div>
+    `;
+}
 window.onload = () => {
 
     renderQuickNotes();
@@ -5298,6 +5444,7 @@ window.onload = () => {
         <div id="monthYearPopupContent"></div>
 
     </div>
+ </div>       
 <div
     class="popup-overlay"
     id="journeyPopup"
@@ -5318,161 +5465,5 @@ window.onload = () => {
 
 </div>
 
-  let journeyPageIndex = 0;
-
-function getArrivalDate(targetKm){
-
-    let sum = 0;
-
-    const sortedWalks =
-        [...loadWalks()].sort(
-            (a,b)=>new Date(a.date) - new Date(b.date)
-        );
-
-    for(const walk of sortedWalks){
-
-        sum += walk.kilometers;
-
-        if(sum >= targetKm){
-            return formatDate(walk.date);
-        }
-    }
-
-    return null;
-}
-
-function getJourneyPages(){
-
-    const totalKm =
-        loadWalks().reduce(
-            (s,w)=>s+w.kilometers,
-            0
-        );
-
-    const reached =
-        travelPlaces.filter(
-            place => totalKm >= place.km
-        );
-
-    const next =
-        travelPlaces.find(
-            place => totalKm < place.km
-        );
-
-    return next
-        ? [...reached,next]
-        : reached;
-}
-
-function openJourneyPopup(){
-
-    journeyPageIndex =
-        Math.max(
-            0,
-            getJourneyPages().length - 1
-        );
-
-    renderJourneyPage();
-
-    document.getElementById("journeyPopup")
-        .classList.add("open");
-}
-
-function closeJourneyPopup(){
-
-    document.getElementById("journeyPopup")
-        .classList.remove("open");
-}
-
-function changeJourneyPage(direction){
-
-    const pages =
-        getJourneyPages();
-
-    journeyPageIndex =
-        Math.min(
-            pages.length - 1,
-            Math.max(0, journeyPageIndex + direction)
-        );
-
-    renderJourneyPage();
-}
-
-function renderJourneyPage(){
-
-    const pages =
-        getJourneyPages();
-
-    const page =
-        pages[journeyPageIndex];
-
-    const totalKm =
-        loadWalks().reduce(
-            (s,w)=>s+w.kilometers,
-            0
-        );
-
-    const reached =
-        totalKm >= page.km;
-
-    const arrival =
-        getArrivalDate(page.km);
-
-    const content =
-        document.getElementById("journeyPopupContent");
-
-    content.innerHTML = `
-        <div class="journey-page ${reached ? "" : "journey-locked"}">
-
-            <h2>🌍 Reisetagebuch</h2>
-
-            <div class="journey-nav">
-                <button onclick="changeJourneyPage(-1)">⬅️</button>
-                <div>Seite ${journeyPageIndex + 1} von ${pages.length}</div>
-                <button onclick="changeJourneyPage(1)">➡️</button>
-            </div>
-
-            ${
-                reached
-? `<div class="journey-stamp">✓ BESUCHT<br>${arrival}</div>`
-: `<div class="journey-stamp">🔒<br>NOCH OFFEN</div>`
-}
-            <h2>${page.city}, ${page.country} ${page.flag}</h2>
-
-            <hr class="journey-divider">
-
-            ${
-                reached
-                ? `
-                    <p>📅 <strong>Angekommen am:</strong> ${arrival}</p>
-                    <p>📏 <strong>Gesamtkilometer:</strong> ${formatKm(page.km)} km</p>
-                `
-                : `
-                    <p>🔒 Noch <strong>${formatKm(page.km - totalKm)} km</strong> bis ${page.city}.</p>
-                `
-            }
-
-            <hr class="journey-divider">
-
-            <h3>🌟 Sehenswürdigkeiten</h3>
-
-            ${(page.sights || []).map(sight => `<p>${sight}</p>`).join("")}
-
-            <hr class="journey-divider">
-
-            <h3>💡 Wusstest du?</h3>
-
-            <p>${page.fact || "Hier gibt es bald mehr zu entdecken."}</p>
-
-            <hr class="journey-divider">
-
-            <h3>🦥 Faultier</h3>
-
-            <p><em>${page.sloth.replace("🦥 Faultier: ","")}</em></p>
-
-        </div>
-    `;
-}      
-</div>
 </body>
 </html>
