@@ -2055,7 +2055,23 @@ const travelStories = [
 
 ];
 const travelPlaces = [
-
+{
+    km:0,
+    city:"Georgsmarienhütte",
+    country:"Deutschland",
+    flag:"🇩🇪",
+    left:21,
+    top:42,
+    souvenirs:"🎒",
+    story:"🚶 Heute beginnt deine Reise durch Europa.",
+    sights:[
+        "🌳 Teutoburger Wald",
+        "⛪ Kloster Oesede",
+        "🏭 Georgsmarienhütte"
+    ],
+    fact:"Georgsmarienhütte entstand im 19. Jahrhundert rund um ein Eisenhüttenwerk und liegt am Rand des Teutoburger Waldes.",
+    sloth:"🦥 Faultier: „Von hier aus wäre die Couch noch erreichbar gewesen.“"
+},
 {
     km:1500,
     city:"Toskana",
@@ -5418,10 +5434,9 @@ function renderJourneyPage(){
 
             ${
                 reached
-                ? `<div class="journey-stamp">ERREICHT<br>${arrival}</div>`
-                : `<div class="journey-stamp">NOCH<br>OFFEN</div>`
-            }
-
+? `<div class="journey-stamp">✓ BESUCHT<br>${arrival}</div>`
+: `<div class="journey-stamp">🔒<br>NOCH OFFEN</div>`
+}
             <h2>${page.city}, ${page.country} ${page.flag}</h2>
 
             <hr class="journey-divider">
