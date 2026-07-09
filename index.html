@@ -5171,11 +5171,29 @@ function getJourneyPages(){
 
 function openJourneyPopup(){
 
-    journeyPageIndex =
-        Math.max(
-            0,
-            getJourneyPages().length - 1
+    const pages =
+        getJourneyPages();
+
+    const totalKm =
+        loadWalks().reduce(
+            (s,w)=>s+w.kilometers,
+            0
         );
+
+    journeyPageIndex =
+        pages.findIndex(
+            page => totalKm < page.km
+        );
+
+    if(journeyPageIndex === -1){
+
+        journeyPageIndex =
+            pages.length - 1;
+
+    }else if(journeyPageIndex > 0){
+
+        journeyPageIndex--;
+    }
 
     renderJourneyPage();
 
