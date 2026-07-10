@@ -1260,6 +1260,42 @@ textarea{
         left:110%;
     }
 }
+ .expedition-page{
+    text-align:center;
+}
+
+.world-map{
+    width:100%;
+    margin:10px 0 20px;
+}
+
+.route-map{
+    width:100%;
+    margin:20px 0;
+}
+
+.route-map svg,
+.world-map svg{
+    width:100%;
+    height:auto;
+}
+
+.route-line{
+    fill:none;
+    stroke:#000;
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.route-dot{
+    fill:#000;
+}
+
+.route-start,
+.route-finish{
+    fill:#000;
+}   
 </style>
 </head>
 
@@ -6937,6 +6973,66 @@ function openExpeditionPopup(expedition){
     document
         .getElementById("journeyPopup")
         .classList.add("open");
+
+}    
+function getWorldMapSvg(){
+
+return `
+
+<svg
+viewBox="0 0 900 450"
+class="world-map"
+xmlns="http://www.w3.org/2000/svg">
+
+<rect
+width="900"
+height="450"
+fill="#f8f8f8"/>
+
+<path
+fill="#d9d9d9"
+d="
+M120 120
+L180 90
+L260 80
+L330 95
+L370 120
+L350 180
+L270 210
+L180 190
+L120 150
+Z"/>
+
+<path
+fill="#222"
+d="
+M340 70
+L410 60
+L470 70
+L510 95
+L540 120
+L520 165
+L470 185
+L420 175
+L380 145
+L350 110
+Z"/>
+
+<path
+fill="#d9d9d9"
+d="
+M520 210
+L640 190
+L770 210
+L820 260
+L760 330
+L610 340
+L530 290
+Z"/>
+
+</svg>
+
+`;
 
 }    
 window.onload = () => {
