@@ -6901,6 +6901,44 @@ function renderJourneyPage(){
         </div>
     `;
 }
+function openExpeditionPopup(expedition){
+
+    const content =
+        document.getElementById("journeyPopupContent");
+
+    content.innerHTML = `
+
+        <div class="journey-page expedition-page">
+
+            <h2>${expedition.title}</h2>
+
+            <div id="expeditionWorldMap"></div>
+
+            <div id="expeditionRouteMap"></div>
+
+            <hr class="journey-divider">
+
+            <p><strong>📍 Start:</strong> ${expedition.start}</p>
+
+            <p><strong>🏁 Ziel:</strong> ${expedition.goal}</p>
+
+            <p><strong>📏 Strecke:</strong> ${expedition.kilometers} km</p>
+
+            <hr class="journey-divider">
+
+            <p class="expeditionSloth">
+                ${expedition.sloth}
+            </p>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById("journeyPopup")
+        .classList.add("open");
+
+}    
 window.onload = () => {
 
     renderQuickNotes();
