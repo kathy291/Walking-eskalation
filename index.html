@@ -6963,44 +6963,98 @@ function renderJourneyPage(){
         </div>
     `;
 }
-function openExpeditionPopup(expedition){
+function openExpeditionPopup(id){
+
+    const expedition =
+        expeditions.find(
+            e => e.id === id
+        );
+
+    if(!expedition){
+        return;
+    }
+
+    const totalKm =
+        loadWalks().reduce(
+            (sum, walk) => sum + walk.kilometers,
+            0
+        );
+
+    const finished =
+        totalKm >= expedition.kilometers;
 
     const content =
         document.getElementById("journeyPopupContent");
 
-    content.innerHTML = `
+    if(!finished){
 
-        <div class="journey-page expedition-page">
+        content.innerHTML = `
 
-            <h2>${expedition.title}</h2>
+            <div class="journey-page expedition-page">
 
-            <div id="expeditionWorldMap"></div>
+                <h2>🌍 ${expedition.title} beginnt</h2>
 
-            <div id="expeditionRouteMap"></div>
+                <div id="expeditionWorldMap">
+                    (Hier kommt später die Weltkarte)
+                </div>
 
-            <hr class="journey-divider">
+                <div id="expeditionRouteMap">
+                    (Hier kommt später die Europakarte)
+                </div>
 
-            <p><strong>📍 Start:</strong> ${expedition.start}</p>
+                <hr class="journey-divider">
 
-            <p><strong>🏁 Ziel:</strong> ${expedition.goal}</p>
+                <p><strong>📍 Start</strong><br>${expedition.start}</p>
 
-            <p><strong>📏 Strecke:</strong> ${expedition.kilometers} km</p>
+                <p><strong>🏁 Ziel</strong><br>${expedition.goal}</p>
 
-            <hr class="journey-divider">
+                <p><strong>📏 Strecke</strong><br>${formatKm(expedition.kilometers)} km</p>
 
-            <p class="expeditionSloth">
-                ${expedition.sloth}
-            </p>
+                <hr class="journey-divider">
 
-        </div>
+                <h3>🦥</h3>
 
-    `;
+                <p>${expedition.startSloth}</p>
+
+            </div>
+
+        `;
+
+    }else{
+
+        content.innerHTML = `
+
+            <div class="journey-page expedition-page">
+
+                <h2>🌍 Expedition abgeschlossen</h2>
+
+                <h3>${expedition.start} → ${expedition.goal}</h3>
+
+                <hr class="journey-divider">
+
+                <p><strong>📏 Strecke</strong><br>${formatKm(expedition.kilometers)} km</p>
+
+                <hr class="journey-divider">
+
+                <h3>🌍 Länder</h3>
+
+                ${expedition.countries.map(c=>`<p>${c}</p>`).join("")}
+
+                <hr class="journey-divider">
+
+                <h3>🦥</h3>
+
+                <p>${expedition.endSloth}</p>
+
+            </div>
+
+        `;
+    }
 
     document
         .getElementById("journeyPopup")
         .classList.add("open");
-
-}    
+}
 function getWorldMapSvg(){
 
 return `
