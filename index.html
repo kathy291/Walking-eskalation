@@ -598,19 +598,55 @@ z-index:2;
 
 .journey-nav{
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:12px 0 18px;
-    font-weight:900;
+    justify-content:center;
+    align-items:flex-start;
+    gap:8px;
+    margin:18px 0;
 }
 
 .journey-nav button{
+    width:64px;
+    min-height:74px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+
     border:none;
-    background:#d4af37;
-    color:white;
-    border-radius:999px;
-    padding:10px 14px;
-    font-weight:900;
+    border-radius:18px;
+
+    background:#f4f1ea;
+
+    font-size:1.4rem;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.journey-nav button span{
+    font-size:.72rem;
+    line-height:1.1;
+    text-align:center;
+}
+
+.journey-counter{
+    width:72px;
+    min-height:74px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.journey-counter strong{
+    font-size:1.5rem;
+}
+
+.journey-counter span{
+    font-size:.85rem;
 }
 
 .journey-stamp{
@@ -6916,25 +6952,26 @@ function renderJourneyPage(){
 
             <h2>🌍 Reisetagebuch</h2>
 
-  <div class="journey-nav">
+<div class="journey-nav">
 
-    <button>⏮️</button>
+    <button>⏮️<span>Anfang</span></button>
 
-    <button>⏪</button>
+    <button>⏪<span>Deckblatt</span></button>
 
-    <button onclick="changeJourneyPage(-1)">◀️</button>
+    <button onclick="changeJourneyPage(-1)">◀️<span>Zurück</span></button>
 
-    <div>
-        Seite ${journeyPageIndex + 1} von ${pages.length}
+    <div class="journey-counter">
+        <strong>${journeyPageIndex + 1}</strong>
+        <span>von ${pages.length}</span>
     </div>
 
-    <button onclick="changeJourneyPage(1)">▶️</button>
+    <button onclick="changeJourneyPage(1)">▶️<span>Weiter</span></button>
 
-    <button>⏩</button>
+    <button>⏩<span>Nächstes<br>Deckblatt</span></button>
 
-    <button>⏭️</button>
+    <button>⏭️<span>Ende</span></button>
 
-</div>          
+</div>
 
             ${
     reached
