@@ -6916,11 +6916,25 @@ function renderJourneyPage(){
 
             <h2>🌍 Reisetagebuch</h2>
 
-            <div class="journey-nav">
-                <button onclick="changeJourneyPage(-1)">⬅️</button>
-                <div>Seite ${journeyPageIndex + 1} von ${pages.length}</div>
-                <button onclick="changeJourneyPage(1)">➡️</button>
-            </div>
+  <div class="journey-nav">
+
+    <button>⏮️</button>
+
+    <button>⏪</button>
+
+    <button onclick="changeJourneyPage(-1)">◀️</button>
+
+    <div>
+        Seite ${journeyPageIndex + 1} von ${pages.length}
+    </div>
+
+    <button onclick="changeJourneyPage(1)">▶️</button>
+
+    <button>⏩</button>
+
+    <button>⏭️</button>
+
+</div>          
 
             ${
     reached
