@@ -598,42 +598,38 @@ z-index:2;
 
 .journey-nav{
     display:flex;
-    justify-content:center;
+    justify-content:space-between;
     align-items:flex-start;
-    gap:8px;
+    gap:4px;
     margin:18px 0;
 }
 
 .journey-nav button{
-    width:64px;
-    min-height:74px;
+    flex:1;
+    min-width:0;
+    height:62px;
 
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    gap:6px;
 
     border:none;
-    border-radius:18px;
-
+    border-radius:16px;
     background:#f4f1ea;
-
-    font-size:1.4rem;
-    font-weight:700;
-
-    cursor:pointer;
 }
 
 .journey-nav button span{
-    font-size:.72rem;
-    line-height:1.1;
-    text-align:center;
+    margin-top:3px;
+    font-size:.62rem;
+    color:#666;
+    font-weight:600;
+    line-height:1.05;
 }
 
 .journey-counter{
-    width:72px;
-    min-height:74px;
+    flex:1;
+    height:62px;
 
     display:flex;
     flex-direction:column;
@@ -642,13 +638,13 @@ z-index:2;
 }
 
 .journey-counter strong{
-    font-size:1.5rem;
+    font-size:1.8rem;
 }
 
 .journey-counter span{
-    font-size:.85rem;
+    font-size:.8rem;
+    color:#666;
 }
-
 .journey-stamp{
     float:right;
     width:90px;
