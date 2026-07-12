@@ -596,35 +596,50 @@ z-index:2;
     color:#8a6a16;
 }
 
+.journey-page-number{
+    text-align:center;
+    font-size:1rem;
+    font-weight:700;
+    margin:10px 0 14px;
+}
+
 .journey-nav{
     display:flex;
     justify-content:space-between;
-    align-items:flex-start;
-    gap:4px;
-    margin:18px 0;
+    gap:6px;
+    margin-bottom:18px;
 }
 
 .journey-nav button{
+
     flex:1;
-    min-width:0;
-    height:62px;
 
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
+
+    padding:8px 2px;
 
     border:none;
-    border-radius:16px;
+    border-radius:14px;
+
     background:#f4f1ea;
+
+    font-size:1.3rem;
+
+    cursor:pointer;
 }
 
 .journey-nav button span{
-    margin-top:3px;
-    font-size:.62rem;
-    color:#666;
+
+    margin-top:4px;
+
+    font-size:.65rem;
+
     font-weight:600;
-    line-height:1.05;
+
+    color:#666;
 }
 
 .journey-counter{
@@ -6948,24 +6963,41 @@ function renderJourneyPage(){
 
             <h2>🌍 Reisetagebuch</h2>
 
+<div class="journey-page-number">
+    Seite ${journeyPageIndex + 1} von ${pages.length}
+</div>
+
 <div class="journey-nav">
 
-    <button>⏮️<span>Anfang</span></button>
+    <button id="journeyFirst">
+        ⏮️
+        <span>Anfang</span>
+    </button>
 
-    <button>⏪<span>Deckblatt</span></button>
+    <button id="journeyChapterBack">
+        ⏪
+        <span>Kapitel</span>
+    </button>
 
-    <button onclick="changeJourneyPage(-1)">◀️<span>Zurück</span></button>
+    <button onclick="changeJourneyPage(-1)">
+        ◀️
+        <span>Zurück</span>
+    </button>
 
-    <div class="journey-counter">
-        <strong>${journeyPageIndex + 1}</strong>
-        <span>von ${pages.length}</span>
-    </div>
+    <button onclick="changeJourneyPage(1)">
+        ▶️
+        <span>Weiter</span>
+    </button>
 
-    <button onclick="changeJourneyPage(1)">▶️<span>Weiter</span></button>
+    <button id="journeyChapterNext">
+        ⏩
+        <span>Kapitel</span>
+    </button>
 
-    <button>⏩<span>Nächstes<br>Deckblatt</span></button>
-
-    <button>⏭️<span>Ende</span></button>
+    <button id="journeyLast">
+        ⏭️
+        <span>Ende</span>
+    </button>
 
 </div>
 
