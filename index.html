@@ -7040,7 +7040,16 @@ function renderJourneyPage(){
         </div>
     `;
 }
+document.addEventListener("click", function(e){
 
+    if(e.target.closest("#journeyFirst")){
+
+        journeyPageIndex = 0;
+        renderJourneyPage();
+
+    }
+
+});
 function getWorldMapSvg(){
 
 return `
