@@ -6959,30 +6959,70 @@ function renderJourneyPage(){
     const page = pages[journeyPageIndex];
     if(page.type === "cover"){
 
-    document.getElementById("journeyPopupContent").innerHTML = `
+    const content =
+        document.getElementById("journeyPopupContent");
 
-        <div class="journey-page expedition-page">
+    content.innerHTML = `
 
-            <h2>🌍 Europa-Expedition</h2>
+    <div class="journey-page expedition-page">
 
-            <hr class="journey-divider">
+        <div class="journey-page-number">
+            Seite ${journeyPageIndex + 1} von ${pages.length}
+        </div>
 
-            <p><strong>Start:</strong><br>Georgsmarienhütte 🇩🇪</p>
+        <div class="journey-nav">
 
-            <p><strong>Ziel:</strong><br>Malta 🇲🇹</p>
+            <button id="journeyFirst">
+                ⏮️
+                <span>Anfang</span>
+            </button>
 
-            <p><strong>Strecke:</strong><br>4.000 km</p>
+            <button id="journeyChapterBack">
+                ⏪
+                <span>Kapitel</span>
+            </button>
 
-            <hr class="journey-divider">
+            <button onclick="changeJourneyPage(-1)">
+                ◀️
+                <span>Zurück</span>
+            </button>
 
-            <p>
-                Willkommen zu deiner ersten großen Expedition.
-                Auf den folgenden Seiten reist du Schritt für Schritt
-                quer durch Europa bis nach Malta.
-            </p>
+            <button onclick="changeJourneyPage(1)">
+                ▶️
+                <span>Weiter</span>
+            </button>
+
+            <button id="journeyChapterNext">
+                ⏩
+                <span>Kapitel</span>
+            </button>
+
+            <button id="journeyLast">
+                ⏭️
+                <span>Ende</span>
+            </button>
 
         </div>
 
+        <h2>🌍 Europa-Expedition</h2>
+
+        <hr class="journey-divider">
+
+        <p><strong>Start:</strong><br>Georgsmarienhütte 🇩🇪</p>
+
+        <p><strong>Ziel:</strong><br>Malta 🇲🇹</p>
+
+        <p><strong>Strecke:</strong><br>4.000 km</p>
+
+        <hr class="journey-divider">
+
+        <p>
+            Willkommen zu deiner ersten großen Expedition.
+            Auf den folgenden Seiten reist du Schritt für Schritt
+            quer durch Europa bis nach Malta.
+        </p>
+
+    </div>
     `;
 
     return;
