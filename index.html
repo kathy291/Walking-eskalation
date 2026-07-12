@@ -7048,7 +7048,12 @@ document.addEventListener("click", function(e){
         renderJourneyPage();
 
     }
+if(e.target.closest("#journeyLast")){
 
+    journeyPageIndex = getJourneyPages().length - 1;
+    renderJourneyPage();
+
+}
 });
 function getWorldMapSvg(){
 
