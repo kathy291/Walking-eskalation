@@ -7140,9 +7140,9 @@ if(e.target.closest("#journeyChapterBack")){
     const page = getJourneyPages()[journeyPageIndex];
 
     const deckblatt =
-        getJourneyPages().findIndex(
-            p => p.km === 0 || p.km === 4000
-        );
+    getJourneyPages().findIndex(
+        p => p.type === "cover"
+    );
 
     if(deckblatt >= 0){
 
