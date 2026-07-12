@@ -6887,9 +6887,11 @@ function getJourneyPages(){
 
     const pages = [];
 
+const expedition = expeditions[0];
+
 pages.push({
     type:"cover",
-    expedition:1
+    expedition
 });
 
 pages.push(...(
@@ -6897,6 +6899,11 @@ pages.push(...(
         ? [...reached,next]
         : reached
 ));
+
+pages.push({
+    type:"end",
+    expedition
+});
 
 return pages;
 }
