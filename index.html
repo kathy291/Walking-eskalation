@@ -7150,7 +7150,31 @@ if(e.target.closest("#journeyChapterBack")){
         renderJourneyPage();
 
     }
+if(e.target.closest("#journeyChapterNext")){
 
+    const pages =
+        getJourneyPages();
+
+    const nextCover =
+        pages.findIndex(
+            (p,index) =>
+                index > journeyPageIndex &&
+                p.type === "cover"
+        );
+
+    if(nextCover >= 0){
+
+        journeyPageIndex = nextCover;
+
+    }else{
+
+        journeyPageIndex = pages.length - 1;
+
+    }
+
+    renderJourneyPage();
+
+}
 }    
 });
 function getWorldMapSvg(){
