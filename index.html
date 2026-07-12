@@ -7034,7 +7034,73 @@ function renderJourneyPage(){
 
     return;
 }
+if(page.type === "end"){
 
+    const expedition = page.expedition;
+
+    const content =
+        document.getElementById("journeyPopupContent");
+
+    content.innerHTML = `
+
+    <div class="journey-page expedition-page">
+
+        <div class="journey-page-number">
+            Seite ${journeyPageIndex + 1} von ${pages.length}
+        </div>
+
+        <div class="journey-nav">
+
+            <button id="journeyFirst">
+                ⏮️
+                <span>Anfang</span>
+            </button>
+
+            <button id="journeyChapterBack">
+                ⏪
+                <span>Kapitel</span>
+            </button>
+
+            <button onclick="changeJourneyPage(-1)">
+                ◀️
+                <span>Zurück</span>
+            </button>
+
+            <button onclick="changeJourneyPage(1)">
+                ▶️
+                <span>Weiter</span>
+            </button>
+
+            <button id="journeyChapterNext">
+                ⏩
+                <span>Kapitel</span>
+            </button>
+
+            <button id="journeyLast">
+                ⏭️
+                <span>Ende</span>
+            </button>
+
+        </div>
+
+        <h2>${expedition.endTitle}</h2>
+
+        <hr class="journey-divider">
+
+        <p>${expedition.endText}</p>
+
+        <hr class="journey-divider">
+
+        <h3>🦥 Faultier</h3>
+
+        <p><em>${expedition.endSloth}</em></p>
+
+    </div>
+
+    `;
+
+    return;
+}
     const totalKm = loadWalks().reduce(
         (s,w)=>s+w.kilometers,
         0
