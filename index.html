@@ -6885,9 +6885,20 @@ function getJourneyPages(){
             place => totalKm < place.km
         );
 
-    return next
+    const pages = [];
+
+pages.push({
+    type:"cover",
+    expedition:1
+});
+
+pages.push(...(
+    next
         ? [...reached,next]
-        : reached;
+        : reached
+));
+
+return pages;
 }
 
 function openJourneyPopup(){
@@ -6946,6 +6957,36 @@ function renderJourneyPage(){
 
     const pages = getJourneyPages();
     const page = pages[journeyPageIndex];
+    if(page.type === "cover"){
+
+    document.getElementById("journeyPopupContent").innerHTML = `
+
+        <div class="journey-page expedition-page">
+
+            <h2>🌍 Europa-Expedition</h2>
+
+            <hr class="journey-divider">
+
+            <p><strong>Start:</strong><br>Georgsmarienhütte 🇩🇪</p>
+
+            <p><strong>Ziel:</strong><br>Malta 🇲🇹</p>
+
+            <p><strong>Strecke:</strong><br>4.000 km</p>
+
+            <hr class="journey-divider">
+
+            <p>
+                Willkommen zu deiner ersten großen Expedition.
+                Auf den folgenden Seiten reist du Schritt für Schritt
+                quer durch Europa bis nach Malta.
+            </p>
+
+        </div>
+
+    `;
+
+    return;
+}
 
     const totalKm = loadWalks().reduce(
         (s,w)=>s+w.kilometers,
@@ -7054,6 +7095,23 @@ if(e.target.closest("#journeyLast")){
     renderJourneyPage();
 
 }
+if(e.target.closest("#journeyChapterBack")){
+
+    const page = getJourneyPages()[journeyPageIndex];
+
+    const deckblatt =
+        getJourneyPages().findIndex(
+            p => p.km === 0 || p.km === 4000
+        );
+
+    if(deckblatt >= 0){
+
+        journeyPageIndex = deckblatt;
+        renderJourneyPage();
+
+    }
+
+}    
 });
 function getWorldMapSvg(){
 
