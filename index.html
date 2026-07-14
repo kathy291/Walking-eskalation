@@ -587,13 +587,58 @@ z-index:2;
 }
 
 .journey-page{
-    padding:8px;
-    animation:pageTurn .35s ease;
-}
 
+    position:relative;
+
+    background:#f9f2dc;
+
+    border:8px solid #8b6b3f;
+
+    border-radius:14px;
+
+    padding:30px;
+
+    margin:10px;
+
+    box-shadow:
+        inset 0 0 0 3px #d8c49a,
+        0 8px 25px rgba(0,0,0,.25);
+
+    font-family:Georgia,serif;
+
+    color:#3d2a18;
+
+}
+.journey-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:12px;
+    left:12px;
+    right:12px;
+    bottom:12px;
+
+    border:2px solid #b69663;
+
+    border-radius:8px;
+
+    pointer-events:none;
+
+}
 .journey-page h2{
+
     text-align:center;
-    color:#8a6a16;
+
+    font-size:30px;
+
+    color:#6b4a22;
+
+    margin-bottom:18px;
+
+    letter-spacing:1px;
+
 }
 
 .journey-page-number{
@@ -694,11 +739,31 @@ z-index:2;
 }
 
 .journey-divider{
-    border:none;
-    border-top:2px dashed #d4af37;
-    margin:16px 0;
-}
 
+    border:none;
+
+    border-top:2px solid #c9b080;
+
+    margin:20px 0;
+
+}
+.journey-sloth{
+
+    margin-top:25px;
+
+    padding:18px;
+
+    background:#efe4c3;
+
+    border-left:6px solid #8b6b3f;
+
+    border-radius:10px;
+
+    font-style:italic;
+
+    line-height:1.7;
+
+}
 @keyframes pageTurn{
     from{
         transform:rotateY(-12deg);
@@ -7327,9 +7392,13 @@ if(page.type === "end"){
 
         <hr class="journey-divider">
 
-        <h3>🦥 Faultier</h3>
+   <div class="journey-sloth">
 
-        <p><em>${expedition.endSloth}</em></p>
+<h3>🦥 Das Faultier meint:</h3>
+
+<p>${page.sloth.replace("🦥 Faultier: ","")}</p>
+
+</div>
 
     </div>
 
