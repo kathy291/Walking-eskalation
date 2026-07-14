@@ -1153,14 +1153,52 @@ z-index:2;
 }
 
 .popup-card{
-   max-height: 80vh;
-overflow-y: auto;
+    position:relative;
+
+    max-height:80vh;
+    overflow-y:auto;
+
     background:white;
+
     border-radius:24px;
+
     padding:24px;
+
     width:90%;
     max-width:420px;
 }
+   #journeyPopup .popup-card{
+
+    width:96vw;
+    height:95vh;
+
+    max-width:none;
+    max-height:none;
+
+    padding:12px;
+
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+
+    position:relative;
+}
+
+#journeyPopup .popup-close{
+
+    z-index:999999;
+
+    top:18px;
+    right:18px;
+}
+
+#journeyPopupContent{
+
+    flex:1;
+
+    display:flex;
+} 
 .fab{
     position:fixed;
     right:20px;
