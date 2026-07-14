@@ -7011,23 +7011,47 @@ function renderJourneyPage(){
 
         </div>
 
-        <h2>🌍 Europa-Expedition</h2>
+      <div class="expedition-book">
 
-        <hr class="journey-divider">
+<h1>${expedition.coverTitle}</h1>
 
-        <p><strong>Start:</strong><br>Georgsmarienhütte 🇩🇪</p>
+<div class="expedition-route">
 
-        <p><strong>Ziel:</strong><br>Malta 🇲🇹</p>
+    Von <strong>${expedition.start}</strong>
 
-        <p><strong>Strecke:</strong><br>4.000 km</p>
+    <br>
 
-        <hr class="journey-divider">
+    bis <strong>${expedition.goal}</strong>
 
-        <p>
-            Willkommen zu deiner ersten großen Expedition.
-            Auf den folgenden Seiten reist du Schritt für Schritt
-            quer durch Europa bis nach Malta.
-        </p>
+</div>
+
+<div class="expedition-distance">
+
+    📏 ${formatKm(expedition.kilometers)} km
+
+</div>
+
+<hr class="journey-divider">
+
+<h3>📖 Willkommen</h3>
+
+<p>
+
+${expedition.coverText}
+
+</p>
+
+<hr class="journey-divider">
+
+<h3>🦥 Das Faultier schreibt</h3>
+
+<p class="sloth-letter">
+
+${expedition.startSloth}
+
+</p>
+
+</div>
 
     </div>
     `;
