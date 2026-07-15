@@ -1200,6 +1200,31 @@ z-index:2;
 
     display:flex;
 } 
+    .journey-place{
+
+    text-align:center;
+
+    font-size:2rem;
+
+    line-height:1.15;
+
+    word-break:break-word;
+
+    overflow-wrap:anywhere;
+
+    margin-bottom:6px;
+}
+
+.journey-country{
+
+    text-align:center;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+}
 .fab{
     position:fixed;
     right:20px;
@@ -7540,7 +7565,13 @@ if(page.type === "end"){
     : ``
 }
 
-            <h2>${page.city}, ${page.country} ${page.flag}</h2>
+    <h2 class="journey-place">
+    ${page.city}
+</h2>
+
+<div class="journey-country">
+    ${page.country} ${page.flag}
+</div>        
 
             <hr class="journey-divider">
 
