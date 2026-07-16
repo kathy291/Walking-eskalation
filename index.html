@@ -6011,6 +6011,10 @@ if(
             (s,w)=>s+w.kilometers,
             0
         );
+        const trainingWalks =
+    walks.filter(
+        walk => !walk.isBummel
+    );
 
     document.getElementById("totalKm").textContent =
     Math.round(totalKm) + " km";
@@ -6058,10 +6062,10 @@ document.getElementById("travelMarker")
     percent + "%";       
     if(walks.length){
 
-        const bestPace =
-            Math.min(
-                ...walks.map(w=>w.paceSeconds)
-            );
+       const bestPace =
+    Math.min(
+        ...trainingWalks.map(w=>w.paceSeconds)
+    ); 
 
     document.getElementById("bestPace")
      .innerHTML =
@@ -6069,7 +6073,7 @@ document.getElementById("travelMarker")
     formatMMSS(bestPace) + '<span class="unit">Min</span>';
         
 const bestPaceWalk =
-    walks.find(
+    trainingWalks.find(
         w => w.paceSeconds === bestPace
     );
 
@@ -6083,15 +6087,15 @@ document.getElementById(
         "de-DE"
     );
         const longestWalk =
-            Math.max(
-                ...walks.map(w=>w.kilometers)
-            );
+    Math.max(
+        ...trainingWalks.map(w=>w.kilometers)
+    );
 
     document.getElementById("longestWalk")
     .innerHTML =
     formatKm(longestWalk) + '<span class="unit">km</span>';
 const longestWalkData =
-    walks.find(
+    trainingWalks.find(
         w => w.kilometers === longestWalk
     );
 
@@ -6103,15 +6107,15 @@ document.getElementById(
         longestWalkData.date
     );
         const longestTime =
-            Math.max(
-                ...walks.map(w=>w.durationSeconds)
-            );
+    Math.max(
+        ...trainingWalks.map(w=>w.durationSeconds)
+    );
 
 document.getElementById("longestTime")
     .innerHTML =
     formatMMSS(longestTime) + '<span class="unit">Min</span>';
 const longestTimeData =
-    walks.find(
+    trainingWalks.find(
         w => w.durationSeconds === longestTime
     );
 
