@@ -5124,7 +5124,12 @@ function renderCalendar(walks){
 }
 
 function renderCharts(walks){
+const trainingWalks =
+    walks.filter(
+        walk => !walk.isBummel
+    );
 
+walks = trainingWalks;
     const today =
         new Date();
 
@@ -6742,6 +6747,46 @@ if(
     ){
         return true;
     }
+    if(
+    challengeText.includes("bessere Pace")
+){
+
+    const walks =
+        loadWalks()
+        .filter(
+            w => w.date !== document.getElementById("dateInput").value
+        )
+        .sort(
+            (a,b)=>
+                new Date(b.date) - new Date(a.date)
+        );
+
+    if(!walks.length){
+        return true;
+    }
+
+    return paceSeconds < walks[0].paceSeconds;
+}
+    if(
+    challengeText.includes("länger unterwegs")
+){
+
+    const walks =
+        loadWalks()
+        .filter(
+            w => w.date !== document.getElementById("dateInput").value
+        )
+        .sort(
+            (a,b)=>
+                new Date(b.date) - new Date(a.date)
+        );
+
+    if(!walks.length){
+        return true;
+    }
+
+    return durationSeconds > walks[0].durationSeconds;
+}
 if(
     challengeText.includes("trotz Wetter")
     ||
