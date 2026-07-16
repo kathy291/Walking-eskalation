@@ -6488,7 +6488,19 @@ if(prevWalk){
 
         card.innerHTML = `
 
-        <strong>${formatDate(walk.date)}</strong>
+     <strong>
+
+    📅 ${formatDate(walk.date)}
+
+    &nbsp;&nbsp;
+
+    ${
+        walk.isBummel
+        ? "🦥 Bummel-Walk"
+        : "🚶‍♀️ Normaler Walk"
+    }
+
+</strong>
 
             <div class="walk-grid">
 
