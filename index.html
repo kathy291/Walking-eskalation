@@ -1866,7 +1866,36 @@ Ziele speichern
     id="timeInput"
     placeholder="Zeit MM:SS"
 >
+<div class="walk-type">
 
+    <strong>Art des Walks</strong>
+
+    <label>
+
+        <input
+            type="radio"
+            name="walkType"
+            id="normalWalk"
+            checked
+        >
+
+        🚶 Normaler Walk
+
+    </label>
+
+    <label>
+
+        <input
+            type="radio"
+            name="walkType"
+            id="bummelWalk"
+        >
+
+        🦥 Bummel-Walk
+
+    </label>
+
+</div>
 <div class="quick-notes" id="quickNotes"></div>
 
 <textarea
@@ -6579,7 +6608,11 @@ editingWalkId = id;
 
     document.getElementById("timeInput").value =
         formatMMSS(walk.durationSeconds);
+document.getElementById("bummelWalk").checked =
+    walk.isBummel || false;
 
+document.getElementById("normalWalk").checked =
+    !walk.isBummel;
     selectedNotes =
         [...(walk.quickNotes || [])];
 
@@ -6746,6 +6779,8 @@ document.getElementById("saveWalk").onclick = ()=>{
 
     const paceSeconds =
         durationSeconds / kilometers;
+    const isBummel =
+    document.getElementById("bummelWalk").checked;
 if(
     !date ||
     isNaN(kilometers) ||
@@ -6816,7 +6851,7 @@ if(paceRounded <= paceGoalSeconds){
     durationSeconds,
 
     paceSeconds,
-
+isBummel,
     quickNotes:selectedNotes,
 
     customNote:
@@ -6850,7 +6885,7 @@ if(editingWalkId){
 
     document.getElementById("modal")
         .classList.remove("open");
-
+document.getElementById("normalWalk").checked = true;
     renderApp();
 };
 
