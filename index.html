@@ -6753,18 +6753,16 @@ function checkChallengeDone(
     paceSeconds
 ){
 
-    const challengeText =
-        document
-            .getElementById("challengeText")
-            .textContent;
+    const challengeId =
+    window.currentChallengeId;
 
     if(
-        challengeText.includes("3 km")
-        &&
-        kilometers >= 3
-    ){
-        return true;
-    }
+    challengeId === "walk_3km"
+    &&
+    kilometers >= 3
+){
+    return true;
+}
 
     if(
         challengeText.includes("4 km")
