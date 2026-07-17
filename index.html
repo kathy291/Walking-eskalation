@@ -4541,31 +4541,91 @@ document
 
     const challenges = [
 
-        "Laufe heute mindestens 3 km",
-        "Schaffe heute unter 10:00 Pace",
-        "Mindestens 45 Minuten laufen",
-        "Heute trotz Wetter rausgehen",
-        "Heute mindestens 5 km schaffen",
+    {
+        id:"walk_3km",
+        text:"Laufe heute mindestens 3 km"
+    },
+    {
+        id:"pace_10",
+        text:"Schaffe heute unter 10:00 Pace"
+    },
+    {
+        id:"time_45",
+        text:"Mindestens 45 Minuten laufen"
+    },
+    {
+        id:"weather",
+        text:"Heute trotz Wetter rausgehen"
+    },
+    {
+        id:"walk_5km",
+        text:"Heute mindestens 5 km schaffen"
+    },
 
-        "Sammle heute mindestens 30 Minuten Frischluft",
-        "Mach heute einen Walk ohne Ausreden",
-        "Laufe heute einfach los, auch wenn es nur kurz ist",
-        "Schlage heute den inneren Couch-Magneten",
-        "Sammle heute mindestens 4 km",
+    {
+        id:"fresh_air",
+        text:"Sammle heute mindestens 30 Minuten Frischluft"
+    },
+    {
+        id:"no_excuses",
+        text:"Mach heute einen Walk ohne Ausreden"
+    },
+    {
+        id:"just_start",
+        text:"Laufe heute einfach los, auch wenn es nur kurz ist"
+    },
+    {
+        id:"couch",
+        text:"Schlage heute den inneren Couch-Magneten"
+    },
+    {
+        id:"walk_4km",
+        text:"Sammle heute mindestens 4 km"
+    },
 
-        "Heute zählt nur: rausgehen und anfangen",
-        "Laufe heute so, dass das Faultier verwirrt ist",
-        "Mach heute einen Walk, auf den du morgen stolz bist",
-        "Heute darf es langsam sein, aber nicht null",
-        "Sammle heute einen Serienpunkt",
+    {
+        id:"start",
+        text:"Heute zählt nur: rausgehen und anfangen"
+    },
+    {
+        id:"confuse_sloth",
+        text:"Laufe heute so, dass das Faultier verwirrt ist"
+    },
+    {
+        id:"proud",
+        text:"Mach heute einen Walk, auf den du morgen stolz bist"
+    },
+    {
+        id:"not_zero",
+        text:"Heute darf es langsam sein, aber nicht null"
+    },
+    {
+        id:"streak",
+        text:"Sammle heute einen Serienpunkt"
+    },
 
-        "Laufe heute mindestens 40 Minuten",
-        "Versuche heute eine bessere Pace als beim letzten Walk",
-        "Versuche heute länger unterwegs zu sein als beim letzten Walk",
-        "Mach heute einen Wohlfühl-Walk",
-        "Gib dem Faultier heute keinen Grund zur Hoffnung"
-    ];
+    {
+        id:"time_40",
+        text:"Laufe heute mindestens 40 Minuten"
+    },
+    {
+        id:"better_pace",
+        text:"Versuche heute eine bessere Pace als beim letzten Walk"
+    },
+    {
+        id:"longer_walk",
+        text:"Versuche heute länger unterwegs zu sein als beim letzten Walk"
+    },
+    {
+        id:"feel_good",
+        text:"Mach heute einen Wohlfühl-Walk"
+    },
+    {
+        id:"no_hope",
+        text:"Gib dem Faultier heute keinen Grund zur Hoffnung"
+    }
 
+];
     const day =
         new Date().getDate();
 
@@ -4576,6 +4636,14 @@ document
         challenges[
             day % challenges.length
         ];
+
+const challengeId =
+    challenge.id;
+
+const challengeText =
+    challenge.text;
+
+const walks =
 const walks =
     loadWalks();
     const todayWalk =
