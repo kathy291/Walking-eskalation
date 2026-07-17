@@ -6920,10 +6920,16 @@ isBummel,
 
     goalResult,
 
-        challengeDone: checkChallengeDone(
-    kilometers,
-    durationSeconds,
-    paceSeconds
+        challengeDone:
+    editingWalkId
+        ? walks.find(
+            w => w.id === editingWalkId
+          ).challengeDone
+        : checkChallengeDone(
+            kilometers,
+            durationSeconds,
+            paceSeconds
+          )
 )       
 };
 if(editingWalkId){
