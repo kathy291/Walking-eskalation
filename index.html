@@ -6765,38 +6765,34 @@ function checkChallengeDone(
 }
 
     if(
-        challengeText.includes("4 km")
-        &&
-        kilometers >= 4
-    ){
-        return true;
-    }
+    challengeId === "walk_4km"
+    &&
+    kilometers >= 4
+){
+    return true;
+}
 
     if(
-        challengeText.includes("5 km")
-        &&
-        kilometers >= 5
-    ){
-        return true;
-    }
+    challengeId === "walk_5km"
+    &&
+    kilometers >= 5
+){
+    return true;
+}
 if(
-    (
-        challengeText.includes("30 Minuten")
-        ||
-        challengeText.includes("Frischluft")
-    )
+    challengeId === "fresh_air"
     &&
     durationSeconds >= 30 * 60
 ){
     return true;
 }
     if(
-        challengeText.includes("40 Minuten")
-        &&
-        durationSeconds >= 40 * 60
-    ){
-        return true;
-    }
+    challengeId === "time_40"
+    &&
+    durationSeconds >= 40 * 60
+){
+    return true;
+}
 
     if(
         challengeText.includes("45 Minuten")
