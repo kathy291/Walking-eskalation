@@ -1679,7 +1679,24 @@ Pace 00:00
 </div>
      <div id="totalKmSloth"></div>
 </div>
+<div class="card stat-card">
 
+<h2>🦥 Bummel-Ecke</h2>
+
+<div id="bummelCount"></div>
+
+<div id="bummelKm"></div>
+
+<div id="bummelTime"></div>
+
+<div id="bummelPace"></div>
+
+<div id="bummelShare"></div>
+
+<div id="bummelSloth"></div>
+
+</div>
+    
 <div class="card stat-card record-stat">
 <div>⚡️ Beste Pace</div>
 <div class="stat-number" id="bestPace">00:00</div>
@@ -6088,7 +6105,37 @@ if(
     walks.filter(
         walk => !walk.isBummel
     );
+const bummelWalks =
+    walks.filter(
+        walk => walk.isBummel
+    );
 
+const bummelCount =
+    bummelWalks.length;
+
+const bummelKm =
+    bummelWalks.reduce(
+        (sum, walk) => sum + walk.kilometers,
+        0
+    );
+
+const bummelSeconds =
+    bummelWalks.reduce(
+        (sum, walk) => sum + walk.durationSeconds,
+        0
+    );
+
+const bummelPace =
+    bummelKm
+        ? bummelSeconds / bummelKm
+        : 0;
+
+const bummelShare =
+    walks.length
+        ? Math.round(
+            bummelCount / walks.length * 100
+          )
+        : 0;
     document.getElementById("totalKm").textContent =
     Math.round(totalKm) + " km";
 
