@@ -1695,6 +1695,12 @@ Pace 00:00
 
 <div id="bummelSloth"></div>
 
+<hr>
+
+<div id="favouriteBummel"></div>
+
+</div>
+
 </div>
     
 <div class="card stat-card record-stat">
@@ -6553,7 +6559,38 @@ document.getElementById("monthCompare")
 
 const yearDiff =
     currentYearKm - lastYearKm;
+const favouriteBummel =
+    bummelWalks.length
+        ? bummelWalks.reduce(
+            (best, walk) =>
+                walk.durationSeconds > best.durationSeconds
+                    ? walk
+                    : best
+        )
+        : null;
 
+let favouriteHtml = "";
+
+if (favouriteBummel) {
+
+    favouriteHtml = `
+        <hr>
+        <strong>☕ Lieblings-Bummel</strong>
+
+        <br>📅 ${formatDate(favouriteBummel.date)}
+
+        <br>📏 ${formatKm(favouriteBummel.kilometers)} km
+
+        <br>⏱️ ${formatMMSS(favouriteBummel.durationSeconds)}
+
+        <br><br>
+
+        🦥 „So stelle ich mir einen gelungenen Spaziergang vor.“
+    `;
+}
+
+document.getElementById("favouriteBummel").innerHTML =
+    favouriteHtml;
 document.getElementById("yearCompare")
     .innerHTML =
     `
