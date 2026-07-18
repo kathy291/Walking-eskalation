@@ -6754,116 +6754,137 @@ function checkChallengeDone(
 ){
 
     const challengeId =
-    window.currentChallengeId;
-const challengeText =
-    document
-        .getElementById("challengeText")
-        .textContent;
-    if(
-    challengeId === "walk_3km"
-    &&
-    kilometers >= 3
-){
-    return true;
-}
+        window.currentChallengeId;
+
+    const challengeText =
+        document
+            .getElementById("challengeText")
+            .textContent;
 
     if(
-    challengeId === "walk_4km"
-    &&
-    kilometers >= 4
-){
-    return true;
-}
-
-    if(
-    challengeId === "walk_5km"
-    &&
-    kilometers >= 5
-){
-    return true;
-}
-if(
-    challengeId === "fresh_air"
-    &&
-    durationSeconds >= 30 * 60
-){
-    return true;
-}
-    if(
-    challengeId === "time_40"
-    &&
-    durationSeconds >= 40 * 60
-){
-    return true;
-}
-
-if(
-    challengeId === "time_45"
-
-    if(
-    challengeId === "pace_10"
-    if(
-    challengeId === "better_pace"
-    const walks =
-        loadWalks()
-        .filter(
-            w => w.date !== document.getElementById("dateInput").value
-        )
-        .sort(
-            (a,b)=>
-                new Date(b.date) - new Date(a.date)
-        );
-
-    if(!walks.length){
+        challengeId === "walk_3km"
+        &&
+        kilometers >= 3
+    ){
         return true;
     }
 
-    return paceSeconds < walks[0].paceSeconds;
-}
     if(
-    challengeId === "longer_walk"
-
-    const walks =
-        loadWalks()
-        .filter(
-            w => w.date !== document.getElementById("dateInput").value
-        )
-        .sort(
-            (a,b)=>
-                new Date(b.date) - new Date(a.date)
-        );
-
-    if(!walks.length){
+        challengeId === "walk_4km"
+        &&
+        kilometers >= 4
+    ){
         return true;
     }
 
-    return durationSeconds > walks[0].durationSeconds;
-}
-if(
-    challengeText.includes("trotz Wetter")
-    ||
-    challengeText.includes("ohne Ausreden")
-    ||
-    challengeText.includes("einfach los")
-    ||
-    challengeText.includes("Couch-Magneten")
-    ||
-    challengeText.includes("rausgehen und anfangen")
-    ||
-    challengeText.includes("Faultier verwirrt")
-    ||
-    challengeText.includes("morgen stolz")
-    ||
-    challengeText.includes("langsam sein")
-    ||
-    challengeText.includes("Serienpunkt")
-    ||
-    challengeText.includes("Wohlfühl-Walk")
-    ||
-    challengeText.includes("keinen Grund zur Hoffnung")
-){
-    return true;
-}
+    if(
+        challengeId === "walk_5km"
+        &&
+        kilometers >= 5
+    ){
+        return true;
+    }
+
+    if(
+        challengeId === "fresh_air"
+        &&
+        durationSeconds >= 30 * 60
+    ){
+        return true;
+    }
+
+    if(
+        challengeId === "time_40"
+        &&
+        durationSeconds >= 40 * 60
+    ){
+        return true;
+    }
+
+    if(
+        challengeId === "time_45"
+        &&
+        durationSeconds >= 45 * 60
+    ){
+        return true;
+    }
+
+    if(
+        challengeId === "pace_10"
+        &&
+        paceSeconds <= 10 * 60
+    ){
+        return true;
+    }
+
+    if(
+        challengeId === "better_pace"
+    ){
+
+        const walks =
+            loadWalks()
+            .filter(
+                w => w.date !== document.getElementById("dateInput").value
+            )
+            .sort(
+                (a,b)=>
+                    new Date(b.date) - new Date(a.date)
+            );
+
+        if(!walks.length){
+            return true;
+        }
+
+        return paceSeconds < walks[0].paceSeconds;
+    }
+
+    if(
+        challengeId === "longer_walk"
+    ){
+
+        const walks =
+            loadWalks()
+            .filter(
+                w => w.date !== document.getElementById("dateInput").value
+            )
+            .sort(
+                (a,b)=>
+                    new Date(b.date) - new Date(a.date)
+            );
+
+        if(!walks.length){
+            return true;
+        }
+
+        return durationSeconds > walks[0].durationSeconds;
+    }
+
+    if(
+        challengeText.includes("trotz Wetter")
+        ||
+        challengeText.includes("ohne Ausreden")
+        ||
+        challengeText.includes("einfach los")
+        ||
+        challengeText.includes("Couch-Magneten")
+        ||
+        challengeText.includes("rausgehen und anfangen")
+        ||
+        challengeText.includes("Faultier verwirrt")
+        ||
+        challengeText.includes("morgen stolz")
+        ||
+        challengeText.includes("langsam sein")
+        ||
+        challengeText.includes("Serienpunkt")
+        ||
+        challengeText.includes("Wohlfühl-Walk")
+        ||
+        challengeText.includes("keinen Grund zur Hoffnung")
+    ){
+        return true;
+    }
+
     return false;
 }
 document.getElementById("openModal").onclick = ()=>{
