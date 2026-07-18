@@ -6755,7 +6755,10 @@ function checkChallengeDone(
 
     const challengeId =
     window.currentChallengeId;
-
+const challengeText =
+    document
+        .getElementById("challengeText")
+        .textContent;
     if(
     challengeId === "walk_3km"
     &&
@@ -6794,25 +6797,13 @@ if(
     return true;
 }
 
-    if(
-        challengeText.includes("45 Minuten")
-        &&
-        durationSeconds >= 45 * 60
-    ){
-        return true;
-    }
+if(
+    challengeId === "time_45"
 
     if(
-        challengeText.includes("unter 10:00 Pace")
-        &&
-        paceSeconds <= 10 * 60
-    ){
-        return true;
-    }
+    challengeId === "pace_10"
     if(
-    challengeText.includes("bessere Pace")
-){
-
+    challengeId === "better_pace"
     const walks =
         loadWalks()
         .filter(
@@ -6830,8 +6821,7 @@ if(
     return paceSeconds < walks[0].paceSeconds;
 }
     if(
-    challengeText.includes("länger unterwegs")
-){
+    challengeId === "longer_walk"
 
     const walks =
         loadWalks()
