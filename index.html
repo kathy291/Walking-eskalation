@@ -1711,7 +1711,10 @@ Pace 00:00
 </div>
      <div id="totalKmSloth"></div>
 </div>
-<div class="card stat-card bummel-card">
+<div
+    class="card stat-card bummel-card"
+    onclick="openBummelPopup()"
+>
 
 <h2>🦥 Bummel-Ecke</h2>
 
@@ -8216,6 +8219,61 @@ window.onload = () => {
     </div>
 
 </div>
+function openBummelPopup(){
 
+    const bummel =
+        walks
+        .filter(
+            walk => walk.isBummel
+        )
+        .sort(
+            (a,b)=>
+                new Date(b.date)
+                -
+                new Date(a.date)
+        );
+
+    let html = "";
+
+    bummel.forEach((walk,index)=>{
+
+        html += `
+
+<div class="popupWalk">
+
+${index===0 ? "🍃 <strong>Letzter Bummel</strong><br><br>" : ""}
+
+📅 ${formatDate(walk.date)}<br>
+
+📏 ${formatKm(walk.kilometers)} km<br>
+
+⏱️ ${formatMMSS(walk.durationSeconds)}
+
+</div>
+
+`;
+
+    });
+
+    document.getElementById(
+        "bummelPopupContent"
+    ).innerHTML =
+        html;
+
+    document
+        .getElementById("bummelPopup")
+        .classList
+        .remove("hidden");
+
+}
+
+function closeBummelPopup(){
+
+    document
+        .getElementById("bummelPopup")
+        .classList
+        .add("hidden");
+
+}
 </body>
 </html>
