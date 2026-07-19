@@ -450,6 +450,16 @@ h2{
 
     font-size:18px;
 }
+    .bummelDivider{
+
+    font-size:22px;
+
+    margin:18px 0;
+
+    opacity:.8;
+
+    letter-spacing:8px;
+}
 .total-stat{
     grid-column:1 / 7;
     padding-bottom:40px;
@@ -6649,11 +6659,19 @@ if (favouriteBummel) {
     }
 
     favouriteHtml = `
-        <hr>
+      <div class="bummelDivider">
+🦥 🌿 🍃 🌿 🦥
+</div>
 
-        <strong>🏆 Vom Faultier ausgezeichnet</strong>
-        <br><em>Heute wäre das meine erste Wahl.</em>
+   <strong>🏆 Vom Faultier ausgezeichnet</strong>
 
+<br>
+
+<strong>🍃 Lieblings-Bummel</strong>
+
+<br>
+
+<em>Offiziell als besonders gemütlich eingestuft.</em>
         <br><br>📅 ${formatDate(favouriteBummel.date)}
         <br>📏 ${formatKm(favouriteBummel.kilometers)} km
         <br>⏱️ ${formatMMSS(favouriteBummel.durationSeconds)}
