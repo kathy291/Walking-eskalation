@@ -1726,8 +1726,6 @@ Lieblingsplatz des Faultiers
 <div id="favouriteBummel"></div>
 
 </div>
-
-</div>
     
 <div class="card stat-card record-stat">
 <div>⚡️ Beste Pace</div>
@@ -6625,59 +6623,44 @@ const favouriteBummel =
 
 let favouriteHtml = "";
 
-let slothReason = "";
+if (favouriteBummel) {
 
-if(favouriteBummel.paceSeconds >= 900){
+    let slothReason = "";
 
-    slothReason =
-        "🦥 „So sieht wahre Gelassenheit aus.“";
+    if (favouriteBummel.paceSeconds >= 900) {
 
-}else if(favouriteBummel.durationSeconds >= 90 * 60){
+        slothReason =
+            "🦥 „So sieht wahre Gelassenheit aus.“";
 
-    slothReason =
-        "🦥 „Ich hätte höchstens noch eine Hängematte vermisst.“";
+    } else if (favouriteBummel.durationSeconds >= 90 * 60) {
 
-}else if(favouriteBummel.kilometers < 3){
+        slothReason =
+            "🦥 „Ich hätte höchstens noch eine Hängematte vermisst.“";
 
-    slothReason =
-        "🦥 „Kurz, gemütlich und völlig ausreichend.“";
+    } else if (favouriteBummel.kilometers < 3) {
 
-}else{
+        slothReason =
+            "🦥 „Kurz, gemütlich und völlig ausreichend.“";
 
-    slothReason =
-        "🦥 „Endlich mal ohne Hektik.“";
-}
+    } else {
 
-favouriteHtml = `
-    <hr>
-
- <strong>🏆 Vom Faultier ausgezeichnet</strong>
- <br><em>Heute wäre das meine erste Wahl.</em>
-
-    <br>📅 ${formatDate(favouriteBummel.date)}
-
-    <br>📏 ${formatKm(favouriteBummel.kilometers)} km
-
-    <br>⏱️ ${formatMMSS(favouriteBummel.durationSeconds)}
-
-    <br><br>
-
-    ${slothReason}
-`;
+        slothReason =
+            "🦥 „Endlich mal ohne Hektik.“";
+    }
 
     favouriteHtml = `
         <hr>
-        <strong>☕ Lieblings-Bummel</strong>
 
-        <br>📅 ${formatDate(favouriteBummel.date)}
+        <strong>🏆 Vom Faultier ausgezeichnet</strong>
+        <br><em>Heute wäre das meine erste Wahl.</em>
 
+        <br><br>📅 ${formatDate(favouriteBummel.date)}
         <br>📏 ${formatKm(favouriteBummel.kilometers)} km
-
         <br>⏱️ ${formatMMSS(favouriteBummel.durationSeconds)}
 
         <br><br>
 
-        🦥 „So stelle ich mir einen gelungenen Spaziergang vor.“
+        ${slothReason}
     `;
 }
 
