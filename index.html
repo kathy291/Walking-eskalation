@@ -6559,19 +6559,85 @@ document.getElementById("monthCompare")
 
 const yearDiff =
     currentYearKm - lastYearKm;
+        function bummelScore(walk){
+
+    let score = 0;
+
+    // lange genießen
+    if(walk.durationSeconds >= 90 * 60){
+        score += 5;
+    }
+
+    // herrlich langsam
+    if(walk.paceSeconds >= 900){
+        score += 4;
+    }
+
+    // kurze Runde
+    if(walk.kilometers < 3){
+        score += 3;
+    }
+
+    // trotzdem etwas Strecke
+    score += walk.kilometers;
+
+    return score;
+}
 const favouriteBummel =
     bummelWalks.length
-        ? bummelWalks.reduce(
-            (best, walk) =>
-                walk.durationSeconds > best.durationSeconds
-                    ? walk
-                    : best
-        )
+        ? bummelWalks.reduce((best, walk) => {
+
+            const score = bummelScore(walk);
+            const bestScore = bummelScore(best);
+
+            return score > bestScore
+                ? walk
+                : best;
+
+        })
         : null;
 
 let favouriteHtml = "";
 
-if (favouriteBummel) {
+let slothReason = "";
+
+if(favouriteBummel.paceSeconds >= 900){
+
+    slothReason =
+        "🦥 „So sieht wahre Gelassenheit aus.“";
+
+}else if(favouriteBummel.durationSeconds >= 90 * 60){
+
+    slothReason =
+        "🦥 „Ich hätte höchstens noch eine Hängematte vermisst.“";
+
+}else if(favouriteBummel.kilometers < 3){
+
+    slothReason =
+        "🦥 „Kurz, gemütlich und völlig ausreichend.“";
+
+}else{
+
+    slothReason =
+        "🦥 „Endlich mal ohne Hektik.“";
+}
+
+favouriteHtml = `
+    <hr>
+
+ <strong>🏆 Vom Faultier ausgezeichnet</strong>
+ <br><em>Heute wäre das meine erste Wahl.</em>
+
+    <br>📅 ${formatDate(favouriteBummel.date)}
+
+    <br>📏 ${formatKm(favouriteBummel.kilometers)} km
+
+    <br>⏱️ ${formatMMSS(favouriteBummel.durationSeconds)}
+
+    <br><br>
+
+    ${slothReason}
+`;
 
     favouriteHtml = `
         <hr>
