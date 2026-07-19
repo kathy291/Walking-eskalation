@@ -6628,6 +6628,15 @@ const favouriteBummel =
 
         })
         : null;
+        const latestBummel =
+    bummelWalks.length
+        ? [...bummelWalks]
+            .sort(
+                (a, b) =>
+                    new Date(b.date) -
+                    new Date(a.date)
+            )[0]
+        : null;
 
 let favouriteHtml = "";
 
@@ -6672,11 +6681,31 @@ if (favouriteBummel) {
 <em>Offiziell als besonders gemütlich eingestuft.</em>
         <br><br>📅 ${formatDate(favouriteBummel.date)}
         <br>📏 ${formatKm(favouriteBummel.kilometers)} km
-        <br>⏱️ ${formatMMSS(favouriteBummel.durationSeconds)}
+      <br>⏱️ ${formatMMSS(favouriteBummel.durationSeconds)}
 
-        <br><br>
+<br><br>
 
-        ${slothReason}
+<div class="bummelDivider">
+🍃 🌿 🍃
+</div>
+
+<strong>🚶 Letzter Bummel</strong>
+
+<br><br>
+
+📅 ${formatDate(latestBummel.date)}
+
+<br>
+
+📏 ${formatKm(latestBummel.kilometers)} km
+
+<br>
+
+⏱️ ${formatMMSS(latestBummel.durationSeconds)}
+
+<br><br>
+
+${slothReason}
     `;
 }
 
