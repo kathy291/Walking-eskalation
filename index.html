@@ -7703,7 +7703,57 @@ function closeJourneyPopup(){
     document.getElementById("journeyPopup")
         .classList.remove("open");
 }
+function openBummelPopup(){
 
+    const bummel =
+        loadWalks()
+            .filter(w => w.isBummel)
+            .sort(
+                (a,b)=>
+                    new Date(b.date) -
+                    new Date(a.date)
+            );
+
+    let html = "";
+
+    if(!bummel.length){
+
+        html = "<p>Noch keine Bummel-Walks vorhanden.</p>";
+
+    }else{
+
+        bummel.forEach((walk,index)=>{
+
+            html += `
+                <div class="archive-card">
+
+                    ${
+                        index === 0
+                        ? "<strong>🚶 Letzter Bummel</strong><br><br>"
+                        : ""
+                    }
+
+                    📅 ${formatDate(walk.date)}<br>
+                    📏 ${formatKm(walk.kilometers)} km<br>
+                    ⏱️ ${formatMMSS(walk.durationSeconds)}
+
+                </div>
+            `;
+        });
+
+    }
+
+    document.getElementById("bummelPopupContent").innerHTML = html;
+
+    document.getElementById("bummelPopup")
+        .classList.add("open");
+}
+
+function closeBummelPopup(){
+
+    document.getElementById("bummelPopup")
+        .classList.remove("open");
+}
 function changeJourneyPage(direction){
 
     const pages =
