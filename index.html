@@ -6714,6 +6714,36 @@ ${slothReason}
 
 document.getElementById("favouriteBummel").innerHTML =
     favouriteHtml;
+      let popupHtml = "";
+
+bummelWalks
+    .sort(
+        (a,b)=>
+            new Date(b.date) -
+            new Date(a.date)
+    )
+    .forEach((walk,index)=>{
+
+        popupHtml += `
+
+<div class="archive-card">
+
+${index===0 ? "<strong>🚶 Letzter Bummel</strong><br><br>" : ""}
+
+📅 ${formatDate(walk.date)}<br>
+
+📏 ${formatKm(walk.kilometers)} km<br>
+
+⏱️ ${formatMMSS(walk.durationSeconds)}
+
+</div>
+
+`;
+
+    });
+
+document.getElementById("bummelPopupContent").innerHTML =
+    popupHtml;  
 document.getElementById("yearCompare")
     .innerHTML =
     `
