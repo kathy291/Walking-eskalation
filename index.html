@@ -467,6 +467,7 @@ h2{
     opacity:.8;
 
     letter-spacing:8px;
+    text-align:center;    
 }
     .bummel-rating{
 
@@ -6676,7 +6677,35 @@ const favouriteBummel =
                     new Date(a.date)
             )[0]
         : null;
+const longestBummel =
+    bummelWalks.length
+        ? bummelWalks.reduce(
+            (a,b)=>
+                a.kilometers > b.kilometers
+                    ? a
+                    : b
+          )
+        : null;
 
+const slowestBummel =
+    bummelWalks.length
+        ? bummelWalks.reduce(
+            (a,b)=>
+                a.paceSeconds > b.paceSeconds
+                    ? a
+                    : b
+          )
+        : null;
+
+const longestTimeBummel =
+    bummelWalks.length
+        ? bummelWalks.reduce(
+            (a,b)=>
+                a.durationSeconds > b.durationSeconds
+                    ? a
+                    : b
+          )
+        : null;
 let favouriteHtml = "";
 
 if (favouriteBummel) {
@@ -6750,6 +6779,43 @@ ${slothReason}
 
 document.getElementById("favouriteBummel").innerHTML =
     favouriteHtml;
+        if(bummelWalks.length){
+
+document.getElementById("favouriteBummel").innerHTML += `
+
+<div class="bummelDivider">
+🌿 🦥 🌿
+</div>
+
+<strong>🏆 Bummel-Rekorde</strong>
+
+<br><br>
+
+🥾 Längster Bummel
+
+<br>
+
+${formatKm(longestBummel.kilometers)} km
+
+<br><br>
+
+🐢 Langsamster Bummel
+
+<br>
+
+${formatMMSS(slowestBummel.paceSeconds)}
+
+<br><br>
+
+⏱️ Längste Bummelzeit
+
+<br>
+
+${formatMMSS(longestTimeBummel.durationSeconds)}
+
+`;
+
+}
       let popupHtml = "";
 let letzterMonat = "";
 bummelWalks
