@@ -6748,6 +6748,35 @@ const popup =
 if(popup){
     popup.innerHTML = popupHtml;
 }
+const bummelSloth =
+    document.getElementById("bummelSloth");
+
+if(bummelSloth){
+
+    const texte = [
+
+        "🦥 Das Faultier ist stolz auf jede gemütliche Runde.",
+
+        "🌿 Langsam unterwegs. Genau mein Tempo.",
+
+        "🍃 Wer bummelt, sieht mehr.",
+
+        "😴 Kein Stress. Nur Schritte.",
+
+        "☀️ Jeder Bummel zählt."
+
+    ];
+
+    bummelSloth.textContent =
+        bummelWalks.length
+            ? texte[
+                Math.floor(
+                    Math.random() * texte.length
+                )
+              ]
+            : "🦥 Noch kein Bummel gespeichert.";
+
+}        
 document.getElementById("yearCompare")
     .innerHTML =
     `
