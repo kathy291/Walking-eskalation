@@ -477,6 +477,25 @@ h2{
     letter-spacing:2px;
 
 }
+    .bummel-award{
+
+    display:inline-block;
+
+    margin-bottom:10px;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    background:#eef8df;
+
+    color:#54762d;
+
+    font-weight:bold;
+
+    font-size:.95rem;
+
+}
 .total-stat{
     grid-column:1 / 7;
     padding-bottom:40px;
@@ -6785,6 +6804,25 @@ if(bummelScore(walk) >= 12){
 
 const blaetter =
     "🍃".repeat(blattAnzahl);
+        let auszeichnung = "🌿 Gemütlicher Spaziergang";
+
+if(walk.paceSeconds >= 1100){
+
+    auszeichnung = "🦥 Faultier-Gold";
+
+}else if(walk.durationSeconds >= 2 * 60 * 60){
+
+    auszeichnung = "🏕️ Ausgedehnter Genuss";
+
+}else if(walk.kilometers < 2){
+
+    auszeichnung = "☕ Kleine Auszeit";
+
+}else if(walk.kilometers >= 5){
+
+    auszeichnung = "🥾 Entdeckungstour";
+
+}
         popupHtml += `
 
 <div class="archive-card ${
@@ -6806,6 +6844,11 @@ ${index===0 ? "<strong>🚶 Letzter Bummel</strong><br><br>" : ""}
 <div class="bummel-rating">
 
     ${blaetter}
+
+</div>
+<div class="bummel-award">
+
+    ${auszeichnung}
 
 </div>
 📅 ${formatDate(walk.date)}<br>
