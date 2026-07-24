@@ -468,6 +468,15 @@ h2{
 
     letter-spacing:8px;
 }
+    .bummel-rating{
+
+    font-size:1.35rem;
+
+    margin-bottom:8px;
+
+    letter-spacing:2px;
+
+}
 .total-stat{
     grid-column:1 / 7;
     padding-bottom:40px;
@@ -6756,6 +6765,26 @@ if(monat !== letzterMonat){
     letzterMonat = monat;
 
 }
+        let blattAnzahl = 1;
+
+if(walk.paceSeconds >= 900){
+    blattAnzahl++;
+}
+
+if(walk.durationSeconds >= 90 * 60){
+    blattAnzahl++;
+}
+
+if(walk.kilometers < 3){
+    blattAnzahl++;
+}
+
+if(bummelScore(walk) >= 12){
+    blattAnzahl++;
+}
+
+const blaetter =
+    "🍃".repeat(blattAnzahl);
         popupHtml += `
 
 <div class="archive-card ${
@@ -6774,7 +6803,11 @@ ${
 }
 
 ${index===0 ? "<strong>🚶 Letzter Bummel</strong><br><br>" : ""}
+<div class="bummel-rating">
 
+    ${blaetter}
+
+</div>
 📅 ${formatDate(walk.date)}<br>
 
 📏 ${formatKm(walk.kilometers)} km<br>
