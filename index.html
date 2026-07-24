@@ -6759,17 +6759,18 @@ if(monat !== letzterMonat){
         popupHtml += `
 
 <div class="archive-card ${
-    walk.id === favouriteWalk?.id
+    walk.id === favouriteBummel?.id
         ? "favourite-bummel"
         : ""
 }">
 
 ${
-    walk.id === favouriteWalk?.id
-        ? <div class="bummel-crown">
-    👑 Lieblings-Bummel
-</div>
-        : ""
+    
+    walk.id === favouriteBummel?.id
+    ? `<div class="bummel-crown">
+        👑 Lieblings-Bummel
+      </div>`
+    : ""
 }
 
 ${index===0 ? "<strong>🚶 Letzter Bummel</strong><br><br>" : ""}
