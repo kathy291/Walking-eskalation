@@ -428,6 +428,14 @@ h2{
 
     text-align:center;
 }
+    .bummel-crown{
+
+    font-size:1.2rem;
+    font-weight:bold;
+    color:#c79200;
+    margin-bottom:8px;
+
+}
     .bummel-card{
 
     grid-column:1/-1;
@@ -6715,7 +6723,7 @@ ${slothReason}
 document.getElementById("favouriteBummel").innerHTML =
     favouriteHtml;
       let popupHtml = "";
-
+let letzterMonat = "";
 bummelWalks
     .sort(
         (a,b)=>
@@ -6723,10 +6731,46 @@ bummelWalks
             new Date(a.date)
     )
     .forEach((walk,index)=>{
+const monat =
+    new Date(walk.date)
+        .toLocaleDateString(
+            "de-DE",
+            {
+                month:"long",
+                year:"numeric"
+            }
+        );
 
+if(monat !== letzterMonat){
+
+    popupHtml += `
+        <h3 style="
+            margin-top:18px;
+            margin-bottom:10px;
+            color:#5c7a3a;
+        ">
+            🍃 ${monat}
+        </h3>
+    `;
+
+    letzterMonat = monat;
+
+}
         popupHtml += `
 
-<div class="archive-card">
+<div class="archive-card ${
+    walk.id === favouriteWalk?.id
+        ? "favourite-bummel"
+        : ""
+}">
+
+${
+    walk.id === favouriteWalk?.id
+        ? <div class="bummel-crown">
+    👑 Lieblings-Bummel
+</div>
+        : ""
+}
 
 ${index===0 ? "<strong>🚶 Letzter Bummel</strong><br><br>" : ""}
 
