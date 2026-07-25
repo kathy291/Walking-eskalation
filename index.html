@@ -6216,7 +6216,32 @@ const bummelShare =
         : 0;
     document.getElementById("totalKm").textContent =
     Math.round(totalKm) + " km";
+const aktuelleBummelSerie = (()=>{
 
+    let serie = 0;
+
+    const sortiert =
+        [...bummelWalks].sort(
+            (a,b)=>new Date(b.date)-new Date(a.date)
+        );
+
+    for(const walk of sortiert){
+
+        if(walk.isBummel){
+
+            serie++;
+
+        }else{
+
+            break;
+
+        }
+
+    }
+
+    return serie;
+
+})();
 const currentPlace =
     [...travelPlaces]
     .filter(place => totalKm >= place.km)
@@ -6788,7 +6813,17 @@ document.getElementById("favouriteBummel").innerHTML += `
 </div>
 
 <strong>🏆 Bummel-Rekorde</strong>
+<br><br>
 
+🦥 Aktuelle Bummel-Serie
+
+<br>
+
+<strong>${aktuelleBummelSerie}</strong>
+
+${aktuelleBummelSerie === 1 ? " Bummel" : " Bummel in Folge"}
+
+<br><br>
 <br><br>
 
 🥾 Längster Bummel
