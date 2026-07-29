@@ -6221,8 +6221,10 @@ const aktuelleBummelSerie = (()=>{
     let serie = 0;
 
     const sortiert =
-        [...bummelWalks].sort(
-            (a,b)=>new Date(b.date)-new Date(a.date)
+        [...loadWalks()].sort(
+            (a,b)=>
+                new Date(b.date) -
+                new Date(a.date)
         );
 
     for(const walk of sortiert){
