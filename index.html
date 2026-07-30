@@ -5356,12 +5356,17 @@ walks = trainingWalks;
 
         chartData =
             currentWalks
-            .sort(
-                (a,b)=>
-                    new Date(a.date)
-                    -
-                    new Date(b.date)
-            )
+          .sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
             .map(w => ({
 
                 label:
@@ -5973,12 +5978,17 @@ function renderStreak(walks){
     [...new Set(
         walks.map(w => w.date)
     )]
-    .sort(
-        (a,b)=>
-            new Date(b)
-            -
-            new Date(a)
-    );
+  .sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
 
     let streak = 1;
 
@@ -6221,11 +6231,18 @@ const aktuelleBummelSerie = (()=>{
     let serie = 0;
 
     const sortiert =
-        [...loadWalks()].sort(
-            (a,b)=>
-                new Date(b.date) -
-                new Date(a.date)
-        );
+        [...loadWalks()]
+    .sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
 
     for(const walk of sortiert){
 
@@ -6353,12 +6370,17 @@ document.getElementById(
     );
         const sortedWalks =
     [...walks]
-    .sort(
-        (a,b)=>
-            new Date(b.date)
-            -
-            new Date(a.date)
-    );
+  .sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
 
 const latest = sortedWalks[0];
 const previous = sortedWalks[1];
@@ -6698,11 +6720,18 @@ const favouriteBummel =
         const latestBummel =
     bummelWalks.length
         ? [...bummelWalks]
-            .sort(
-                (a, b) =>
-                    new Date(b.date) -
-                    new Date(a.date)
-            )[0]
+       .sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
+            [0]
         : null;
 const longestBummel =
     bummelWalks.length
@@ -6856,11 +6885,17 @@ ${formatMMSS(longestTimeBummel.durationSeconds)}
       let popupHtml = "";
 let letzterMonat = "";
 bummelWalks
-    .sort(
-        (a,b)=>
-            new Date(b.date) -
-            new Date(a.date)
-    )
+ .sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
     .forEach((walk,index)=>{
 const monat =
     new Date(walk.date)
@@ -7021,12 +7056,17 @@ function renderHistory(walks){
     history.innerHTML = "";
 
     walks
-.sort(
-    (a,b)=>
-        new Date(b.date)
-        -
-        new Date(a.date)
-)
+.sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
 .forEach((walk,index,array)=>{
 const prevWalk = array[index + 1];
 
@@ -7471,7 +7511,15 @@ if(paceRounded <= paceGoalSeconds){
     id:
         editingWalkId
         || crypto.randomUUID(),
-
+createdAt:
+    editingWalkId
+        ? (
+            walks.find(
+                w => w.id === editingWalkId
+            )?.createdAt
+            || Date.now()
+          )
+        : Date.now(),
     date,
 
     kilometers,
@@ -7616,11 +7664,17 @@ const xpToNextLevel =
 
             return d >= weekStart && d <= today;
         })
-        .sort(
-            (a,b)=>
-                new Date(b.date) -
-                new Date(a.date)
-        )
+      .sort((a,b)=>{
+
+    if(a.date !== b.date){
+
+        return new Date(b.date) - new Date(a.date);
+
+    }
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+
+})
         .map(w =>{
 
             let xp = 25;
@@ -7896,9 +7950,17 @@ function getArrivalDate(targetKm){
     let sum = 0;
 
     const sortedWalks =
-        [...loadWalks()].sort(
-            (a,b)=>new Date(a.date) - new Date(b.date)
-        );
+    [...loadWalks()].sort((a,b)=>{
+
+        if(a.date !== b.date){
+
+            return new Date(a.date) - new Date(b.date);
+
+        }
+
+        return (a.createdAt || 0) - (b.createdAt || 0);
+
+    });
 
     for(const walk of sortedWalks){
 
