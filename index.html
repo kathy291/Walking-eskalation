@@ -5978,17 +5978,15 @@ function renderStreak(walks){
     [...new Set(
         walks.map(w => w.date)
     )]
-  .sort((a,b)=>{
-
-    if(a.date !== b.date){
-
-        return new Date(b.date) - new Date(a.date);
-
-    }
-
-    return (b.createdAt || 0) - (a.createdAt || 0);
-
-})
+const dates =
+    [...new Set(
+        walks.map(w => w.date)
+    )]
+    .sort(
+        (a,b)=>
+            new Date(b) -
+            new Date(a)
+    );
 
     let streak = 1;
 
