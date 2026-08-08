@@ -9413,27 +9413,25 @@ isBummel,
           )
 };
 
-    const index =
-        walks.findIndex(
-            w => w.id === editingWalkId
-        );
+   const index =
+    walks.findIndex(
+        w => w.id === editingWalkId
+    );
 
-    if(index >= 0){
+if(index >= 0){
 
-        walks[index] =
-            walkData;
+    walks[index] =
+        walkData;
 
-    }
-
-    editingWalkId = null;
-
-}else{
+} else {
 
     walks.push(
         walkData
     );
 
 }
+
+editingWalkId = null;
     const partyEvents =
     wasEditing
     ? []
@@ -9472,7 +9470,6 @@ if(!wasEditing){
             );
 
         }
-    );
 }
 
 document.getElementById("modal")
@@ -10290,9 +10287,9 @@ if(e.target.closest("#journeyChapterBack")){
     const page = getJourneyPages()[journeyPageIndex];
 
     const deckblatt =
-    getJourneyPages().findIndex(
-        p => p.type === "cover"
-    );
+        getJourneyPages().findIndex(
+            p => p.type === "cover"
+        );
 
     if(deckblatt >= 0){
 
@@ -10300,6 +10297,8 @@ if(e.target.closest("#journeyChapterBack")){
         renderJourneyPage();
 
     }
+}
+
 if(e.target.closest("#journeyChapterNext")){
 
     const pages =
@@ -10318,12 +10317,12 @@ if(e.target.closest("#journeyChapterNext")){
 
     }else{
 
-        journeyPageIndex = pages.length - 1;
-
+        journeyPageIndex =
+            pages.length - 1;
     }
 
     renderJourneyPage();
-
+}
 }
 }    
 });
