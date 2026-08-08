@@ -9367,15 +9367,9 @@ if(paceRounded <= paceGoalSeconds){
 
     const walks = loadWalks();
    const oldWalks =
-
     JSON.parse(
-
         JSON.stringify(walks)
-
     );
-    const oldWalks =
-    [...walks];
-
     const walkData = {
 
     id:
@@ -9418,10 +9412,6 @@ isBummel,
             paceSeconds
           )
 };
-const wasEditing =
-    !!editingWalkId;
-
-if(wasEditing){
 
     const index =
         walks.findIndex(
@@ -9459,8 +9449,6 @@ savePartyEvents(
 );
 
     saveWalks(walks);
-
-saveWalks(walks);
 
 const newWalk =
     walks.find(
@@ -9506,7 +9494,7 @@ if(!wasEditing){
         );
     }
 }
-
+ );
 
 function openLevelPopup(){
 
