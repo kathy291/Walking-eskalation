@@ -1576,6 +1576,248 @@ textarea{
 .route-finish{
     fill:#000;
 }   
+ /* =========================================================
+   JUBILÄUMS-PARTY
+   ========================================================= */
+
+#jubileeParty {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(44, 200, 195, 0.28),
+            rgba(0, 0, 0, 0.88)
+        );
+    backdrop-filter: blur(7px);
+}
+
+#jubileeParty.open {
+    display: flex;
+    animation: jubileeBackground 1s ease-out;
+}
+
+.jubilee-glow {
+    position: absolute;
+    inset: 5%;
+    border: 5px solid #2cc8c3;
+    border-radius: 35px;
+    box-shadow:
+        0 0 20px #2cc8c3,
+        0 0 50px #2cc8c3,
+        0 0 100px rgba(44,200,195,.8),
+        inset 0 0 50px rgba(44,200,195,.35);
+    animation: jubileeGlow 1.2s infinite alternate;
+    pointer-events: none;
+}
+
+.jubilee-content {
+    position: relative;
+    z-index: 10;
+    width: min(92%, 650px);
+    text-align: center;
+    color: white;
+    animation: jubileePop .8s cubic-bezier(.17,.89,.32,1.49);
+}
+
+.jubilee-title {
+    font-size: clamp(2.8rem, 10vw, 6rem);
+    font-weight: 1000;
+    line-height: .95;
+    color: #2cc8c3;
+    text-shadow:
+        0 0 8px white,
+        0 0 20px #2cc8c3,
+        0 0 40px #2cc8c3,
+        0 0 80px #2cc8c3;
+    animation: jubileeTitle 1s infinite alternate;
+}
+
+.jubilee-subtitle {
+    margin-top: 18px;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-weight: 900;
+    text-shadow:
+        0 0 10px white,
+        0 0 25px #2cc8c3;
+}
+
+.jubilee-sloth {
+    margin-top: 25px;
+    font-size: clamp(4rem, 18vw, 9rem);
+    animation:
+        slothParty .7s infinite alternate;
+    filter:
+        drop-shadow(0 0 15px #2cc8c3)
+        drop-shadow(0 0 35px #2cc8c3);
+}
+
+.jubilee-message {
+    margin: 20px auto 0;
+    max-width: 560px;
+    padding: 18px 22px;
+    border-radius: 24px;
+    background: rgba(255,255,255,.14);
+    border: 2px solid rgba(255,255,255,.65);
+    box-shadow:
+        0 0 25px rgba(44,200,195,.7);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.jubilee-close {
+    margin-top: 25px;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+    background: #2cc8c3;
+    color: white;
+    box-shadow:
+        0 0 15px #2cc8c3,
+        0 0 35px rgba(44,200,195,.7);
+}
+
+.jubilee-confetti {
+    position: absolute;
+    top: -30px;
+    width: 10px;
+    height: 18px;
+    opacity: .95;
+    animation: confettiFall linear forwards;
+    pointer-events: none;
+}
+
+.jubilee-spark {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+        0 0 8px #fff,
+        0 0 18px #2cc8c3,
+        0 0 30px #2cc8c3;
+    animation: sparkFly 1.2s ease-out forwards;
+    pointer-events: none;
+}
+
+.jubilee-firework {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    box-shadow:
+        0 0 10px white,
+        0 0 25px #2cc8c3;
+    animation: fireworkExplode 1.3s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes jubileeBackground {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes jubileeGlow {
+    from {
+        transform: scale(.98);
+        opacity: .65;
+    }
+    to {
+        transform: scale(1.01);
+        opacity: 1;
+    }
+}
+
+@keyframes jubileePop {
+    0% {
+        transform: scale(.2) rotate(-8deg);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.08) rotate(2deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+@keyframes jubileeTitle {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.06);
+    }
+}
+
+@keyframes slothParty {
+    from {
+        transform: rotate(-8deg) scale(1);
+    }
+    to {
+        transform: rotate(8deg) scale(1.12);
+    }
+}
+
+@keyframes confettiFall {
+    from {
+        transform:
+            translateY(-30px)
+            rotate(0deg);
+    }
+    to {
+        transform:
+            translateY(110vh)
+            rotate(900deg);
+    }
+}
+
+@keyframes sparkFly {
+    from {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform:
+            translate(
+                calc((var(--x) - 50) * 5px),
+                calc((var(--y) - 50) * 5px)
+            )
+            scale(.1);
+        opacity: 0;
+    }
+}
+
+@keyframes fireworkExplode {
+    from {
+        transform: scale(.2);
+        opacity: 1;
+    }
+    to {
+        transform:
+            translate(
+                calc((var(--fx) - 50) * 7px),
+                calc((var(--fy) - 50) * 7px)
+            )
+            scale(.1);
+        opacity: 0;
+    }
+}   
 </style>
 </head>
 
@@ -8455,7 +8697,710 @@ Z"/>
 
 `;
 
-}    
+}   
+ /* =========================================================
+   JUBILÄUMS-PARTY
+   ========================================================= */
+
+const jubileeWalkMilestones = [];
+
+for(let i = 500; i <= 5000; i += 50){
+
+    jubileeWalkMilestones.push(i);
+
+}
+
+const jubileeStreakMilestones = [
+    365,
+    548,
+    730,
+    913,
+    1095,
+    1278,
+    1460,
+    1825,
+    2190,
+    2555,
+    2920,
+    3285,
+    3650
+];
+
+for(let i = 3833; i <= 5000; i += 183){
+
+    jubileeStreakMilestones.push(i);
+
+}
+
+
+function getDateString(date){
+
+    return date.toISOString().split("T")[0];
+
+}
+
+
+/* ---------------------------------------------------------
+   Herausfinden, an welchem Tag ein Walk-Jubiläum erreicht
+   wurde
+   --------------------------------------------------------- */
+
+function getWalkJubileeDate(walks, milestone){
+
+    const sorted =
+        [...walks]
+        .sort((a,b)=>{
+
+            if(a.date !== b.date){
+
+                return new Date(a.date)
+                    - new Date(b.date);
+
+            }
+
+            return (a.createdAt || 0)
+                - (b.createdAt || 0);
+
+        });
+
+    if(sorted.length < milestone){
+
+        return null;
+
+    }
+
+    return sorted[milestone - 1].date;
+
+}
+
+
+/* ---------------------------------------------------------
+   Herausfinden, an welchem Tag eine Serie das Jubiläum
+   erreicht hat
+   --------------------------------------------------------- */
+
+function getStreakJubileeDate(walks, milestone){
+
+    const dates =
+        [...new Set(
+            walks.map(w => w.date)
+        )]
+        .sort(
+            (a,b)=>
+                new Date(a)
+                -
+                new Date(b)
+        );
+
+    if(!dates.length){
+
+        return null;
+
+    }
+
+    let streak = 1;
+
+    for(let i = 1; i < dates.length; i++){
+
+        const previous =
+            new Date(dates[i - 1]);
+
+        const current =
+            new Date(dates[i]);
+
+        previous.setHours(0,0,0,0);
+        current.setHours(0,0,0,0);
+
+        const diff =
+            (
+                current - previous
+            )
+            /
+            (
+                1000 * 60 * 60 * 24
+            );
+
+        if(diff === 1){
+
+            streak++;
+
+        }else{
+
+            streak = 1;
+
+        }
+
+        if(streak === milestone){
+
+            return dates[i];
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* ---------------------------------------------------------
+   Prüfen, ob HEUTE ein Jubiläum ist
+   --------------------------------------------------------- */
+
+function getTodayJubilees(){
+
+    const walks =
+        loadWalks();
+
+    if(!walks.length){
+
+        return [];
+
+    }
+
+    const today =
+        getDateString(
+            new Date()
+        );
+
+    const jubilees = [];
+
+
+    /* Walk-Jubiläen */
+
+    jubileeWalkMilestones.forEach(milestone => {
+
+        const date =
+            getWalkJubileeDate(
+                walks,
+                milestone
+            );
+
+        if(date === today){
+
+            jubilees.push({
+
+                type:"walks",
+
+                value:milestone,
+
+                title:
+                    `${milestone} WALKS!`,
+
+                subtitle:
+                    "Das ist kein Spaziergang mehr. Das ist eine Walking-Dynastie.",
+
+                message:
+                    getWalkJubileeMessage(
+                        milestone
+                    )
+
+            });
+
+        }
+
+    });
+
+
+    /* Serien-Jubiläen */
+
+    jubileeStreakMilestones.forEach(milestone => {
+
+        const date =
+            getStreakJubileeDate(
+                walks,
+                milestone
+            );
+
+        if(date === today){
+
+            jubilees.push({
+
+                type:"streak",
+
+                value:milestone,
+
+                title:
+                    getStreakJubileeTitle(
+                        milestone
+                    ),
+
+                subtitle:
+                    "Eine Serie, die sich inzwischen selbst feiern sollte.",
+
+                message:
+                    getStreakJubileeMessage(
+                        milestone
+                    )
+
+            });
+
+        }
+
+    });
+
+    return jubilees;
+
+}
+
+
+/* ---------------------------------------------------------
+   Titel für Serien-Jubiläen
+   --------------------------------------------------------- */
+
+function getStreakJubileeTitle(days){
+
+    const titles = {
+
+        365:
+            "🎉 1 JAHR AM STÜCK! 🎉",
+
+        548:
+            "✨ 1½ JAHRE AM STÜCK! ✨",
+
+        730:
+            "🎆 2 JAHRE AM STÜCK! 🎆",
+
+        913:
+            "💎 2½ JAHRE AM STÜCK! 💎",
+
+        1095:
+            "👑 3 JAHRE AM STÜCK! 👑",
+
+        1278:
+            "🔥 3½ JAHRE AM STÜCK! 🔥",
+
+        1460:
+            "🚀 4 JAHRE AM STÜCK! 🚀",
+
+        1825:
+            "🌟 5 JAHRE AM STÜCK! 🌟",
+
+        2190:
+            "💥 6 JAHRE AM STÜCK! 💥",
+
+        2555:
+            "👑 7 JAHRE AM STÜCK! 👑",
+
+        2920:
+            "🏆 8 JAHRE AM STÜCK! 🏆",
+
+        3285:
+            "💎 9 JAHRE AM STÜCK! 💎",
+
+        3650:
+            "🌈 10 JAHRE AM STÜCK! 🌈"
+
+    };
+
+    return titles[days]
+        ||
+        `🎉 ${days} TAGE AM STÜCK! 🎉`;
+
+}
+
+
+/* ---------------------------------------------------------
+   Walk-Jubiläums-Sprüche
+   --------------------------------------------------------- */
+
+function getWalkJubileeMessage(walks){
+
+    if(walks === 500){
+
+        return `
+            🦥 „FÜNFHUNDERT?!  
+            FÜNFHUNDERT WALKING-RUNDEN?!  
+            Ich bin sprachlos.  
+            Und ich bin ein Faultier!“
+        `;
+
+    }
+
+    if(walks === 1000){
+
+        return `
+            🦥 „TAUSEND?!  
+            Das ist keine Walking-App mehr.  
+            Das ist eine Naturgewalt!“
+        `;
+
+    }
+
+    if(walks >= 2000){
+
+        return `
+            🦥 „Ich gebe auf.  
+            Du hast gewonnen.  
+            Gegen mich. Gegen die Couch.  
+            Gegen die Schwerkraft.  
+            GEGEN ALLES!“
+        `;
+
+    }
+
+    return `
+        🦥 „${walks} WALKS?!  
+        Wer macht denn bitte so etwas?!  
+        Du natürlich!  
+        Und ich muss jetzt anerkennen,  
+        dass du komplett eskalierst!“
+    `;
+
+}
+
+
+/* ---------------------------------------------------------
+   Serien-Sprüche
+   --------------------------------------------------------- */
+
+function getStreakJubileeMessage(days){
+
+    if(days === 365){
+
+        return `
+            🦥 „EIN GANZES JAHR?!  
+            Du bist wirklich jeden einzelnen Tag gegangen?!  
+            Ich brauche jetzt erstmal eine Pause.“
+        `;
+
+    }
+
+    if(days === 548){
+
+        return `
+            🦥 „EINUNDHALB JAHRE?!  
+            Ich hatte gehofft, dass du irgendwann aufhörst.  
+            Spoiler: Du hast nicht aufgehört.“
+        `;
+
+    }
+
+    if(days === 730){
+
+        return `
+            🦥 „ZWEI JAHRE?!  
+            Zwei. Ganze. Jahre.  
+            Ich bin offiziell beeindruckt.“
+        `;
+
+    }
+
+    if(days === 913){
+
+        return `
+            🦥 „ZWEIEINHALB JAHRE?!  
+            Das ist jetzt wirklich absurd.  
+            Im allerbesten Sinne!“
+        `;
+
+    }
+
+    if(days === 1095){
+
+        return `
+            🦥 „DREI JAHRE!  
+            Ich ziehe meinen imaginären Hut.  
+            Was für eine Walking-Legende!“
+        `;
+
+    }
+
+    if(days === 1278){
+
+        return `
+            🦥 „DREIEINHALB JAHRE?!  
+            Ich glaube, die Serie hat inzwischen  
+            ein eigenes Postleitzahlengebiet.“
+        `;
+
+    }
+
+    if(days === 1460){
+
+        return `
+            🦥 „VIER JAHRE AM STÜCK?!  
+            Ich habe keine Worte mehr.  
+            Nur noch Konfetti.“
+        `;
+
+    }
+
+    if(days >= 1825){
+
+        return `
+            🦥 „${days} TAGE?!  
+            Das ist keine Serie mehr.  
+            Das ist Walking-Geschichte!“
+        `;
+
+    }
+
+    return `
+        🦥 „${days} Tage!  
+        Du bist völlig eskaliert.  
+        Und ich liebe es!“
+    `;
+
+}
+
+
+/* ---------------------------------------------------------
+   Konfetti
+   --------------------------------------------------------- */
+
+function createJubileeConfetti(){
+
+    const party =
+        document.getElementById(
+            "jubileeParty"
+        );
+
+    for(let i = 0; i < 180; i++){
+
+        const piece =
+            document.createElement("div");
+
+        piece.className =
+            "jubilee-confetti";
+
+        piece.style.left =
+            Math.random() * 100 + "%";
+
+        piece.style.animationDuration =
+            (2 + Math.random() * 4) + "s";
+
+        piece.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        const colors = [
+            "#2cc8c3",
+            "#ffffff",
+            "#8f6fd8",
+            "#ffd84d",
+            "#ff72b6"
+        ];
+
+        piece.style.background =
+            colors[
+                Math.floor(
+                    Math.random() * colors.length
+                )
+            ];
+
+        piece.style.transform =
+            `rotate(${Math.random()*360}deg)`;
+
+        party.appendChild(piece);
+
+        setTimeout(
+            ()=>piece.remove(),
+            8000
+        );
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   Feuerwerk
+   --------------------------------------------------------- */
+
+function createJubileeFireworks(){
+
+    const party =
+        document.getElementById(
+            "jubileeParty"
+        );
+
+    for(let burst = 0; burst < 12; burst++){
+
+        setTimeout(()=>{
+
+            const centerX =
+                10 + Math.random() * 80;
+
+            const centerY =
+                10 + Math.random() * 65;
+
+            for(let i = 0; i < 35; i++){
+
+                const spark =
+                    document.createElement("div");
+
+                spark.className =
+                    "jubilee-firework";
+
+                spark.style.left =
+                    centerX + "%";
+
+                spark.style.top =
+                    centerY + "%";
+
+                spark.style.setProperty(
+                    "--fx",
+                    Math.random() * 100
+                );
+
+                spark.style.setProperty(
+                    "--fy",
+                    Math.random() * 100
+                );
+
+                party.appendChild(spark);
+
+                setTimeout(
+                    ()=>spark.remove(),
+                    1400
+                );
+
+            }
+
+        }, burst * 550);
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   Glitter
+   --------------------------------------------------------- */
+
+function createJubileeGlitter(){
+
+    const party =
+        document.getElementById(
+            "jubileeParty"
+        );
+
+    for(let i = 0; i < 100; i++){
+
+        setTimeout(()=>{
+
+            const spark =
+                document.createElement("div");
+
+            spark.className =
+                "jubilee-spark";
+
+            spark.style.left =
+                Math.random() * 100 + "%";
+
+            spark.style.top =
+                Math.random() * 100 + "%";
+
+            spark.style.setProperty(
+                "--x",
+                Math.random() * 100
+            );
+
+            spark.style.setProperty(
+                "--y",
+                Math.random() * 100
+            );
+
+            party.appendChild(spark);
+
+            setTimeout(
+                ()=>spark.remove(),
+                1300
+            );
+
+        }, Math.random() * 5000);
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   PARTY STARTEN
+   --------------------------------------------------------- */
+
+function startJubileeParty(jubilees){
+
+    if(!jubilees.length){
+
+        return;
+
+    }
+
+    const jubilee =
+        jubilees[0];
+
+    const party =
+        document.getElementById(
+            "jubileeParty"
+        );
+
+    document.getElementById(
+        "jubileeTitle"
+    ).innerHTML =
+        jubilee.title;
+
+    document.getElementById(
+        "jubileeSubtitle"
+    ).textContent =
+        jubilee.subtitle;
+
+    document.getElementById(
+        "jubileeMessage"
+    ).innerHTML =
+        jubilee.message;
+
+    document.getElementById(
+        "jubileeSloth"
+    ).textContent =
+        "🦥🎉";
+
+    party.classList.remove("open");
+
+    void party.offsetWidth;
+
+    party.classList.add("open");
+
+    createJubileeConfetti();
+
+    createJubileeFireworks();
+
+    createJubileeGlitter();
+
+}
+
+
+/* ---------------------------------------------------------
+   PARTY SCHLIESSEN
+   --------------------------------------------------------- */
+
+function closeJubileeParty(){
+
+    document
+        .getElementById("jubileeParty")
+        .classList.remove("open");
+
+}
+
+
+/* ---------------------------------------------------------
+   Beim Öffnen der App prüfen
+   --------------------------------------------------------- */
+
+function checkJubileeParty(){
+
+    const jubilees =
+        getTodayJubilees();
+
+    if(jubilees.length){
+
+        startJubileeParty(
+            jubilees
+        );
+
+    }
+
+}   
 window.onload = () => {
 
     renderQuickNotes();
@@ -8463,7 +9408,10 @@ window.onload = () => {
     setupChartRangeButtons();
 
     renderApp();
+    
+    checkJubileeParty();
 };
+    
 </script>
     <div class="popup-overlay" id="achievementsPopup">
 
@@ -8595,5 +9543,50 @@ window.onload = () => {
     </div>
 
 </div>
+ <!-- =====================================================
+     JUBILÄUMS-PARTY
+     ===================================================== -->
+
+<div id="jubileeParty">
+
+    <div class="jubilee-glow"></div>
+
+    <div class="jubilee-content">
+
+        <div
+            id="jubileeTitle"
+            class="jubilee-title"
+        >
+        </div>
+
+        <div
+            id="jubileeSubtitle"
+            class="jubilee-subtitle"
+        >
+        </div>
+
+        <div
+            id="jubileeSloth"
+            class="jubilee-sloth"
+        >
+            🦥
+        </div>
+
+        <div
+            id="jubileeMessage"
+            class="jubilee-message"
+        >
+        </div>
+
+        <button
+            class="jubilee-close"
+            onclick="closeJubileeParty()"
+        >
+            🎉 Weiterfeiern
+        </button>
+
+    </div>
+
+</div>   
 </body>
 </html>
