@@ -9401,18 +9401,7 @@ function checkJubileeParty(){
     }
 
 }   
-window.onload = () => {
 
-    renderQuickNotes();
-
-    setupChartRangeButtons();
-
-    renderApp();
-
-    setTimeout(() => {
-        checkJubileeParty();
-    }, 100);
-};
     
 </script>
     <div class="popup-overlay" id="achievementsPopup">
@@ -9589,6 +9578,19 @@ window.onload = () => {
 
     </div>
 
-</div>   
+</div>  
+    <script>
+window.onload = () => {
+
+    renderQuickNotes();
+
+    setupChartRangeButtons();
+
+    renderApp();
+
+    checkJubileeParty();
+
+};
+</script>
 </body>
 </html>
