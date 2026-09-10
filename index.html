@@ -9389,19 +9389,15 @@ function closeJubileeParty(){
 
 function checkJubileeParty(){
 
-    const jubilees =
-        getTodayJubilees();
+    startJubileeParty([{
+        type:"streak",
+        value:528,
+        title:"🎉 TEST – 528 TAGE! 🎉",
+        subtitle:"Die Jubiläums-Party wird getestet.",
+        message:"🦥 „JAWOLL! KONFETTI!“"
+    }]);
 
-    if(jubilees.length){
-
-        startJubileeParty(
-            jubilees
-        );
-
-    }
-
-}   
-
+}
     
 </script>
     <div class="popup-overlay" id="achievementsPopup">
