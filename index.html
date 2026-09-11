@@ -8712,7 +8712,7 @@ for(let i = 500; i <= 5000; i += 50){
 
 const jubileeStreakMilestones = [
     365,
-    528,
+    548,
     730,
     913,
     1095,
@@ -9387,13 +9387,16 @@ function closeJubileeParty(){
 
 function checkJubileeParty(){
 
-    startJubileeParty([{
-        type:"streak",
-        value:528,
-        title:"🎉 TEST – 528 TAGE! 🎉",
-        subtitle:"Die Jubiläums-Party wird getestet.",
-        message:"🦥 „JAWOLL! KONFETTI!“"
-    }]);
+    const jubilees =
+        getTodayJubilees();
+
+    if(jubilees.length){
+
+        startJubileeParty(
+            jubilees
+        );
+
+    }
 
 }
     
