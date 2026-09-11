@@ -8859,9 +8859,7 @@ function getTodayJubilees(){
     }
 
     const today =
-        getDateString(
-            new Date()
-        );
+    new Date().toLocaleDateString("sv-SE");
 
     const jubilees = [];
 
@@ -9069,7 +9067,7 @@ function getStreakJubileeMessage(days){
     if(days === 548){
 
         return `
-            🦥 „EINUNDHALB JAHRE?!  
+            🦥 „EINEINHALB JAHRE?!  
             Ich hatte gehofft, dass du irgendwann aufhörst.  
             Spoiler: Du hast nicht aufgehört.“
         `;
