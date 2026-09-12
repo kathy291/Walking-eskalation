@@ -9401,6 +9401,11 @@ function checkJubileeParty(){
 alert("CHECK");
     const jubilees =
         getTodayJubilees();
+
+alert(
+    "Aktuelle Serie: " +
+    getStreakJubileeDate(loadWalks(), 528)
+);
 alert("Jubiläen gefunden: " + jubilees.length);
     if(jubilees.length){
 
