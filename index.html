@@ -8853,7 +8853,12 @@ function getTodayJubilees(){
         loadWalks();
 
     if(!walks.length){
-
+alert(
+    "Walks insgesamt: " +
+    walks.length +
+    "\nHeute: " +
+    getDateString(new Date())
+);
         return [];
 
     }
