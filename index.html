@@ -9386,12 +9386,7 @@ function closeJubileeParty(){
    --------------------------------------------------------- */
 
 function checkJubileeParty(){
-alert(
-    "Letztes gespeichertes Datum: " +
-    [...new Set(loadWalks().map(w => w.date))].sort().pop() +
-    "\nHeute: " +
-    new Date().toLocaleDateString("sv-SE")
-);
+
     const jubilees =
         getTodayJubilees();
 
