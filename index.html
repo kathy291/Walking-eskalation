@@ -9387,8 +9387,8 @@ function closeJubileeParty(){
 
 function checkJubileeParty(){
 alert(
-    "530er Serientag: " +
-    getStreakJubileeDate(loadWalks(), 530) +
+    "Letztes gespeichertes Datum: " +
+    [...new Set(loadWalks().map(w => w.date))].sort().pop() +
     "\nHeute: " +
     new Date().toLocaleDateString("sv-SE")
 );
