@@ -9368,15 +9368,12 @@ function closeJubileeParty(){
 
 function checkJubileeParty(){
 
-    const jubilees =
-        getTodayJubilees();
+    const jubilees = getTodayJubilees();
+
+    alert("Gefundene Jubiläen: " + jubilees.length);
 
     if(jubilees.length){
-
-        startJubileeParty(
-            jubilees
-        );
-
+        startJubileeParty(jubilees);
     }
 
 }
