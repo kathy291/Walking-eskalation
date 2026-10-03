@@ -8832,7 +8832,10 @@ function getTodayJubilees(){
     new Date().toLocaleDateString("sv-SE");
 
     const jubilees = [];
-
+alert(
+    "Unterschiedliche Walk-Tage: " +
+    new Set(walks.map(w => w.date)).size
+);
 
     /* Walk-Jubiläen */
 
