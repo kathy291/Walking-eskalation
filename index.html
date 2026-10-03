@@ -8747,32 +8747,21 @@ function getDateString(date){
 
 function getWalkJubileeDate(walks, milestone){
 
-    const sorted =
-        [...walks]
-        .sort((a,b)=>{
+    const dates =
+        [...new Set(
+            walks.map(w => w.date)
+        )]
+        .sort(
+            (a,b) =>
+                new Date(a) - new Date(b)
+        );
 
-            if(a.date !== b.date){
-
-                return new Date(a.date)
-                    - new Date(b.date);
-
-            }
-
-            return (a.createdAt || 0)
-                - (b.createdAt || 0);
-
-        });
-
-    if(sorted.length < milestone){
-
+    if(dates.length < milestone){
         return null;
-
     }
 
-    return sorted[milestone - 1].date;
-
+    return dates[milestone - 1];
 }
-
 
 /* ---------------------------------------------------------
    Herausfinden, an welchem Tag eine Serie das Jubiläum
